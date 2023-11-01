@@ -30,14 +30,19 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.Label labelGroups;
+            System.Windows.Forms.Label labelPages;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.buttonLogin = new System.Windows.Forms.Button();
             this.buttonLogout = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.richTextBoxCurrentGroupDescribtion = new System.Windows.Forms.RichTextBox();
+            this.listBoxPages = new System.Windows.Forms.ListBox();
+            this.richTextBoxCurrentPageDescription = new System.Windows.Forms.RichTextBox();
+            this.pictureBoxCurrentPage = new System.Windows.Forms.PictureBox();
             this.listBoxGroups = new System.Windows.Forms.ListBox();
+            this.richTextBoxCurrentGroupDescription = new System.Windows.Forms.RichTextBox();
+            this.pictureBoxCurrentGroup = new System.Windows.Forms.PictureBox();
             this.labelFullNameVal = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.labelResidenceVal = new System.Windows.Forms.Label();
@@ -49,16 +54,17 @@
             this.lableFullName = new System.Windows.Forms.Label();
             this.labelGender = new System.Windows.Forms.Label();
             this.labelAge = new System.Windows.Forms.Label();
+            this.pictureBoxProfile = new System.Windows.Forms.PictureBox();
             this.textBoxAppID = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.pictureBoxCurrentGroup = new System.Windows.Forms.PictureBox();
-            this.pictureBoxProfile = new System.Windows.Forms.PictureBox();
             labelGroups = new System.Windows.Forms.Label();
+            labelPages = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentPage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentGroup)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).BeginInit();
             this.SuspendLayout();
             // 
@@ -68,11 +74,23 @@
             labelGroups.FlatStyle = System.Windows.Forms.FlatStyle.System;
             labelGroups.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             labelGroups.ForeColor = System.Drawing.Color.Teal;
-            labelGroups.Location = new System.Drawing.Point(17, 257);
+            labelGroups.Location = new System.Drawing.Point(14, 257);
             labelGroups.Name = "labelGroups";
             labelGroups.Size = new System.Drawing.Size(69, 18);
             labelGroups.TabIndex = 66;
             labelGroups.Text = "Groups:";
+            // 
+            // labelPages
+            // 
+            labelPages.AutoSize = true;
+            labelPages.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            labelPages.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            labelPages.ForeColor = System.Drawing.Color.Teal;
+            labelPages.Location = new System.Drawing.Point(14, 402);
+            labelPages.Name = "labelPages";
+            labelPages.Size = new System.Drawing.Size(105, 18);
+            labelPages.TabIndex = 70;
+            labelPages.Text = "Liked Pages:";
             // 
             // buttonLogin
             // 
@@ -122,10 +140,14 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.richTextBoxCurrentGroupDescribtion);
-            this.tabPage1.Controls.Add(this.pictureBoxCurrentGroup);
-            this.tabPage1.Controls.Add(labelGroups);
+            this.tabPage1.Controls.Add(this.listBoxPages);
+            this.tabPage1.Controls.Add(labelPages);
+            this.tabPage1.Controls.Add(this.richTextBoxCurrentPageDescription);
+            this.tabPage1.Controls.Add(this.pictureBoxCurrentPage);
             this.tabPage1.Controls.Add(this.listBoxGroups);
+            this.tabPage1.Controls.Add(labelGroups);
+            this.tabPage1.Controls.Add(this.richTextBoxCurrentGroupDescription);
+            this.tabPage1.Controls.Add(this.pictureBoxCurrentGroup);
             this.tabPage1.Controls.Add(this.labelFullNameVal);
             this.tabPage1.Controls.Add(this.tableLayoutPanel1);
             this.tabPage1.Controls.Add(this.pictureBoxProfile);
@@ -141,23 +163,65 @@
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // richTextBoxCurrentGroupDescribtion
+            // listBoxPages
             // 
-            this.richTextBoxCurrentGroupDescribtion.Location = new System.Drawing.Point(343, 275);
-            this.richTextBoxCurrentGroupDescribtion.Name = "richTextBoxCurrentGroupDescribtion";
-            this.richTextBoxCurrentGroupDescribtion.Size = new System.Drawing.Size(107, 112);
-            this.richTextBoxCurrentGroupDescribtion.TabIndex = 68;
-            this.richTextBoxCurrentGroupDescribtion.Text = "";
+            this.listBoxPages.FormattingEnabled = true;
+            this.listBoxPages.ItemHeight = 18;
+            this.listBoxPages.Location = new System.Drawing.Point(17, 423);
+            this.listBoxPages.Name = "listBoxPages";
+            this.listBoxPages.Size = new System.Drawing.Size(199, 112);
+            this.listBoxPages.TabIndex = 69;
+            this.listBoxPages.SelectedIndexChanged += new System.EventHandler(this.listBoxPages_SelectedIndexChanged);
+            // 
+            // richTextBoxCurrentPageDescription
+            // 
+            this.richTextBoxCurrentPageDescription.Location = new System.Drawing.Point(343, 423);
+            this.richTextBoxCurrentPageDescription.Name = "richTextBoxCurrentPageDescription";
+            this.richTextBoxCurrentPageDescription.Size = new System.Drawing.Size(107, 112);
+            this.richTextBoxCurrentPageDescription.TabIndex = 72;
+            this.richTextBoxCurrentPageDescription.Text = "";
+            // 
+            // pictureBoxCurrentPage
+            // 
+            this.pictureBoxCurrentPage.BackColor = System.Drawing.Color.Gainsboro;
+            this.pictureBoxCurrentPage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxCurrentPage.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBoxCurrentPage.InitialImage")));
+            this.pictureBoxCurrentPage.Location = new System.Drawing.Point(222, 423);
+            this.pictureBoxCurrentPage.Name = "pictureBoxCurrentPage";
+            this.pictureBoxCurrentPage.Size = new System.Drawing.Size(115, 112);
+            this.pictureBoxCurrentPage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxCurrentPage.TabIndex = 71;
+            this.pictureBoxCurrentPage.TabStop = false;
             // 
             // listBoxGroups
             // 
             this.listBoxGroups.FormattingEnabled = true;
             this.listBoxGroups.ItemHeight = 18;
-            this.listBoxGroups.Location = new System.Drawing.Point(17, 275);
+            this.listBoxGroups.Location = new System.Drawing.Point(17, 278);
             this.listBoxGroups.Name = "listBoxGroups";
             this.listBoxGroups.Size = new System.Drawing.Size(199, 112);
             this.listBoxGroups.TabIndex = 65;
             this.listBoxGroups.SelectedIndexChanged += new System.EventHandler(this.listBoxGroups_SelectedIndexChanged);
+            // 
+            // richTextBoxCurrentGroupDescription
+            // 
+            this.richTextBoxCurrentGroupDescription.Location = new System.Drawing.Point(343, 278);
+            this.richTextBoxCurrentGroupDescription.Name = "richTextBoxCurrentGroupDescription";
+            this.richTextBoxCurrentGroupDescription.Size = new System.Drawing.Size(107, 112);
+            this.richTextBoxCurrentGroupDescription.TabIndex = 68;
+            this.richTextBoxCurrentGroupDescription.Text = "";
+            // 
+            // pictureBoxCurrentGroup
+            // 
+            this.pictureBoxCurrentGroup.BackColor = System.Drawing.Color.Gainsboro;
+            this.pictureBoxCurrentGroup.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxCurrentGroup.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBoxCurrentGroup.InitialImage")));
+            this.pictureBoxCurrentGroup.Location = new System.Drawing.Point(222, 278);
+            this.pictureBoxCurrentGroup.Name = "pictureBoxCurrentGroup";
+            this.pictureBoxCurrentGroup.Size = new System.Drawing.Size(115, 112);
+            this.pictureBoxCurrentGroup.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxCurrentGroup.TabIndex = 67;
+            this.pictureBoxCurrentGroup.TabStop = false;
             // 
             // labelFullNameVal
             // 
@@ -269,6 +333,17 @@
             this.labelAge.TabIndex = 56;
             this.labelAge.Text = "Age:";
             // 
+            // pictureBoxProfile
+            // 
+            this.pictureBoxProfile.Image = global::BasicFacebookFeatures.Properties.Resources.unkown_profile_male;
+            this.pictureBoxProfile.InitialImage = null;
+            this.pictureBoxProfile.Location = new System.Drawing.Point(17, 131);
+            this.pictureBoxProfile.Name = "pictureBoxProfile";
+            this.pictureBoxProfile.Size = new System.Drawing.Size(108, 100);
+            this.pictureBoxProfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxProfile.TabIndex = 55;
+            this.pictureBoxProfile.TabStop = false;
+            // 
             // textBoxAppID
             // 
             this.textBoxAppID.Location = new System.Drawing.Point(17, 82);
@@ -293,29 +368,6 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
-            // pictureBoxCurrentGroup
-            // 
-            this.pictureBoxCurrentGroup.BackColor = System.Drawing.Color.Gainsboro;
-            this.pictureBoxCurrentGroup.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBoxCurrentGroup.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBoxCurrentGroup.InitialImage")));
-            this.pictureBoxCurrentGroup.Location = new System.Drawing.Point(222, 275);
-            this.pictureBoxCurrentGroup.Name = "pictureBoxCurrentGroup";
-            this.pictureBoxCurrentGroup.Size = new System.Drawing.Size(115, 112);
-            this.pictureBoxCurrentGroup.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBoxCurrentGroup.TabIndex = 67;
-            this.pictureBoxCurrentGroup.TabStop = false;
-            // 
-            // pictureBoxProfile
-            // 
-            this.pictureBoxProfile.Image = global::BasicFacebookFeatures.Properties.Resources.unkown_profile_male;
-            this.pictureBoxProfile.InitialImage = null;
-            this.pictureBoxProfile.Location = new System.Drawing.Point(17, 131);
-            this.pictureBoxProfile.Name = "pictureBoxProfile";
-            this.pictureBoxProfile.Size = new System.Drawing.Size(108, 100);
-            this.pictureBoxProfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBoxProfile.TabIndex = 55;
-            this.pictureBoxProfile.TabStop = false;
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -332,9 +384,10 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentPage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentGroup)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentGroup)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).EndInit();
             this.ResumeLayout(false);
 
@@ -364,6 +417,9 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ListBox listBoxGroups;
         private System.Windows.Forms.PictureBox pictureBoxCurrentGroup;
-        private System.Windows.Forms.RichTextBox richTextBoxCurrentGroupDescribtion;
+        private System.Windows.Forms.RichTextBox richTextBoxCurrentGroupDescription;
+        private System.Windows.Forms.ListBox listBoxPages;
+        private System.Windows.Forms.RichTextBox richTextBoxCurrentPageDescription;
+        private System.Windows.Forms.PictureBox pictureBoxCurrentPage;
     }
 }

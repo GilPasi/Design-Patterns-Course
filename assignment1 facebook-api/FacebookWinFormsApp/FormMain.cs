@@ -41,36 +41,6 @@ namespace BasicFacebookFeatures
             }
         }
 
-        private string getDefaultUserIdentifiers()
-        {
-            const string k_FileName = "decoupled_identifiers.txt";
-            string filePath = Path.Combine(getProjectRoot(), k_FileName);
-
-            if (File.Exists(filePath))
-            {
-                return File.ReadLines(filePath).FirstOrDefault();
-            }
-            else 
-            {
-                return string.Empty;
-
-            }
-        }
-
-        private static string getProjectRoot()
-        {
-            string currentDirectory = Directory.GetCurrentDirectory();
-            string binFolderPath = Path.Combine(currentDirectory, "bin");// Signify the project root
-
-            while (!Directory.Exists(binFolderPath))
-            {
-                currentDirectory = Directory.GetParent(currentDirectory)?.FullName;
-                binFolderPath = Path.Combine(currentDirectory, "bin");
-            }
-
-            return currentDirectory;
-        }
-
         private void login()
         {
             m_LoginResult = FacebookService.Login(
@@ -102,11 +72,13 @@ namespace BasicFacebookFeatures
                 labelFullNameVal.Text = user.Name;
                 labelGenderVal.Text = user.Gender.ToString();
                 labelBirthdayVal.Text = user.Birthday;
-                labelAgeVal.Text = calcAge(user.Birthday).ToString();
+                float userAge = calcAge(user.Birthday);
+                labelAgeVal.Text = userAge.ToString("F1");
                 labelResidenceVal.Text = user.Location.Name;
-                pictureBoxProfile.ImageLocation = m_LoginResult.LoggedInUser.PictureNormalURL;
+                 string imageUrl = user.PictureLargeURL;
+                pictureBoxProfile.LoadAsync(imageUrl);
                 fetchGroups();
-
+                fetchPages();
             }
         }
 
@@ -123,22 +95,38 @@ namespace BasicFacebookFeatures
             }
         }
 
+        private void fetchPages()
+        {
+            foreach (Page likedPage in m_LoginResult.LoggedInUser.LikedPages)
+            {
+                listBoxPages.Items.Add(new FormattedPage(likedPage));
+            }
+
+            if (listBoxGroups.Items.Count == 0)
+            {
+                MessageBox.Show("No pages to retrieve :(");
+            }
+        }
+
         //___Handlers___
 
         private void buttonLogout_Click(object sender, EventArgs e)
         {
             FacebookService.LogoutWithUI();
             m_LoginResult = null;
-            buttonLogin.Text = "Login";
-            buttonLogin.BackColor = buttonLogout.BackColor;
-            buttonLogin.Enabled = true;
-            buttonLogout.Enabled = false;
-            foreach(Label field in m_UserFields)
-            {
-                field.Text = string.Empty;
-            }
-        }
+            //buttonLogin.Text = "Login";
+            //buttonLogin.BackColor = buttonLogout.BackColor;
+            //buttonLogin.Enabled = true;
+            //buttonLogout.Enabled = false;
 
+            foreach (Control control in this.Controls)
+            {
+                this.Controls.Remove(control);
+                control.Dispose();
+            }
+
+            InitializeComponent();
+        }
 
         private void textBoxAppID_TextChanged(object sender, EventArgs e)
         {
@@ -159,7 +147,14 @@ namespace BasicFacebookFeatures
         {
             Group currentGroup = listBoxGroups.SelectedItem as Group;
             pictureBoxCurrentGroup.Image = currentGroup.ImageLarge;
-            richTextBoxCurrentGroupDescribtion.Text = currentGroup.Description;
+            richTextBoxCurrentGroupDescription.Text = currentGroup.Description;
+        }
+
+        private void listBoxPages_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FormattedPage currentPage = listBoxPages.SelectedItem as FormattedPage;
+            pictureBoxCurrentPage.Image = currentPage.ImageLarge;
+            richTextBoxCurrentPageDescription.Text = currentPage.Description;
         }
 
 
@@ -169,11 +164,42 @@ namespace BasicFacebookFeatures
         {
             DateTime birthDate = DateTime.Parse(i_BirthDate);
             DateTime currentDate = DateTime.Now;
-            const int k_MonthsCount = 12;
+            const float k_MonthsCount = 12;
+            float monthsToAdd = (currentDate.Month - birthDate.Month) / k_MonthsCount;
             float res = currentDate.Year - birthDate.Year;
-            res += (currentDate.Month - birthDate.Month) / k_MonthsCount;
+            res += monthsToAdd;
             return res;
         }
 
+        private static string getProjectRoot()
+        {
+            string currentDirectory = Directory.GetCurrentDirectory();
+            string binFolderPath = Path.Combine(currentDirectory, "bin");// Signify the project root
+
+            while (!Directory.Exists(binFolderPath))
+            {
+                currentDirectory = Directory.GetParent(currentDirectory)?.FullName;
+                binFolderPath = Path.Combine(currentDirectory, "bin");
+            }
+
+            return currentDirectory;
+        }
+
+
+        private string getDefaultUserIdentifiers()
+        {
+            const string k_FileName = "decoupled_identifiers.txt";
+            string filePath = Path.Combine(getProjectRoot(), k_FileName);
+
+            if (File.Exists(filePath))
+            {
+                return File.ReadLines(filePath).FirstOrDefault();
+            }
+            else
+            {
+                return string.Empty;
+
+            }
+        }
     }
 }
