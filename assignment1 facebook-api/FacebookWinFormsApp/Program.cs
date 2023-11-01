@@ -14,7 +14,6 @@ namespace BasicFacebookFeatures
         [STAThread]
         static void Main()
         {
-            Clipboard.SetDataObject("");
             FacebookService.s_UseForamttedToStrings = true;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
