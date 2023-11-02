@@ -31,12 +31,18 @@
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.Label labelGroups;
             System.Windows.Forms.Label labelPages;
+            System.Windows.Forms.Label labelAlbums;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.buttonLogin = new System.Windows.Forms.Button();
             this.buttonLogout = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.labelPicturePosition = new System.Windows.Forms.Label();
+            this.buttonPrevPicture = new System.Windows.Forms.Button();
+            this.buttonNextPicture = new System.Windows.Forms.Button();
+            this.listBoxAlbums = new System.Windows.Forms.ListBox();
+            this.pictureBoxCurrentAlbum = new System.Windows.Forms.PictureBox();
             this.listBoxPages = new System.Windows.Forms.ListBox();
             this.richTextBoxCurrentPageDescription = new System.Windows.Forms.RichTextBox();
             this.pictureBoxCurrentPage = new System.Windows.Forms.PictureBox();
@@ -60,8 +66,10 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             labelGroups = new System.Windows.Forms.Label();
             labelPages = new System.Windows.Forms.Label();
+            labelAlbums = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentAlbum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentPage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentGroup)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
@@ -74,7 +82,7 @@
             labelGroups.FlatStyle = System.Windows.Forms.FlatStyle.System;
             labelGroups.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             labelGroups.ForeColor = System.Drawing.Color.Teal;
-            labelGroups.Location = new System.Drawing.Point(14, 257);
+            labelGroups.Location = new System.Drawing.Point(14, 239);
             labelGroups.Name = "labelGroups";
             labelGroups.Size = new System.Drawing.Size(69, 18);
             labelGroups.TabIndex = 66;
@@ -86,11 +94,23 @@
             labelPages.FlatStyle = System.Windows.Forms.FlatStyle.System;
             labelPages.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             labelPages.ForeColor = System.Drawing.Color.Teal;
-            labelPages.Location = new System.Drawing.Point(14, 402);
+            labelPages.Location = new System.Drawing.Point(14, 384);
             labelPages.Name = "labelPages";
             labelPages.Size = new System.Drawing.Size(105, 18);
             labelPages.TabIndex = 70;
             labelPages.Text = "Liked Pages:";
+            // 
+            // labelAlbums
+            // 
+            labelAlbums.AutoSize = true;
+            labelAlbums.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            labelAlbums.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            labelAlbums.ForeColor = System.Drawing.Color.Teal;
+            labelAlbums.Location = new System.Drawing.Point(14, 525);
+            labelAlbums.Name = "labelAlbums";
+            labelAlbums.Size = new System.Drawing.Size(68, 18);
+            labelAlbums.TabIndex = 74;
+            labelAlbums.Text = "Albums:";
             // 
             // buttonLogin
             // 
@@ -140,6 +160,12 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.labelPicturePosition);
+            this.tabPage1.Controls.Add(this.buttonPrevPicture);
+            this.tabPage1.Controls.Add(this.buttonNextPicture);
+            this.tabPage1.Controls.Add(this.listBoxAlbums);
+            this.tabPage1.Controls.Add(labelAlbums);
+            this.tabPage1.Controls.Add(this.pictureBoxCurrentAlbum);
             this.tabPage1.Controls.Add(this.listBoxPages);
             this.tabPage1.Controls.Add(labelPages);
             this.tabPage1.Controls.Add(this.richTextBoxCurrentPageDescription);
@@ -163,11 +189,63 @@
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // labelPicturePosition
+            // 
+            this.labelPicturePosition.AutoSize = true;
+            this.labelPicturePosition.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPicturePosition.Location = new System.Drawing.Point(386, 550);
+            this.labelPicturePosition.Name = "labelPicturePosition";
+            this.labelPicturePosition.Size = new System.Drawing.Size(25, 18);
+            this.labelPicturePosition.TabIndex = 78;
+            this.labelPicturePosition.Text = "-/-";
+            // 
+            // buttonPrevPicture
+            // 
+            this.buttonPrevPicture.Location = new System.Drawing.Point(343, 578);
+            this.buttonPrevPicture.Name = "buttonPrevPicture";
+            this.buttonPrevPicture.Size = new System.Drawing.Size(53, 27);
+            this.buttonPrevPicture.TabIndex = 77;
+            this.buttonPrevPicture.Text = "Back";
+            this.buttonPrevPicture.UseVisualStyleBackColor = true;
+            this.buttonPrevPicture.Click += new System.EventHandler(this.buttonPrevPicture_Click);
+            // 
+            // buttonNextPicture
+            // 
+            this.buttonNextPicture.Location = new System.Drawing.Point(397, 578);
+            this.buttonNextPicture.Name = "buttonNextPicture";
+            this.buttonNextPicture.Size = new System.Drawing.Size(53, 27);
+            this.buttonNextPicture.TabIndex = 76;
+            this.buttonNextPicture.Text = "Next";
+            this.buttonNextPicture.UseVisualStyleBackColor = true;
+            this.buttonNextPicture.Click += new System.EventHandler(this.buttonNextPicture_Click);
+            // 
+            // listBoxAlbums
+            // 
+            this.listBoxAlbums.FormattingEnabled = true;
+            this.listBoxAlbums.ItemHeight = 18;
+            this.listBoxAlbums.Location = new System.Drawing.Point(17, 546);
+            this.listBoxAlbums.Name = "listBoxAlbums";
+            this.listBoxAlbums.Size = new System.Drawing.Size(199, 112);
+            this.listBoxAlbums.TabIndex = 73;
+            this.listBoxAlbums.SelectedIndexChanged += new System.EventHandler(this.listBoxAlbums_SelectedIndexChanged);
+            // 
+            // pictureBoxCurrentAlbum
+            // 
+            this.pictureBoxCurrentAlbum.BackColor = System.Drawing.Color.Gainsboro;
+            this.pictureBoxCurrentAlbum.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxCurrentAlbum.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBoxCurrentAlbum.InitialImage")));
+            this.pictureBoxCurrentAlbum.Location = new System.Drawing.Point(222, 546);
+            this.pictureBoxCurrentAlbum.Name = "pictureBoxCurrentAlbum";
+            this.pictureBoxCurrentAlbum.Size = new System.Drawing.Size(115, 112);
+            this.pictureBoxCurrentAlbum.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxCurrentAlbum.TabIndex = 75;
+            this.pictureBoxCurrentAlbum.TabStop = false;
+            // 
             // listBoxPages
             // 
             this.listBoxPages.FormattingEnabled = true;
             this.listBoxPages.ItemHeight = 18;
-            this.listBoxPages.Location = new System.Drawing.Point(17, 423);
+            this.listBoxPages.Location = new System.Drawing.Point(17, 405);
             this.listBoxPages.Name = "listBoxPages";
             this.listBoxPages.Size = new System.Drawing.Size(199, 112);
             this.listBoxPages.TabIndex = 69;
@@ -175,7 +253,7 @@
             // 
             // richTextBoxCurrentPageDescription
             // 
-            this.richTextBoxCurrentPageDescription.Location = new System.Drawing.Point(343, 423);
+            this.richTextBoxCurrentPageDescription.Location = new System.Drawing.Point(343, 405);
             this.richTextBoxCurrentPageDescription.Name = "richTextBoxCurrentPageDescription";
             this.richTextBoxCurrentPageDescription.Size = new System.Drawing.Size(107, 112);
             this.richTextBoxCurrentPageDescription.TabIndex = 72;
@@ -186,7 +264,7 @@
             this.pictureBoxCurrentPage.BackColor = System.Drawing.Color.Gainsboro;
             this.pictureBoxCurrentPage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBoxCurrentPage.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBoxCurrentPage.InitialImage")));
-            this.pictureBoxCurrentPage.Location = new System.Drawing.Point(222, 423);
+            this.pictureBoxCurrentPage.Location = new System.Drawing.Point(222, 405);
             this.pictureBoxCurrentPage.Name = "pictureBoxCurrentPage";
             this.pictureBoxCurrentPage.Size = new System.Drawing.Size(115, 112);
             this.pictureBoxCurrentPage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -197,7 +275,7 @@
             // 
             this.listBoxGroups.FormattingEnabled = true;
             this.listBoxGroups.ItemHeight = 18;
-            this.listBoxGroups.Location = new System.Drawing.Point(17, 278);
+            this.listBoxGroups.Location = new System.Drawing.Point(17, 260);
             this.listBoxGroups.Name = "listBoxGroups";
             this.listBoxGroups.Size = new System.Drawing.Size(199, 112);
             this.listBoxGroups.TabIndex = 65;
@@ -205,7 +283,7 @@
             // 
             // richTextBoxCurrentGroupDescription
             // 
-            this.richTextBoxCurrentGroupDescription.Location = new System.Drawing.Point(343, 278);
+            this.richTextBoxCurrentGroupDescription.Location = new System.Drawing.Point(343, 260);
             this.richTextBoxCurrentGroupDescription.Name = "richTextBoxCurrentGroupDescription";
             this.richTextBoxCurrentGroupDescription.Size = new System.Drawing.Size(107, 112);
             this.richTextBoxCurrentGroupDescription.TabIndex = 68;
@@ -216,7 +294,7 @@
             this.pictureBoxCurrentGroup.BackColor = System.Drawing.Color.Gainsboro;
             this.pictureBoxCurrentGroup.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBoxCurrentGroup.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBoxCurrentGroup.InitialImage")));
-            this.pictureBoxCurrentGroup.Location = new System.Drawing.Point(222, 278);
+            this.pictureBoxCurrentGroup.Location = new System.Drawing.Point(222, 260);
             this.pictureBoxCurrentGroup.Name = "pictureBoxCurrentGroup";
             this.pictureBoxCurrentGroup.Size = new System.Drawing.Size(115, 112);
             this.pictureBoxCurrentGroup.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -384,6 +462,7 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentAlbum)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentPage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentGroup)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -421,5 +500,10 @@
         private System.Windows.Forms.ListBox listBoxPages;
         private System.Windows.Forms.RichTextBox richTextBoxCurrentPageDescription;
         private System.Windows.Forms.PictureBox pictureBoxCurrentPage;
+        private System.Windows.Forms.ListBox listBoxAlbums;
+        private System.Windows.Forms.PictureBox pictureBoxCurrentAlbum;
+        private System.Windows.Forms.Label labelPicturePosition;
+        private System.Windows.Forms.Button buttonPrevPicture;
+        private System.Windows.Forms.Button buttonNextPicture;
     }
 }

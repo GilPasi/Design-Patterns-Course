@@ -9,12 +9,16 @@ using System.Text;
 using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
-
 namespace BasicFacebookFeatures
 {
+
+    //Side Quests (Delete afterwards ):
+    //Create a rejection mechasim
+    //Delete the previous cleaning code
     public partial class FormMain : Form
     {
-        const int k_DefaultFieldSize = 10;
+        private const int k_DefaultFieldSize = 10;
+        private int m_CurrentPhotoIndex = 0;
         private List<Label> m_UserFields = new List<Label>(k_DefaultFieldSize);
         public FormMain()
         {
@@ -79,6 +83,8 @@ namespace BasicFacebookFeatures
                 pictureBoxProfile.LoadAsync(imageUrl);
                 fetchGroups();
                 fetchPages();
+                fetchAlbums();
+
             }
         }
 
@@ -102,9 +108,24 @@ namespace BasicFacebookFeatures
                 listBoxPages.Items.Add(new FormattedPage(likedPage));
             }
 
-            if (listBoxGroups.Items.Count == 0)
+            if (listBoxPages.Items.Count == 0)
             {
                 MessageBox.Show("No pages to retrieve :(");
+            }
+        }
+
+
+
+        private void fetchAlbums()
+        {
+            foreach (Album album in m_LoginResult.LoggedInUser.Albums)
+            {
+                listBoxAlbums.Items.Add(album);
+            }
+
+            if (listBoxAlbums.Items.Count == 0)
+            {
+                MessageBox.Show("No albums to retrieve :(");
             }
         }
 
@@ -114,6 +135,7 @@ namespace BasicFacebookFeatures
         {
             FacebookService.LogoutWithUI();
             m_LoginResult = null;
+
             //buttonLogin.Text = "Login";
             //buttonLogin.BackColor = buttonLogout.BackColor;
             //buttonLogin.Enabled = true;
@@ -146,17 +168,72 @@ namespace BasicFacebookFeatures
         private void listBoxGroups_SelectedIndexChanged(object sender, EventArgs e)
         {
             Group currentGroup = listBoxGroups.SelectedItem as Group;
-            pictureBoxCurrentGroup.Image = currentGroup.ImageLarge;
             richTextBoxCurrentGroupDescription.Text = currentGroup.Description;
+
+            if (currentGroup.ImageLarge != null)
+            {
+                pictureBoxCurrentGroup.Image = currentGroup.ImageLarge;
+            }
         }
 
         private void listBoxPages_SelectedIndexChanged(object sender, EventArgs e)
         {
             FormattedPage currentPage = listBoxPages.SelectedItem as FormattedPage;
-            pictureBoxCurrentPage.Image = currentPage.ImageLarge;
             richTextBoxCurrentPageDescription.Text = currentPage.Description;
+
+            if (currentPage.ImageLarge != null)
+            {
+                pictureBoxCurrentPage.Image = currentPage.ImageLarge;
+            }
         }
 
+        private void listBoxAlbums_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBoxAlbums.SelectedItems.Count == 1)
+            {
+                m_CurrentPhotoIndex = 0;
+                Album selectedAlbum = listBoxAlbums.SelectedItem as Album;
+                updatePhotoIndex(selectedAlbum);
+                if (selectedAlbum.PictureAlbumURL != null)
+                {
+                    pictureBoxCurrentAlbum.LoadAsync(selectedAlbum.PictureAlbumURL);
+                }
+            }
+        }
+
+        private void buttonNextPicture_Click(object sender, EventArgs e)
+        {
+            if (listBoxAlbums.SelectedItems.Count == 1)
+            {
+                Album selectedAlbum = listBoxAlbums.SelectedItem as Album;
+                if (m_CurrentPhotoIndex + 1 < selectedAlbum.Count)
+                {
+                    Photo nextPhoto = selectedAlbum.Photos[++m_CurrentPhotoIndex];
+                    pictureBoxCurrentAlbum.Image = nextPhoto.ImageNormal;
+                    updatePhotoIndex(selectedAlbum);
+                }
+
+            }
+        }
+
+        private void buttonPrevPicture_Click(object sender, EventArgs e)
+        {
+            if (listBoxAlbums.SelectedItems.Count == 1)
+            {
+                Album selectedAlbum = listBoxAlbums.SelectedItem as Album;
+                if (m_CurrentPhotoIndex - 1 >= 0)
+                {
+                    Photo prevPhoto = selectedAlbum.Photos[--m_CurrentPhotoIndex];
+                    pictureBoxCurrentAlbum.Image = prevPhoto.ImageNormal;
+                    updatePhotoIndex(selectedAlbum);
+                }
+            }
+        }
+
+        private void updatePhotoIndex(Album i_SelectedAlbum)
+        {
+            labelPicturePosition.Text = string.Format("{0}/{1}", m_CurrentPhotoIndex + 1, i_SelectedAlbum.Count);
+        }
 
         //___Utilities methods___
 
