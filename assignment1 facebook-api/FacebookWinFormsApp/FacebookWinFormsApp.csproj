@@ -90,6 +90,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormattedAlbum.cs" />
     <Compile Include="FormattedPage.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>

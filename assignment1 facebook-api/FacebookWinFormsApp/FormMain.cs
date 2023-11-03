@@ -120,7 +120,7 @@ namespace BasicFacebookFeatures
         {
             foreach (Album album in m_LoginResult.LoggedInUser.Albums)
             {
-                listBoxAlbums.Items.Add(album);
+                listBoxAlbums.Items.Add(new FormattedAlbum(album));
             }
 
             if (listBoxAlbums.Items.Count == 0)
@@ -192,7 +192,7 @@ namespace BasicFacebookFeatures
             if (listBoxAlbums.SelectedItems.Count == 1)
             {
                 m_CurrentPhotoIndex = 0;
-                Album selectedAlbum = listBoxAlbums.SelectedItem as Album;
+                FormattedAlbum selectedAlbum = listBoxAlbums.SelectedItem as FormattedAlbum;
                 updatePhotoIndex(selectedAlbum);
                 if (selectedAlbum.PictureAlbumURL != null)
                 {
@@ -205,7 +205,7 @@ namespace BasicFacebookFeatures
         {
             if (listBoxAlbums.SelectedItems.Count == 1)
             {
-                Album selectedAlbum = listBoxAlbums.SelectedItem as Album;
+                FormattedAlbum selectedAlbum = listBoxAlbums.SelectedItem as FormattedAlbum;
                 if (m_CurrentPhotoIndex + 1 < selectedAlbum.Count)
                 {
                     Photo nextPhoto = selectedAlbum.Photos[++m_CurrentPhotoIndex];
@@ -220,7 +220,7 @@ namespace BasicFacebookFeatures
         {
             if (listBoxAlbums.SelectedItems.Count == 1)
             {
-                Album selectedAlbum = listBoxAlbums.SelectedItem as Album;
+                FormattedAlbum selectedAlbum = listBoxAlbums.SelectedItem as FormattedAlbum;
                 if (m_CurrentPhotoIndex - 1 >= 0)
                 {
                     Photo prevPhoto = selectedAlbum.Photos[--m_CurrentPhotoIndex];
@@ -230,7 +230,7 @@ namespace BasicFacebookFeatures
             }
         }
 
-        private void updatePhotoIndex(Album i_SelectedAlbum)
+        private void updatePhotoIndex(FormattedAlbum i_SelectedAlbum)
         {
             labelPicturePosition.Text = string.Format("{0}/{1}", m_CurrentPhotoIndex + 1, i_SelectedAlbum.Count);
         }
