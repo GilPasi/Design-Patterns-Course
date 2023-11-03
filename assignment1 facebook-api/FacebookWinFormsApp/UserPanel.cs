@@ -22,65 +22,67 @@ namespace BasicFacebookFeatures
             FacebookWrapper.FacebookService.s_CollectionLimit = 25;
         }
 
-        FacebookWrapper.LoginResult m_LoginResult;
+        public LoginResult UserData { get; set; }
+
+
+        //FacebookWrapper.LoginResult m_LoginResult;
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
             //TODO: Remove this before pushing
             Clipboard.SetText(getDefaultUserIdentifiers());
 
-            if (m_LoginResult == null)
-            {
-                login();
-            }
+            //login();
+            
         }
 
-        private void login()
+        public void LoadLoginResult(LoginResult i_UserData)
         {
-            m_LoginResult = FacebookService.Login(
-                textBoxAppID.Text,
-                    /// requested permissions:
-                    "email",
-                    "public_profile",
-                    "user_age_range",
-                    "user_birthday",
-                    "user_events",
-                    "user_friends",
-                    "user_gender",
-                    "user_hometown",
-                    "user_likes",
-                    "user_link",
-                    "user_location",
-                    "user_photos",
-                    "user_posts",
-                    "user_videos"
-                );
-
-            if (string.IsNullOrEmpty(m_LoginResult.ErrorMessage))
+            if (UserData == null)
             {
-                User user = m_LoginResult.LoggedInUser;
-                buttonLogin.Text = $"Logged in as {user.Name}";
-                buttonLogin.BackColor = Color.LightGreen;
-                buttonLogin.Enabled = false;
-                buttonLogout.Enabled = true;
-                labelFullNameVal.Text = user.Name;
-                labelGenderVal.Text = user.Gender.ToString();
-                labelBirthdayVal.Text = user.Birthday;
-                float userAge = calcAge(user.Birthday);
-                labelAgeVal.Text = userAge.ToString("F1");
-                labelResidenceVal.Text = user.Location.Name;
-                string imageUrl = user.PictureLargeURL;
-                pictureBoxProfile.LoadAsync(imageUrl);
+                UserData = i_UserData;
+                fetchBasicInfo();
                 fetchGroups();
                 fetchPages();
                 fetchAlbums();
-
             }
+        }
+
+        private void fetchBasicInfo()
+        {
+            User user = UserData.LoggedInUser;
+            labelFullNameVal.Text = user.Name;
+            labelGenderVal.Text = user.Gender.ToString();
+            string birthday = user.Birthday;
+            formatBirthDay(ref birthday);
+
+            labelBirthdayVal.Text = DateTime.Parse(birthday).GetDateTimeFormats()[2];
+            float userAge = calcAge(birthday);
+            labelAgeVal.Text = userAge.ToString("F1");
+            labelResidenceVal.Text = user?.Location?.Name;
+            string imageUrl = user.PictureLargeURL;
+            pictureBoxProfile.LoadAsync(imageUrl);
+        }
+
+        private void formatBirthDay(ref string io_UnformattedBirthday)
+        {
+            //Swapping months and days to fit the DateTime format
+            swapChar(ref io_UnformattedBirthday, 0, 3);
+            swapChar(ref io_UnformattedBirthday, 1, 4);
+        }
+
+        private void swapChar(ref string io_String, int idx1, int idx2)
+        {
+            char[] charArray = io_String.ToCharArray();
+            char charHolder = charArray[idx1];
+            charArray[idx1] = charArray[idx2];
+            charArray[idx2] = charHolder;
+            io_String = new string (charArray);
         }
 
         private void fetchGroups()
         {
-            foreach (Group group in m_LoginResult.LoggedInUser.Groups)
+            foreach (Group group in UserData.LoggedInUser.Groups)
             {
                 listBoxGroups.Items.Add(group);
             }
@@ -93,7 +95,7 @@ namespace BasicFacebookFeatures
 
         private void fetchPages()
         {
-            foreach (Page likedPage in m_LoginResult.LoggedInUser.LikedPages)
+            foreach (Page likedPage in UserData.LoggedInUser.LikedPages)
             {
                 listBoxPages.Items.Add(new FormattedPage(likedPage));
             }
@@ -108,7 +110,7 @@ namespace BasicFacebookFeatures
 
         private void fetchAlbums()
         {
-            foreach (Album album in m_LoginResult.LoggedInUser.Albums)
+            foreach (Album album in UserData.LoggedInUser.Albums)
             {
                 listBoxAlbums.Items.Add(new FormattedAlbum(album));
             }
@@ -120,19 +122,6 @@ namespace BasicFacebookFeatures
         }
 
         //___Handlers___
-
-        private void buttonLogout_Click(object sender, EventArgs e)
-        {
-            FacebookService.LogoutWithUI();
-            m_LoginResult = null;
-            Controls.Clear();
-            InitializeComponent();
-        }
-
-        private void FormMain_Load(object sender, EventArgs e)
-        {
-
-        }
 
         private void listBoxGroups_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -207,7 +196,7 @@ namespace BasicFacebookFeatures
         //___Utilities methods___
 
         private float calcAge(string i_BirthDate)
-        {
+        {           
             DateTime birthDate = DateTime.Parse(i_BirthDate);
             DateTime currentDate = DateTime.Now;
             const float k_MonthsCount = 12;
@@ -246,6 +235,13 @@ namespace BasicFacebookFeatures
                 return string.Empty;
 
             }
+        }
+
+        private void buttonClear_Click(object sender, EventArgs e)
+        {
+            UserData = null;
+            Controls.Clear();
+            InitializeComponent();
         }
     }
 }

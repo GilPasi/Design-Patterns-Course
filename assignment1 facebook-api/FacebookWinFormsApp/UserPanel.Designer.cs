@@ -55,10 +55,7 @@
             this.labelGender = new System.Windows.Forms.Label();
             this.labelAge = new System.Windows.Forms.Label();
             this.pictureBoxProfile = new System.Windows.Forms.PictureBox();
-            this.buttonLogout = new System.Windows.Forms.Button();
-            this.buttonLogin = new System.Windows.Forms.Button();
-            this.textBoxAppID = new System.Windows.Forms.TextBox();
-            this.labelAppID = new System.Windows.Forms.Label();
+            this.buttonClear = new System.Windows.Forms.Button();
             labelAlbums = new System.Windows.Forms.Label();
             labelPages = new System.Windows.Forms.Label();
             labelGroups = new System.Windows.Forms.Label();
@@ -335,52 +332,19 @@
             this.pictureBoxProfile.TabIndex = 79;
             this.pictureBoxProfile.TabStop = false;
             // 
-            // buttonLogout
+            // buttonClear
             // 
-            this.buttonLogout.Enabled = false;
-            this.buttonLogout.Location = new System.Drawing.Point(382, 53);
-            this.buttonLogout.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonLogout.Name = "buttonLogout";
-            this.buttonLogout.Size = new System.Drawing.Size(77, 32);
-            this.buttonLogout.TabIndex = 97;
-            this.buttonLogout.Text = "Logout";
-            this.buttonLogout.UseVisualStyleBackColor = true;
-            this.buttonLogout.Click += new System.EventHandler(this.buttonLogout_Click);
-            // 
-            // buttonLogin
-            // 
-            this.buttonLogin.Location = new System.Drawing.Point(382, 13);
-            this.buttonLogin.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonLogin.Name = "buttonLogin";
-            this.buttonLogin.Size = new System.Drawing.Size(77, 32);
-            this.buttonLogin.TabIndex = 96;
-            this.buttonLogin.Text = "Login";
-            this.buttonLogin.UseVisualStyleBackColor = true;
-            this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
-            // 
-            // textBoxAppID
-            // 
-            this.textBoxAppID.Location = new System.Drawing.Point(92, 109);
-            this.textBoxAppID.Name = "textBoxAppID";
-            this.textBoxAppID.Size = new System.Drawing.Size(237, 20);
-            this.textBoxAppID.TabIndex = 98;
-            this.textBoxAppID.Text = "342918918244277";
-            // 
-            // labelAppID
-            // 
-            this.labelAppID.AutoSize = true;
-            this.labelAppID.Location = new System.Drawing.Point(30, 112);
-            this.labelAppID.Name = "labelAppID";
-            this.labelAppID.Size = new System.Drawing.Size(43, 13);
-            this.labelAppID.TabIndex = 100;
-            this.labelAppID.Text = "App ID:";
+            this.buttonClear.Location = new System.Drawing.Point(390, 23);
+            this.buttonClear.Name = "buttonClear";
+            this.buttonClear.Size = new System.Drawing.Size(54, 53);
+            this.buttonClear.TabIndex = 96;
+            this.buttonClear.Text = "Clear User";
+            this.buttonClear.UseVisualStyleBackColor = true;
+            this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
             // 
             // UserPanel
             // 
-            this.Controls.Add(this.labelAppID);
-            this.Controls.Add(this.textBoxAppID);
-            this.Controls.Add(this.buttonLogout);
-            this.Controls.Add(this.buttonLogin);
+            this.Controls.Add(this.buttonClear);
             this.Controls.Add(this.pictureBoxCurrentGroup);
             this.Controls.Add(this.richTextBoxCurrentGroupDescription);
             this.Controls.Add(this.listBoxGroups);
@@ -436,9 +400,6 @@
         private System.Windows.Forms.Label labelGender;
         private System.Windows.Forms.Label labelAge;
         private System.Windows.Forms.PictureBox pictureBoxProfile;
-        private System.Windows.Forms.Button buttonLogout;
-        private System.Windows.Forms.Button buttonLogin;
-        private System.Windows.Forms.TextBox textBoxAppID;
-        private System.Windows.Forms.Label labelAppID;
+        private System.Windows.Forms.Button buttonClear;
     }
 }
