@@ -1,28 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
+using System.IO;
+using System.Linq;
+
 namespace BasicFacebookFeatures
 {
-
-    //Side Quests (Delete afterwards ):
-    //Delete copying to clipboard
-    // REmove redundant namespaces
-    public partial class FormMain : Form
+    public partial class UserPanel : System.Windows.Forms.UserControl
     {
         private int m_CurrentPhotoIndex = 0;
-        public FormMain()
+
+        public UserPanel()
         {
             InitializeComponent();
             FacebookWrapper.FacebookService.s_CollectionLimit = 25;
-
         }
 
         FacebookWrapper.LoginResult m_LoginResult;
@@ -61,7 +58,7 @@ namespace BasicFacebookFeatures
 
             if (string.IsNullOrEmpty(m_LoginResult.ErrorMessage))
             {
-                User user = m_LoginResult.LoggedInUser; 
+                User user = m_LoginResult.LoggedInUser;
                 buttonLogin.Text = $"Logged in as {user.Name}";
                 buttonLogin.BackColor = Color.LightGreen;
                 buttonLogin.Enabled = false;
@@ -72,7 +69,7 @@ namespace BasicFacebookFeatures
                 float userAge = calcAge(user.Birthday);
                 labelAgeVal.Text = userAge.ToString("F1");
                 labelResidenceVal.Text = user.Location.Name;
-                 string imageUrl = user.PictureLargeURL;
+                string imageUrl = user.PictureLargeURL;
                 pictureBoxProfile.LoadAsync(imageUrl);
                 fetchGroups();
                 fetchPages();
@@ -81,7 +78,7 @@ namespace BasicFacebookFeatures
             }
         }
 
-        private void fetchGroups() 
+        private void fetchGroups()
         {
             foreach (Group group in m_LoginResult.LoggedInUser.Groups)
             {
@@ -128,24 +125,8 @@ namespace BasicFacebookFeatures
         {
             FacebookService.LogoutWithUI();
             m_LoginResult = null;
-
-            foreach (Control control in this.Controls)
-            {
-                this.Controls.Remove(control);
-                control.Dispose();
-            }
-
+            Controls.Clear();
             InitializeComponent();
-        }
-
-        private void textBoxAppID_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void FormMain_Load(object sender, EventArgs e)
@@ -268,3 +249,4 @@ namespace BasicFacebookFeatures
         }
     }
 }
+

@@ -1,6 +1,6 @@
 ﻿namespace BasicFacebookFeatures
 {
-    partial class FormMain
+    partial class UserPanel
     {
         /// <summary>
         /// Required designer variable.
@@ -12,7 +12,7 @@
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
-           {
+        {
             if (disposing && (components != null))
             {
                 components.Dispose();
@@ -28,16 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.Label labelGroups;
-            System.Windows.Forms.Label labelPages;
             System.Windows.Forms.Label labelAlbums;
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
-            this.buttonLogin = new System.Windows.Forms.Button();
-            this.buttonLogout = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            System.Windows.Forms.Label labelPages;
+            System.Windows.Forms.Label labelGroups;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserPanel));
             this.pictureBoxCurrentGroup = new System.Windows.Forms.PictureBox();
             this.richTextBoxCurrentGroupDescription = new System.Windows.Forms.RichTextBox();
             this.listBoxGroups = new System.Windows.Forms.ListBox();
@@ -61,15 +55,13 @@
             this.labelGender = new System.Windows.Forms.Label();
             this.labelAge = new System.Windows.Forms.Label();
             this.pictureBoxProfile = new System.Windows.Forms.PictureBox();
+            this.buttonLogout = new System.Windows.Forms.Button();
+            this.buttonLogin = new System.Windows.Forms.Button();
             this.textBoxAppID = new System.Windows.Forms.TextBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.userPanel1 = new BasicFacebookFeatures.UserPanel();
-            labelGroups = new System.Windows.Forms.Label();
-            labelPages = new System.Windows.Forms.Label();
+            this.labelAppID = new System.Windows.Forms.Label();
             labelAlbums = new System.Windows.Forms.Label();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            labelPages = new System.Windows.Forms.Label();
+            labelGroups = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentGroup)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentAlbum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentPage)).BeginInit();
@@ -77,17 +69,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).BeginInit();
             this.SuspendLayout();
             // 
-            // labelGroups
+            // labelAlbums
             // 
-            labelGroups.AutoSize = true;
-            labelGroups.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            labelGroups.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            labelGroups.ForeColor = System.Drawing.Color.Teal;
-            labelGroups.Location = new System.Drawing.Point(14, 239);
-            labelGroups.Name = "labelGroups";
-            labelGroups.Size = new System.Drawing.Size(69, 18);
-            labelGroups.TabIndex = 66;
-            labelGroups.Text = "Groups:";
+            labelAlbums.AutoSize = true;
+            labelAlbums.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            labelAlbums.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            labelAlbums.ForeColor = System.Drawing.Color.Teal;
+            labelAlbums.Location = new System.Drawing.Point(25, 395);
+            labelAlbums.Name = "labelAlbums";
+            labelAlbums.Size = new System.Drawing.Size(68, 18);
+            labelAlbums.TabIndex = 91;
+            labelAlbums.Text = "Albums:";
             // 
             // labelPages
             // 
@@ -95,158 +87,79 @@
             labelPages.FlatStyle = System.Windows.Forms.FlatStyle.System;
             labelPages.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             labelPages.ForeColor = System.Drawing.Color.Teal;
-            labelPages.Location = new System.Drawing.Point(14, 384);
+            labelPages.Location = new System.Drawing.Point(25, 257);
             labelPages.Name = "labelPages";
             labelPages.Size = new System.Drawing.Size(105, 18);
-            labelPages.TabIndex = 70;
+            labelPages.TabIndex = 87;
             labelPages.Text = "Liked Pages:";
             // 
-            // labelAlbums
+            // labelGroups
             // 
-            labelAlbums.AutoSize = true;
-            labelAlbums.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            labelAlbums.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            labelAlbums.ForeColor = System.Drawing.Color.Teal;
-            labelAlbums.Location = new System.Drawing.Point(14, 525);
-            labelAlbums.Name = "labelAlbums";
-            labelAlbums.Size = new System.Drawing.Size(68, 18);
-            labelAlbums.TabIndex = 74;
-            labelAlbums.Text = "Albums:";
-            // 
-            // buttonLogin
-            // 
-            this.buttonLogin.Location = new System.Drawing.Point(375, 52);
-            this.buttonLogin.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonLogin.Name = "buttonLogin";
-            this.buttonLogin.Size = new System.Drawing.Size(130, 32);
-            this.buttonLogin.TabIndex = 36;
-            this.buttonLogin.Text = "Login";
-            this.buttonLogin.UseVisualStyleBackColor = true;
-            this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
-            // 
-            // buttonLogout
-            // 
-            this.buttonLogout.Enabled = false;
-            this.buttonLogout.Location = new System.Drawing.Point(375, 92);
-            this.buttonLogout.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonLogout.Name = "buttonLogout";
-            this.buttonLogout.Size = new System.Drawing.Size(130, 32);
-            this.buttonLogout.TabIndex = 52;
-            this.buttonLogout.Text = "Logout";
-            this.buttonLogout.UseVisualStyleBackColor = true;
-            this.buttonLogout.Click += new System.EventHandler(this.buttonLogout_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 25);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(436, 54);
-            this.label1.TabIndex = 53;
-            this.label1.Text = "Welcome to Halfway! Find the middle point of you and your friend!\r\nPlease enter y" +
-    "our  facebook app id.\r\n You can use the id supplied in the README.md file ";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1243, 697);
-            this.tabControl1.TabIndex = 54;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.userPanel1);
-            this.tabPage1.Controls.Add(this.pictureBoxCurrentGroup);
-            this.tabPage1.Controls.Add(this.richTextBoxCurrentGroupDescription);
-            this.tabPage1.Controls.Add(this.listBoxGroups);
-            this.tabPage1.Controls.Add(this.labelPicturePosition);
-            this.tabPage1.Controls.Add(this.buttonPrevPicture);
-            this.tabPage1.Controls.Add(this.buttonNextPicture);
-            this.tabPage1.Controls.Add(this.listBoxAlbums);
-            this.tabPage1.Controls.Add(labelAlbums);
-            this.tabPage1.Controls.Add(this.pictureBoxCurrentAlbum);
-            this.tabPage1.Controls.Add(this.listBoxPages);
-            this.tabPage1.Controls.Add(labelPages);
-            this.tabPage1.Controls.Add(this.richTextBoxCurrentPageDescription);
-            this.tabPage1.Controls.Add(this.pictureBoxCurrentPage);
-            this.tabPage1.Controls.Add(labelGroups);
-            this.tabPage1.Controls.Add(this.labelFullNameVal);
-            this.tabPage1.Controls.Add(this.tableLayoutPanel1);
-            this.tabPage1.Controls.Add(this.pictureBoxProfile);
-            this.tabPage1.Controls.Add(this.textBoxAppID);
-            this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Controls.Add(this.buttonLogout);
-            this.tabPage1.Controls.Add(this.buttonLogin);
-            this.tabPage1.Location = new System.Drawing.Point(4, 27);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1235, 666);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            labelGroups.AutoSize = true;
+            labelGroups.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            labelGroups.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            labelGroups.ForeColor = System.Drawing.Color.Teal;
+            labelGroups.Location = new System.Drawing.Point(16, 123);
+            labelGroups.Name = "labelGroups";
+            labelGroups.Size = new System.Drawing.Size(69, 18);
+            labelGroups.TabIndex = 83;
+            labelGroups.Text = "Groups:";
             // 
             // pictureBoxCurrentGroup
             // 
             this.pictureBoxCurrentGroup.BackColor = System.Drawing.Color.Gainsboro;
             this.pictureBoxCurrentGroup.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBoxCurrentGroup.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBoxCurrentGroup.InitialImage")));
-            this.pictureBoxCurrentGroup.Location = new System.Drawing.Point(231, 269);
+            this.pictureBoxCurrentGroup.Location = new System.Drawing.Point(233, 144);
             this.pictureBoxCurrentGroup.Name = "pictureBoxCurrentGroup";
             this.pictureBoxCurrentGroup.Size = new System.Drawing.Size(115, 112);
             this.pictureBoxCurrentGroup.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBoxCurrentGroup.TabIndex = 67;
+            this.pictureBoxCurrentGroup.TabIndex = 84;
             this.pictureBoxCurrentGroup.TabStop = false;
             // 
             // richTextBoxCurrentGroupDescription
             // 
-            this.richTextBoxCurrentGroupDescription.Location = new System.Drawing.Point(352, 269);
+            this.richTextBoxCurrentGroupDescription.Location = new System.Drawing.Point(354, 144);
             this.richTextBoxCurrentGroupDescription.Name = "richTextBoxCurrentGroupDescription";
             this.richTextBoxCurrentGroupDescription.Size = new System.Drawing.Size(107, 112);
-            this.richTextBoxCurrentGroupDescription.TabIndex = 68;
+            this.richTextBoxCurrentGroupDescription.TabIndex = 85;
             this.richTextBoxCurrentGroupDescription.Text = "";
             // 
             // listBoxGroups
             // 
             this.listBoxGroups.FormattingEnabled = true;
-            this.listBoxGroups.ItemHeight = 18;
-            this.listBoxGroups.Location = new System.Drawing.Point(17, 269);
+            this.listBoxGroups.Location = new System.Drawing.Point(19, 144);
             this.listBoxGroups.Name = "listBoxGroups";
-            this.listBoxGroups.Size = new System.Drawing.Size(208, 112);
-            this.listBoxGroups.TabIndex = 65;
+            this.listBoxGroups.Size = new System.Drawing.Size(208, 121);
+            this.listBoxGroups.TabIndex = 82;
             this.listBoxGroups.SelectedIndexChanged += new System.EventHandler(this.listBoxGroups_SelectedIndexChanged);
             // 
             // labelPicturePosition
             // 
             this.labelPicturePosition.AutoSize = true;
             this.labelPicturePosition.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPicturePosition.Location = new System.Drawing.Point(386, 550);
+            this.labelPicturePosition.Location = new System.Drawing.Point(397, 418);
             this.labelPicturePosition.Name = "labelPicturePosition";
             this.labelPicturePosition.Size = new System.Drawing.Size(25, 18);
-            this.labelPicturePosition.TabIndex = 78;
+            this.labelPicturePosition.TabIndex = 95;
             this.labelPicturePosition.Text = "-/-";
             // 
             // buttonPrevPicture
             // 
-            this.buttonPrevPicture.Location = new System.Drawing.Point(343, 578);
+            this.buttonPrevPicture.Location = new System.Drawing.Point(354, 446);
             this.buttonPrevPicture.Name = "buttonPrevPicture";
             this.buttonPrevPicture.Size = new System.Drawing.Size(53, 27);
-            this.buttonPrevPicture.TabIndex = 77;
+            this.buttonPrevPicture.TabIndex = 94;
             this.buttonPrevPicture.Text = "Back";
             this.buttonPrevPicture.UseVisualStyleBackColor = true;
             this.buttonPrevPicture.Click += new System.EventHandler(this.buttonPrevPicture_Click);
             // 
             // buttonNextPicture
             // 
-            this.buttonNextPicture.Location = new System.Drawing.Point(397, 578);
+            this.buttonNextPicture.Location = new System.Drawing.Point(408, 446);
             this.buttonNextPicture.Name = "buttonNextPicture";
             this.buttonNextPicture.Size = new System.Drawing.Size(53, 27);
-            this.buttonNextPicture.TabIndex = 76;
+            this.buttonNextPicture.TabIndex = 93;
             this.buttonNextPicture.Text = "Next";
             this.buttonNextPicture.UseVisualStyleBackColor = true;
             this.buttonNextPicture.Click += new System.EventHandler(this.buttonNextPicture_Click);
@@ -254,11 +167,10 @@
             // listBoxAlbums
             // 
             this.listBoxAlbums.FormattingEnabled = true;
-            this.listBoxAlbums.ItemHeight = 18;
-            this.listBoxAlbums.Location = new System.Drawing.Point(17, 546);
+            this.listBoxAlbums.Location = new System.Drawing.Point(19, 418);
             this.listBoxAlbums.Name = "listBoxAlbums";
-            this.listBoxAlbums.Size = new System.Drawing.Size(199, 112);
-            this.listBoxAlbums.TabIndex = 73;
+            this.listBoxAlbums.Size = new System.Drawing.Size(208, 121);
+            this.listBoxAlbums.TabIndex = 90;
             this.listBoxAlbums.SelectedIndexChanged += new System.EventHandler(this.listBoxAlbums_SelectedIndexChanged);
             // 
             // pictureBoxCurrentAlbum
@@ -266,29 +178,28 @@
             this.pictureBoxCurrentAlbum.BackColor = System.Drawing.Color.Gainsboro;
             this.pictureBoxCurrentAlbum.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBoxCurrentAlbum.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBoxCurrentAlbum.InitialImage")));
-            this.pictureBoxCurrentAlbum.Location = new System.Drawing.Point(222, 546);
+            this.pictureBoxCurrentAlbum.Location = new System.Drawing.Point(233, 418);
             this.pictureBoxCurrentAlbum.Name = "pictureBoxCurrentAlbum";
             this.pictureBoxCurrentAlbum.Size = new System.Drawing.Size(115, 112);
             this.pictureBoxCurrentAlbum.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBoxCurrentAlbum.TabIndex = 75;
+            this.pictureBoxCurrentAlbum.TabIndex = 92;
             this.pictureBoxCurrentAlbum.TabStop = false;
             // 
             // listBoxPages
             // 
             this.listBoxPages.FormattingEnabled = true;
-            this.listBoxPages.ItemHeight = 18;
-            this.listBoxPages.Location = new System.Drawing.Point(17, 405);
+            this.listBoxPages.Location = new System.Drawing.Point(19, 278);
             this.listBoxPages.Name = "listBoxPages";
-            this.listBoxPages.Size = new System.Drawing.Size(199, 112);
-            this.listBoxPages.TabIndex = 69;
+            this.listBoxPages.Size = new System.Drawing.Size(208, 121);
+            this.listBoxPages.TabIndex = 86;
             this.listBoxPages.SelectedIndexChanged += new System.EventHandler(this.listBoxPages_SelectedIndexChanged);
             // 
             // richTextBoxCurrentPageDescription
             // 
-            this.richTextBoxCurrentPageDescription.Location = new System.Drawing.Point(343, 405);
+            this.richTextBoxCurrentPageDescription.Location = new System.Drawing.Point(354, 278);
             this.richTextBoxCurrentPageDescription.Name = "richTextBoxCurrentPageDescription";
             this.richTextBoxCurrentPageDescription.Size = new System.Drawing.Size(107, 112);
-            this.richTextBoxCurrentPageDescription.TabIndex = 72;
+            this.richTextBoxCurrentPageDescription.TabIndex = 89;
             this.richTextBoxCurrentPageDescription.Text = "";
             // 
             // pictureBoxCurrentPage
@@ -296,26 +207,26 @@
             this.pictureBoxCurrentPage.BackColor = System.Drawing.Color.Gainsboro;
             this.pictureBoxCurrentPage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBoxCurrentPage.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBoxCurrentPage.InitialImage")));
-            this.pictureBoxCurrentPage.Location = new System.Drawing.Point(222, 405);
+            this.pictureBoxCurrentPage.Location = new System.Drawing.Point(233, 278);
             this.pictureBoxCurrentPage.Name = "pictureBoxCurrentPage";
             this.pictureBoxCurrentPage.Size = new System.Drawing.Size(115, 112);
             this.pictureBoxCurrentPage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBoxCurrentPage.TabIndex = 71;
+            this.pictureBoxCurrentPage.TabIndex = 88;
             this.pictureBoxCurrentPage.TabStop = false;
             // 
             // labelFullNameVal
             // 
             this.labelFullNameVal.AutoSize = true;
-            this.labelFullNameVal.Location = new System.Drawing.Point(294, 131);
+            this.labelFullNameVal.Location = new System.Drawing.Point(277, 3);
             this.labelFullNameVal.Name = "labelFullNameVal";
-            this.labelFullNameVal.Size = new System.Drawing.Size(0, 18);
-            this.labelFullNameVal.TabIndex = 64;
+            this.labelFullNameVal.Size = new System.Drawing.Size(0, 13);
+            this.labelFullNameVal.TabIndex = 81;
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 39.0411F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60.9589F));
             this.tableLayoutPanel1.Controls.Add(this.labelResidenceVal, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.labelBirthdayVal, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.labelAgeVal, 1, 2);
@@ -325,7 +236,7 @@
             this.tableLayoutPanel1.Controls.Add(this.lableFullName, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.labelGender, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.labelAge, 0, 2);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(131, 131);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(142, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 5;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -333,39 +244,39 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(319, 100);
-            this.tableLayoutPanel1.TabIndex = 63;
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(233, 100);
+            this.tableLayoutPanel1.TabIndex = 80;
             // 
             // labelResidenceVal
             // 
             this.labelResidenceVal.AutoSize = true;
-            this.labelResidenceVal.Location = new System.Drawing.Point(162, 80);
+            this.labelResidenceVal.Location = new System.Drawing.Point(93, 80);
             this.labelResidenceVal.Name = "labelResidenceVal";
-            this.labelResidenceVal.Size = new System.Drawing.Size(0, 18);
+            this.labelResidenceVal.Size = new System.Drawing.Size(0, 13);
             this.labelResidenceVal.TabIndex = 65;
             // 
             // labelBirthdayVal
             // 
             this.labelBirthdayVal.AutoSize = true;
-            this.labelBirthdayVal.Location = new System.Drawing.Point(162, 60);
+            this.labelBirthdayVal.Location = new System.Drawing.Point(93, 60);
             this.labelBirthdayVal.Name = "labelBirthdayVal";
-            this.labelBirthdayVal.Size = new System.Drawing.Size(0, 18);
+            this.labelBirthdayVal.Size = new System.Drawing.Size(0, 13);
             this.labelBirthdayVal.TabIndex = 65;
             // 
             // labelAgeVal
             // 
             this.labelAgeVal.AutoSize = true;
-            this.labelAgeVal.Location = new System.Drawing.Point(162, 40);
+            this.labelAgeVal.Location = new System.Drawing.Point(93, 40);
             this.labelAgeVal.Name = "labelAgeVal";
-            this.labelAgeVal.Size = new System.Drawing.Size(0, 18);
+            this.labelAgeVal.Size = new System.Drawing.Size(0, 13);
             this.labelAgeVal.TabIndex = 65;
             // 
             // labelGenderVal
             // 
             this.labelGenderVal.AutoSize = true;
-            this.labelGenderVal.Location = new System.Drawing.Point(162, 20);
+            this.labelGenderVal.Location = new System.Drawing.Point(93, 20);
             this.labelGenderVal.Name = "labelGenderVal";
-            this.labelGenderVal.Size = new System.Drawing.Size(0, 18);
+            this.labelGenderVal.Size = new System.Drawing.Size(0, 13);
             this.labelGenderVal.TabIndex = 65;
             // 
             // labelResidence
@@ -373,7 +284,7 @@
             this.labelResidence.AutoSize = true;
             this.labelResidence.Location = new System.Drawing.Point(3, 80);
             this.labelResidence.Name = "labelResidence";
-            this.labelResidence.Size = new System.Drawing.Size(82, 18);
+            this.labelResidence.Size = new System.Drawing.Size(61, 13);
             this.labelResidence.TabIndex = 65;
             this.labelResidence.Text = "Residence:";
             // 
@@ -382,7 +293,7 @@
             this.labelBirthday.AutoSize = true;
             this.labelBirthday.Location = new System.Drawing.Point(3, 60);
             this.labelBirthday.Name = "labelBirthday";
-            this.labelBirthday.Size = new System.Drawing.Size(65, 18);
+            this.labelBirthday.Size = new System.Drawing.Size(48, 13);
             this.labelBirthday.TabIndex = 64;
             this.labelBirthday.Text = "Birthday:";
             // 
@@ -391,7 +302,7 @@
             this.lableFullName.AutoSize = true;
             this.lableFullName.Location = new System.Drawing.Point(3, 0);
             this.lableFullName.Name = "lableFullName";
-            this.lableFullName.Size = new System.Drawing.Size(52, 18);
+            this.lableFullName.Size = new System.Drawing.Size(38, 13);
             this.lableFullName.TabIndex = 61;
             this.lableFullName.Text = "Name:";
             // 
@@ -400,7 +311,7 @@
             this.labelGender.AutoSize = true;
             this.labelGender.Location = new System.Drawing.Point(3, 20);
             this.labelGender.Name = "labelGender";
-            this.labelGender.Size = new System.Drawing.Size(61, 18);
+            this.labelGender.Size = new System.Drawing.Size(45, 13);
             this.labelGender.TabIndex = 59;
             this.labelGender.Text = "Gender:";
             // 
@@ -409,7 +320,7 @@
             this.labelAge.AutoSize = true;
             this.labelAge.Location = new System.Drawing.Point(3, 40);
             this.labelAge.Name = "labelAge";
-            this.labelAge.Size = new System.Drawing.Size(37, 18);
+            this.labelAge.Size = new System.Drawing.Size(29, 13);
             this.labelAge.TabIndex = 56;
             this.labelAge.Text = "Age:";
             // 
@@ -417,60 +328,78 @@
             // 
             this.pictureBoxProfile.Image = global::BasicFacebookFeatures.Properties.Resources.unkown_profile_male;
             this.pictureBoxProfile.InitialImage = null;
-            this.pictureBoxProfile.Location = new System.Drawing.Point(17, 131);
+            this.pictureBoxProfile.Location = new System.Drawing.Point(28, 3);
             this.pictureBoxProfile.Name = "pictureBoxProfile";
             this.pictureBoxProfile.Size = new System.Drawing.Size(108, 100);
             this.pictureBoxProfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBoxProfile.TabIndex = 55;
+            this.pictureBoxProfile.TabIndex = 79;
             this.pictureBoxProfile.TabStop = false;
+            // 
+            // buttonLogout
+            // 
+            this.buttonLogout.Enabled = false;
+            this.buttonLogout.Location = new System.Drawing.Point(382, 53);
+            this.buttonLogout.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonLogout.Name = "buttonLogout";
+            this.buttonLogout.Size = new System.Drawing.Size(77, 32);
+            this.buttonLogout.TabIndex = 97;
+            this.buttonLogout.Text = "Logout";
+            this.buttonLogout.UseVisualStyleBackColor = true;
+            this.buttonLogout.Click += new System.EventHandler(this.buttonLogout_Click);
+            // 
+            // buttonLogin
+            // 
+            this.buttonLogin.Location = new System.Drawing.Point(382, 13);
+            this.buttonLogin.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonLogin.Name = "buttonLogin";
+            this.buttonLogin.Size = new System.Drawing.Size(77, 32);
+            this.buttonLogin.TabIndex = 96;
+            this.buttonLogin.Text = "Login";
+            this.buttonLogin.UseVisualStyleBackColor = true;
+            this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
             // 
             // textBoxAppID
             // 
-            this.textBoxAppID.Location = new System.Drawing.Point(17, 82);
+            this.textBoxAppID.Location = new System.Drawing.Point(92, 109);
             this.textBoxAppID.Name = "textBoxAppID";
-            this.textBoxAppID.Size = new System.Drawing.Size(237, 24);
-            this.textBoxAppID.TabIndex = 54;
+            this.textBoxAppID.Size = new System.Drawing.Size(237, 20);
+            this.textBoxAppID.TabIndex = 98;
             this.textBoxAppID.Text = "342918918244277";
-            this.textBoxAppID.TextChanged += new System.EventHandler(this.textBoxAppID_TextChanged);
             // 
-            // tabPage2
+            // labelAppID
             // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 27);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1235, 666);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.labelAppID.AutoSize = true;
+            this.labelAppID.Location = new System.Drawing.Point(30, 112);
+            this.labelAppID.Name = "labelAppID";
+            this.labelAppID.Size = new System.Drawing.Size(43, 13);
+            this.labelAppID.TabIndex = 100;
+            this.labelAppID.Text = "App ID:";
             // 
-            // contextMenuStrip1
+            // UserPanel
             // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
-            // userPanel1
-            // 
-            this.userPanel1.Location = new System.Drawing.Point(529, 6);
-            this.userPanel1.Name = "userPanel1";
-            this.userPanel1.Size = new System.Drawing.Size(546, 612);
-            this.userPanel1.TabIndex = 79;
-            // 
-            // FormMain
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1243, 697);
-            this.Controls.Add(this.tabControl1);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "FormMain";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Halfway";
-            this.Load += new System.EventHandler(this.FormMain_Load);
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            this.Controls.Add(this.labelAppID);
+            this.Controls.Add(this.textBoxAppID);
+            this.Controls.Add(this.buttonLogout);
+            this.Controls.Add(this.buttonLogin);
+            this.Controls.Add(this.pictureBoxCurrentGroup);
+            this.Controls.Add(this.richTextBoxCurrentGroupDescription);
+            this.Controls.Add(this.listBoxGroups);
+            this.Controls.Add(this.labelPicturePosition);
+            this.Controls.Add(this.buttonPrevPicture);
+            this.Controls.Add(this.buttonNextPicture);
+            this.Controls.Add(this.listBoxAlbums);
+            this.Controls.Add(labelAlbums);
+            this.Controls.Add(this.pictureBoxCurrentAlbum);
+            this.Controls.Add(this.listBoxPages);
+            this.Controls.Add(labelPages);
+            this.Controls.Add(this.richTextBoxCurrentPageDescription);
+            this.Controls.Add(this.pictureBoxCurrentPage);
+            this.Controls.Add(labelGroups);
+            this.Controls.Add(this.labelFullNameVal);
+            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.pictureBoxProfile);
+            this.Name = "UserPanel";
+            this.Size = new System.Drawing.Size(465, 553);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentGroup)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentAlbum)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentPage)).EndInit();
@@ -478,42 +407,38 @@
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button buttonLogin;
-		private System.Windows.Forms.Button buttonLogout;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Label labelBirthday;
-        private System.Windows.Forms.Label lableFullName;
-        private System.Windows.Forms.Label labelGender;
-        private System.Windows.Forms.Label labelAge;
-        private System.Windows.Forms.Label labelResidence;
-        private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.TabControl tabControl1;
-		private System.Windows.Forms.TabPage tabPage1;
-		private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TextBox textBoxAppID;
-        private System.Windows.Forms.PictureBox pictureBoxProfile;
+        private System.Windows.Forms.PictureBox pictureBoxCurrentGroup;
+        private System.Windows.Forms.RichTextBox richTextBoxCurrentGroupDescription;
+        private System.Windows.Forms.ListBox listBoxGroups;
+        private System.Windows.Forms.Label labelPicturePosition;
+        private System.Windows.Forms.Button buttonPrevPicture;
+        private System.Windows.Forms.Button buttonNextPicture;
+        private System.Windows.Forms.ListBox listBoxAlbums;
+        private System.Windows.Forms.PictureBox pictureBoxCurrentAlbum;
+        private System.Windows.Forms.ListBox listBoxPages;
+        private System.Windows.Forms.RichTextBox richTextBoxCurrentPageDescription;
+        private System.Windows.Forms.PictureBox pictureBoxCurrentPage;
         private System.Windows.Forms.Label labelFullNameVal;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label labelResidenceVal;
         private System.Windows.Forms.Label labelBirthdayVal;
         private System.Windows.Forms.Label labelAgeVal;
         private System.Windows.Forms.Label labelGenderVal;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.ListBox listBoxGroups;
-        private System.Windows.Forms.PictureBox pictureBoxCurrentGroup;
-        private System.Windows.Forms.RichTextBox richTextBoxCurrentGroupDescription;
-        private System.Windows.Forms.ListBox listBoxPages;
-        private System.Windows.Forms.RichTextBox richTextBoxCurrentPageDescription;
-        private System.Windows.Forms.PictureBox pictureBoxCurrentPage;
-        private System.Windows.Forms.ListBox listBoxAlbums;
-        private System.Windows.Forms.PictureBox pictureBoxCurrentAlbum;
-        private System.Windows.Forms.Label labelPicturePosition;
-        private System.Windows.Forms.Button buttonPrevPicture;
-        private System.Windows.Forms.Button buttonNextPicture;
-        private UserPanel userPanel1;
+        private System.Windows.Forms.Label labelResidence;
+        private System.Windows.Forms.Label labelBirthday;
+        private System.Windows.Forms.Label lableFullName;
+        private System.Windows.Forms.Label labelGender;
+        private System.Windows.Forms.Label labelAge;
+        private System.Windows.Forms.PictureBox pictureBoxProfile;
+        private System.Windows.Forms.Button buttonLogout;
+        private System.Windows.Forms.Button buttonLogin;
+        private System.Windows.Forms.TextBox textBoxAppID;
+        private System.Windows.Forms.Label labelAppID;
     }
 }
