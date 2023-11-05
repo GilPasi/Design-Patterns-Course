@@ -18,11 +18,13 @@ namespace BasicFacebookFeatures
     // Better logo
     public partial class FormMain : Form
     {
-        private int m_CurrentPhotoIndex = 0;
         public FormMain()
         {
             InitializeComponent();
             FacebookWrapper.FacebookService.s_CollectionLimit = 25;
+            buttonLogout.Click += userPanel1.MainFormLogout_Clicked;
+            buttonLogout.Click += userPanel2.MainFormLogout_Clicked;
+
         }
 
         private void buttonLogin_Click(object sender, EventArgs e)
@@ -50,15 +52,11 @@ namespace BasicFacebookFeatures
 
             if (isValidLoginResult(loginResult))
             {
-                if (radioButtonUser1.Checked)
-                {
-                    userPanel1.LoadLoginResult(loginResult);
-                }
-                else
-                {
-                    userPanel2.LoadLoginResult(loginResult);
-                }
+                userPanel1.SignLoginResult(loginResult);
+                userPanel2.SignLoginResult(loginResult);
                 buttonLogout.Enabled = true;
+                buttonLogin.Text = $"Logged as: {loginResult.LoggedInUser.Name}";
+                buttonLogin.BackColor = Color.GreenYellow;
             }
         }
 
@@ -70,6 +68,8 @@ namespace BasicFacebookFeatures
         private void buttonLogout_Click(object sender, EventArgs e)
         {
             FacebookService.LogoutWithUI();
+            buttonLogin.BackColor = Color.Transparent;
+            buttonLogin.Text = "Login";
         }
 
         private static string getProjectRoot()
@@ -101,6 +101,32 @@ namespace BasicFacebookFeatures
                 return string.Empty;
 
             }
+        }
+
+        private void buttonFindHalfway_Click(object sender, EventArgs e)
+        {
+            referAverageAge();
+            referLocationMidPoint();
+            referCommonGroups();
+        }
+
+        private void referAverageAge()
+        {
+            if (!string.IsNullOrEmpty(userPanel1.UserAge) && !string.IsNullOrEmpty(userPanel2.UserAge))
+            {
+                float age1 = float.Parse(userPanel1.UserAge);
+                float age2 = float.Parse(userPanel2.UserAge);
+                float? averageAge = (age1 + age2) / 2;
+                labelAvgAgeVal.Text = averageAge.ToString();
+            }
+        }
+
+        private void referLocationMidPoint()
+        { 
+        }
+
+        private void referCommonGroups()
+        { 
         }
     }
 }

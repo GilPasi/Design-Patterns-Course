@@ -44,7 +44,7 @@
             this.richTextBoxCurrentPageDescription = new System.Windows.Forms.RichTextBox();
             this.pictureBoxCurrentPage = new System.Windows.Forms.PictureBox();
             this.labelFullNameVal = new System.Windows.Forms.Label();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanelBasicData = new System.Windows.Forms.TableLayoutPanel();
             this.labelResidenceVal = new System.Windows.Forms.Label();
             this.labelBirthdayVal = new System.Windows.Forms.Label();
             this.labelAgeVal = new System.Windows.Forms.Label();
@@ -56,13 +56,14 @@
             this.labelAge = new System.Windows.Forms.Label();
             this.pictureBoxProfile = new System.Windows.Forms.PictureBox();
             this.buttonClear = new System.Windows.Forms.Button();
+            this.buttonLoad = new System.Windows.Forms.Button();
             labelAlbums = new System.Windows.Forms.Label();
             labelPages = new System.Windows.Forms.Label();
             labelGroups = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentGroup)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentAlbum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentPage)).BeginInit();
-            this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanelBasicData.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).BeginInit();
             this.SuspendLayout();
             // 
@@ -116,6 +117,7 @@
             // 
             // richTextBoxCurrentGroupDescription
             // 
+            this.richTextBoxCurrentGroupDescription.Enabled = false;
             this.richTextBoxCurrentGroupDescription.Location = new System.Drawing.Point(354, 144);
             this.richTextBoxCurrentGroupDescription.Name = "richTextBoxCurrentGroupDescription";
             this.richTextBoxCurrentGroupDescription.Size = new System.Drawing.Size(107, 112);
@@ -124,6 +126,7 @@
             // 
             // listBoxGroups
             // 
+            this.listBoxGroups.Enabled = false;
             this.listBoxGroups.FormattingEnabled = true;
             this.listBoxGroups.Location = new System.Drawing.Point(19, 144);
             this.listBoxGroups.Name = "listBoxGroups";
@@ -143,6 +146,7 @@
             // 
             // buttonPrevPicture
             // 
+            this.buttonPrevPicture.Enabled = false;
             this.buttonPrevPicture.Location = new System.Drawing.Point(354, 446);
             this.buttonPrevPicture.Name = "buttonPrevPicture";
             this.buttonPrevPicture.Size = new System.Drawing.Size(53, 27);
@@ -153,6 +157,7 @@
             // 
             // buttonNextPicture
             // 
+            this.buttonNextPicture.Enabled = false;
             this.buttonNextPicture.Location = new System.Drawing.Point(408, 446);
             this.buttonNextPicture.Name = "buttonNextPicture";
             this.buttonNextPicture.Size = new System.Drawing.Size(53, 27);
@@ -163,6 +168,7 @@
             // 
             // listBoxAlbums
             // 
+            this.listBoxAlbums.Enabled = false;
             this.listBoxAlbums.FormattingEnabled = true;
             this.listBoxAlbums.Location = new System.Drawing.Point(19, 418);
             this.listBoxAlbums.Name = "listBoxAlbums";
@@ -184,6 +190,7 @@
             // 
             // listBoxPages
             // 
+            this.listBoxPages.Enabled = false;
             this.listBoxPages.FormattingEnabled = true;
             this.listBoxPages.Location = new System.Drawing.Point(19, 278);
             this.listBoxPages.Name = "listBoxPages";
@@ -193,6 +200,7 @@
             // 
             // richTextBoxCurrentPageDescription
             // 
+            this.richTextBoxCurrentPageDescription.Enabled = false;
             this.richTextBoxCurrentPageDescription.Location = new System.Drawing.Point(354, 278);
             this.richTextBoxCurrentPageDescription.Name = "richTextBoxCurrentPageDescription";
             this.richTextBoxCurrentPageDescription.Size = new System.Drawing.Size(107, 112);
@@ -219,30 +227,30 @@
             this.labelFullNameVal.Size = new System.Drawing.Size(0, 13);
             this.labelFullNameVal.TabIndex = 81;
             // 
-            // tableLayoutPanel1
+            // tableLayoutPanelBasicData
             // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 39.0411F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60.9589F));
-            this.tableLayoutPanel1.Controls.Add(this.labelResidenceVal, 1, 4);
-            this.tableLayoutPanel1.Controls.Add(this.labelBirthdayVal, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.labelAgeVal, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.labelGenderVal, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.labelResidence, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.labelBirthday, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.lableFullName, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.labelGender, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.labelAge, 0, 2);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(142, 3);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 5;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(233, 100);
-            this.tableLayoutPanel1.TabIndex = 80;
+            this.tableLayoutPanelBasicData.ColumnCount = 2;
+            this.tableLayoutPanelBasicData.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 39.0411F));
+            this.tableLayoutPanelBasicData.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60.9589F));
+            this.tableLayoutPanelBasicData.Controls.Add(this.labelResidenceVal, 1, 4);
+            this.tableLayoutPanelBasicData.Controls.Add(this.labelBirthdayVal, 1, 3);
+            this.tableLayoutPanelBasicData.Controls.Add(this.labelAgeVal, 1, 2);
+            this.tableLayoutPanelBasicData.Controls.Add(this.labelGenderVal, 1, 1);
+            this.tableLayoutPanelBasicData.Controls.Add(this.labelResidence, 0, 4);
+            this.tableLayoutPanelBasicData.Controls.Add(this.labelBirthday, 0, 3);
+            this.tableLayoutPanelBasicData.Controls.Add(this.lableFullName, 0, 0);
+            this.tableLayoutPanelBasicData.Controls.Add(this.labelGender, 0, 1);
+            this.tableLayoutPanelBasicData.Controls.Add(this.labelAge, 0, 2);
+            this.tableLayoutPanelBasicData.Location = new System.Drawing.Point(142, 3);
+            this.tableLayoutPanelBasicData.Name = "tableLayoutPanelBasicData";
+            this.tableLayoutPanelBasicData.RowCount = 5;
+            this.tableLayoutPanelBasicData.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelBasicData.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelBasicData.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanelBasicData.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanelBasicData.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanelBasicData.Size = new System.Drawing.Size(233, 100);
+            this.tableLayoutPanelBasicData.TabIndex = 80;
             // 
             // labelResidenceVal
             // 
@@ -334,16 +342,27 @@
             // 
             // buttonClear
             // 
-            this.buttonClear.Location = new System.Drawing.Point(390, 23);
+            this.buttonClear.Location = new System.Drawing.Point(390, 57);
             this.buttonClear.Name = "buttonClear";
-            this.buttonClear.Size = new System.Drawing.Size(54, 53);
+            this.buttonClear.Size = new System.Drawing.Size(54, 46);
             this.buttonClear.TabIndex = 96;
             this.buttonClear.Text = "Clear User";
             this.buttonClear.UseVisualStyleBackColor = true;
             this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
             // 
+            // buttonLoad
+            // 
+            this.buttonLoad.Location = new System.Drawing.Point(390, 7);
+            this.buttonLoad.Name = "buttonLoad";
+            this.buttonLoad.Size = new System.Drawing.Size(54, 49);
+            this.buttonLoad.TabIndex = 97;
+            this.buttonLoad.Text = "Load User";
+            this.buttonLoad.UseVisualStyleBackColor = true;
+            this.buttonLoad.Click += new System.EventHandler(this.buttonLoad_Click);
+            // 
             // UserPanel
             // 
+            this.Controls.Add(this.buttonLoad);
             this.Controls.Add(this.buttonClear);
             this.Controls.Add(this.pictureBoxCurrentGroup);
             this.Controls.Add(this.richTextBoxCurrentGroupDescription);
@@ -360,15 +379,15 @@
             this.Controls.Add(this.pictureBoxCurrentPage);
             this.Controls.Add(labelGroups);
             this.Controls.Add(this.labelFullNameVal);
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.tableLayoutPanelBasicData);
             this.Controls.Add(this.pictureBoxProfile);
             this.Name = "UserPanel";
             this.Size = new System.Drawing.Size(465, 553);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentGroup)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentAlbum)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentPage)).EndInit();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
+            this.tableLayoutPanelBasicData.ResumeLayout(false);
+            this.tableLayoutPanelBasicData.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -389,7 +408,7 @@
         private System.Windows.Forms.RichTextBox richTextBoxCurrentPageDescription;
         private System.Windows.Forms.PictureBox pictureBoxCurrentPage;
         private System.Windows.Forms.Label labelFullNameVal;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelBasicData;
         private System.Windows.Forms.Label labelResidenceVal;
         private System.Windows.Forms.Label labelBirthdayVal;
         private System.Windows.Forms.Label labelAgeVal;
@@ -401,5 +420,6 @@
         private System.Windows.Forms.Label labelAge;
         private System.Windows.Forms.PictureBox pictureBoxProfile;
         private System.Windows.Forms.Button buttonClear;
+        private System.Windows.Forms.Button buttonLoad;
     }
 }

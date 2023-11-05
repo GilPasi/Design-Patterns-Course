@@ -15,17 +15,24 @@ namespace BasicFacebookFeatures
     public partial class UserPanel : System.Windows.Forms.UserControl
     {
         private int m_CurrentPhotoIndex = 0;
+        private string m_LoadedtUserId;
 
         public UserPanel()
         {
             InitializeComponent();
             FacebookWrapper.FacebookService.s_CollectionLimit = 25;
         }
+        //___Properties___
 
-        public LoginResult UserData { get; set; }
+        public LoginResult SignedUserData { get; set; }
 
-
-        //FacebookWrapper.LoginResult m_LoginResult;
+        public string UserAge
+        {
+            get 
+            {
+                return labelAgeVal.Text;
+            }
+        }
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
@@ -36,21 +43,72 @@ namespace BasicFacebookFeatures
             
         }
 
-        public void LoadLoginResult(LoginResult i_UserData)
+        public void SignLoginResult(LoginResult i_UserData)
         {
-            if (UserData == null)
+            if (i_UserData == null)
             {
-                UserData = i_UserData;
-                fetchBasicInfo();
-                fetchGroups();
-                fetchPages();
-                fetchAlbums();
+                return;
+            }
+
+             if (DoesRequireLocking(i_UserData))
+            {
+                const bool k_DisableAll = false;
+                switchEnabled(k_DisableAll);
+                buttonLoad.Enabled = true;
+                buttonClear.Enabled = true;
+
+            }
+
+            buttonLoad.Text = $"Load {i_UserData.LoggedInUser.FirstName}";
+            SignedUserData = i_UserData;
+        }
+
+        private bool DoesRequireLocking(LoginResult i_UserData)
+        {
+            //If the loaded user and the signed user are not the same user, 
+            //there is a chance of sending invalid requests. Therefore a lock 
+            //is required. One exception is the first request when the loaded user is null.
+            return m_LoadedtUserId != i_UserData.LoggedInUser.Id && SignedUserData != null;
+        }
+
+        private void buttonLoad_Click(object sender, EventArgs e)
+        {
+            if (SignedUserData == null)
+            {
+                return;
+            }
+
+            if (!isFirstLoad())
+            {
+                resetComponent();
+            }
+
+            const bool k_EnableAll = true;
+            switchEnabled(k_EnableAll);
+            fetchBasicInfo();
+            fetchGroups();
+            fetchPages();
+            fetchAlbums();
+            m_LoadedtUserId = SignedUserData.LoggedInUser.Id;
+
+        }
+
+        private bool isFirstLoad()
+        {
+            return string.IsNullOrEmpty(m_LoadedtUserId);
+        }
+
+        private void switchEnabled(bool i_Enabled)
+        {
+            foreach (Control control in Controls)
+            {
+                control.Enabled = i_Enabled;
             }
         }
 
         private void fetchBasicInfo()
         {
-            User user = UserData.LoggedInUser;
+            User user = SignedUserData.LoggedInUser;
             labelFullNameVal.Text = user.Name;
             labelGenderVal.Text = user.Gender.ToString();
             string birthday = user.Birthday;
@@ -82,7 +140,7 @@ namespace BasicFacebookFeatures
 
         private void fetchGroups()
         {
-            foreach (Group group in UserData.LoggedInUser.Groups)
+            foreach (Group group in SignedUserData.LoggedInUser.Groups)
             {
                 listBoxGroups.Items.Add(group);
             }
@@ -95,7 +153,7 @@ namespace BasicFacebookFeatures
 
         private void fetchPages()
         {
-            foreach (Page likedPage in UserData.LoggedInUser.LikedPages)
+            foreach (Page likedPage in SignedUserData.LoggedInUser.LikedPages)
             {
                 listBoxPages.Items.Add(new FormattedPage(likedPage));
             }
@@ -110,7 +168,7 @@ namespace BasicFacebookFeatures
 
         private void fetchAlbums()
         {
-            foreach (Album album in UserData.LoggedInUser.Albums)
+            foreach (Album album in SignedUserData.LoggedInUser.Albums)
             {
                 listBoxAlbums.Items.Add(new FormattedAlbum(album));
             }
@@ -193,6 +251,11 @@ namespace BasicFacebookFeatures
             labelPicturePosition.Text = string.Format("{0}/{1}", m_CurrentPhotoIndex + 1, i_SelectedAlbum.Count);
         }
 
+        public void MainFormLogout_Clicked(object sender, EventArgs e) 
+        {
+            buttonLoad.Text = "Load User";
+        }
+
         //___Utilities methods___
 
         private float calcAge(string i_BirthDate)
@@ -239,10 +302,13 @@ namespace BasicFacebookFeatures
 
         private void buttonClear_Click(object sender, EventArgs e)
         {
-            UserData = null;
+            resetComponent();
+        }
+
+        private void resetComponent()
+        {
             Controls.Clear();
             InitializeComponent();
         }
     }
 }
-
