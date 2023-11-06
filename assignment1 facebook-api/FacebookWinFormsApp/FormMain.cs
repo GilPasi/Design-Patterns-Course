@@ -9,6 +9,10 @@ using System.Text;
 using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
+using System.Globalization;
+using System.Net;
+
+
 namespace BasicFacebookFeatures
 {
 
@@ -27,9 +31,11 @@ namespace BasicFacebookFeatures
 
         }
 
+        //___Handlers___
+
         private void buttonLogin_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(getDefaultUserIdentifiers());
+            Clipboard.SetText(Utilities.GetDefaultUserIdentifiers());
 
             LoginResult loginResult = FacebookService.Login(
                 textBoxAppID.Text,
@@ -72,36 +78,7 @@ namespace BasicFacebookFeatures
             buttonLogin.Text = "Login";
         }
 
-        private static string getProjectRoot()
-        {
-            string currentDirectory = Directory.GetCurrentDirectory();
-            string binFolderPath = Path.Combine(currentDirectory, "bin");// Signify the project root
-
-            while (!Directory.Exists(binFolderPath))
-            {
-                currentDirectory = Directory.GetParent(currentDirectory)?.FullName;
-                binFolderPath = Path.Combine(currentDirectory, "bin");
-            }
-
-            return currentDirectory;
-        }
-
-
-        private string getDefaultUserIdentifiers()
-        {
-            const string k_FileName = "decoupled_identifiers.txt";
-            string filePath = Path.Combine(getProjectRoot(), k_FileName);
-
-            if (File.Exists(filePath))
-            {
-                return File.ReadLines(filePath).FirstOrDefault();
-            }
-            else
-            {
-                return string.Empty;
-
-            }
-        }
+        //___Halfway Feature___
 
         private void buttonFindHalfway_Click(object sender, EventArgs e)
         {
@@ -122,11 +99,41 @@ namespace BasicFacebookFeatures
         }
 
         private void referLocationMidPoint()
-        { 
+        {
+            string user1Residence = userPanel1.Residence;
+            string user2Residence = userPanel2.Residence;
+            string messageToPresent;               
+            try
+            {
+                City city1 = City.FindCityByName(user1Residence);
+                City city2 = City.FindCityByName(user2Residence);
+
+                City midPoint = City.FindMidPoint(city1, city2);
+                messageToPresent = midPoint.Name;
+            }
+            catch 
+            {
+                messageToPresent = "Missing data";
+            }
+            labelLocationMidPointVal.Text = messageToPresent;
         }
 
         private void referCommonGroups()
-        { 
+        {
+            List<Group> groups1 = userPanel1.UserGroups;
+            List<Group> groups2 = userPanel2.UserGroups;
+
+            foreach (Group groupFromUser1 in groups1)
+            {
+                foreach (Group groupFromUser2 in groups2)
+                {
+                    if (groupFromUser1.Id == groupFromUser2.Id)
+                    {
+                        listBoxMutualGroups.Items.Add(groupFromUser1);
+                        break;
+                    }
+                }
+            }
         }
     }
 }

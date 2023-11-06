@@ -37,8 +37,6 @@
             this.buttonLogout = new System.Windows.Forms.Button();
             this.textBoxAppID = new System.Windows.Forms.TextBox();
             this.buttonLogin = new System.Windows.Forms.Button();
-            this.userPanel1 = new BasicFacebookFeatures.UserPanel();
-            this.userPanel2 = new BasicFacebookFeatures.UserPanel();
             this.labelFullNameVal = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -47,8 +45,9 @@
             this.labelMutualIntersts = new System.Windows.Forms.Label();
             this.labelLocationMidPoint = new System.Windows.Forms.Label();
             this.listBoxMutualGroups = new System.Windows.Forms.ListBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.labelLocationMidPointVal = new System.Windows.Forms.Label();
+            this.userPanel1 = new BasicFacebookFeatures.UserPanel();
+            this.userPanel2 = new BasicFacebookFeatures.UserPanel();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.SuspendLayout();
@@ -79,7 +78,6 @@
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.labelLocationMidPointVal);
-            this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.listBoxMutualGroups);
             this.tabPage1.Controls.Add(this.labelLocationMidPoint);
             this.tabPage1.Controls.Add(this.labelMutualIntersts);
@@ -139,22 +137,6 @@
             this.buttonLogin.Text = "Login a User";
             this.buttonLogin.UseVisualStyleBackColor = true;
             this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
-            // 
-            // userPanel1
-            // 
-            this.userPanel1.Location = new System.Drawing.Point(0, 0);
-            this.userPanel1.Name = "userPanel1";
-            this.userPanel1.SignedUserData = null;
-            this.userPanel1.Size = new System.Drawing.Size(479, 612);
-            this.userPanel1.TabIndex = 80;
-            // 
-            // userPanel2
-            // 
-            this.userPanel2.Location = new System.Drawing.Point(759, 6);
-            this.userPanel2.Name = "userPanel2";
-            this.userPanel2.SignedUserData = null;
-            this.userPanel2.Size = new System.Drawing.Size(470, 612);
-            this.userPanel2.TabIndex = 79;
             // 
             // labelFullNameVal
             // 
@@ -223,15 +205,6 @@
             this.listBoxMutualGroups.Size = new System.Drawing.Size(120, 94);
             this.listBoxMutualGroups.TabIndex = 108;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(0, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(46, 18);
-            this.label2.TabIndex = 109;
-            this.label2.Text = "label2";
-            // 
             // labelLocationMidPointVal
             // 
             this.labelLocationMidPointVal.AutoSize = true;
@@ -239,6 +212,22 @@
             this.labelLocationMidPointVal.Name = "labelLocationMidPointVal";
             this.labelLocationMidPointVal.Size = new System.Drawing.Size(0, 18);
             this.labelLocationMidPointVal.TabIndex = 110;
+            // 
+            // userPanel1
+            // 
+            this.userPanel1.Location = new System.Drawing.Point(0, 0);
+            this.userPanel1.Name = "userPanel1";
+            this.userPanel1.SignedUserData = null;
+            this.userPanel1.Size = new System.Drawing.Size(479, 612);
+            this.userPanel1.TabIndex = 80;
+            // 
+            // userPanel2
+            // 
+            this.userPanel2.Location = new System.Drawing.Point(759, 6);
+            this.userPanel2.Name = "userPanel2";
+            this.userPanel2.SignedUserData = null;
+            this.userPanel2.Size = new System.Drawing.Size(470, 612);
+            this.userPanel2.TabIndex = 79;
             // 
             // FormMain
             // 
@@ -277,7 +266,6 @@
         private System.Windows.Forms.Label labelMutualIntersts;
         private System.Windows.Forms.Label labelAvgAgeVal;
         private System.Windows.Forms.Label labelLocationMidPointVal;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ListBox listBoxMutualGroups;
     }
 }

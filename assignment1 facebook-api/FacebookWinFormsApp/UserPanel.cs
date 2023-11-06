@@ -34,13 +34,25 @@ namespace BasicFacebookFeatures
             }
         }
 
-        private void buttonLogin_Click(object sender, EventArgs e)
+        public List<Group> UserGroups
         {
-            //TODO: Remove this before pushing
-            Clipboard.SetText(getDefaultUserIdentifiers());
+            get
+            {
+                List<Group> userGroups = new List<Group>();
+                foreach (object item in listBoxGroups.Items)
+                {
+                    userGroups.Add(item as Group);
+                }
+                return userGroups;
+            }
+        }
 
-            //login();
-            
+        public string Residence
+        {
+            get 
+            {
+                return labelResidenceVal.Text;
+            }
         }
 
         public void SignLoginResult(LoginResult i_UserData)
@@ -98,14 +110,6 @@ namespace BasicFacebookFeatures
             return string.IsNullOrEmpty(m_LoadedtUserId);
         }
 
-        private void switchEnabled(bool i_Enabled)
-        {
-            foreach (Control control in Controls)
-            {
-                control.Enabled = i_Enabled;
-            }
-        }
-
         private void fetchBasicInfo()
         {
             User user = SignedUserData.LoggedInUser;
@@ -120,22 +124,6 @@ namespace BasicFacebookFeatures
             labelResidenceVal.Text = user?.Location?.Name;
             string imageUrl = user.PictureLargeURL;
             pictureBoxProfile.LoadAsync(imageUrl);
-        }
-
-        private void formatBirthDay(ref string io_UnformattedBirthday)
-        {
-            //Swapping months and days to fit the DateTime format
-            swapChar(ref io_UnformattedBirthday, 0, 3);
-            swapChar(ref io_UnformattedBirthday, 1, 4);
-        }
-
-        private void swapChar(ref string io_String, int idx1, int idx2)
-        {
-            char[] charArray = io_String.ToCharArray();
-            char charHolder = charArray[idx1];
-            charArray[idx1] = charArray[idx2];
-            charArray[idx2] = charHolder;
-            io_String = new string (charArray);
         }
 
         private void fetchGroups()
@@ -163,8 +151,6 @@ namespace BasicFacebookFeatures
                 MessageBox.Show("No pages to retrieve :(");
             }
         }
-
-
 
         private void fetchAlbums()
         {
@@ -246,17 +232,17 @@ namespace BasicFacebookFeatures
             }
         }
 
-        private void updatePhotoIndex(FormattedAlbum i_SelectedAlbum)
-        {
-            labelPicturePosition.Text = string.Format("{0}/{1}", m_CurrentPhotoIndex + 1, i_SelectedAlbum.Count);
-        }
-
         public void MainFormLogout_Clicked(object sender, EventArgs e) 
         {
             buttonLoad.Text = "Load User";
         }
 
-        //___Utilities methods___
+        private void buttonClear_Click(object sender, EventArgs e)
+        {
+            resetComponent();
+        }
+
+        //___Minor Methods___
 
         private float calcAge(string i_BirthDate)
         {           
@@ -269,40 +255,33 @@ namespace BasicFacebookFeatures
             return res;
         }
 
-        private static string getProjectRoot()
+        private void switchEnabled(bool i_Enabled)
         {
-            string currentDirectory = Directory.GetCurrentDirectory();
-            string binFolderPath = Path.Combine(currentDirectory, "bin");// Signify the project root
-
-            while (!Directory.Exists(binFolderPath))
+            foreach (Control control in Controls)
             {
-                currentDirectory = Directory.GetParent(currentDirectory)?.FullName;
-                binFolderPath = Path.Combine(currentDirectory, "bin");
-            }
-
-            return currentDirectory;
-        }
-
-
-        private string getDefaultUserIdentifiers()
-        {
-            const string k_FileName = "decoupled_identifiers.txt";
-            string filePath = Path.Combine(getProjectRoot(), k_FileName);
-
-            if (File.Exists(filePath))
-            {
-                return File.ReadLines(filePath).FirstOrDefault();
-            }
-            else
-            {
-                return string.Empty;
-
+                control.Enabled = i_Enabled;
             }
         }
 
-        private void buttonClear_Click(object sender, EventArgs e)
+        private void formatBirthDay(ref string io_UnformattedBirthday)
         {
-            resetComponent();
+            //Swapping months and days to fit the DateTime format
+            swapChar(ref io_UnformattedBirthday, 0, 3);
+            swapChar(ref io_UnformattedBirthday, 1, 4);
+        }
+
+        private void swapChar(ref string io_String, int idx1, int idx2)
+        {
+            char[] charArray = io_String.ToCharArray();
+            char charHolder = charArray[idx1];
+            charArray[idx1] = charArray[idx2];
+            charArray[idx2] = charHolder;
+            io_String = new string(charArray);
+        }
+
+        private void updatePhotoIndex(FormattedAlbum i_SelectedAlbum)
+        {
+            labelPicturePosition.Text = string.Format("{0}/{1}", m_CurrentPhotoIndex + 1, i_SelectedAlbum.Count);
         }
 
         private void resetComponent()
