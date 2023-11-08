@@ -15,58 +15,58 @@ class City
 
 class Coordinate
 {
-    private decimal m_Value;
-    public decimal Value
-    public decimal Distance(i_Other:Coordinate)
-    public static decimal Average(i_Others:Coordinate[])
+    - decimal m_Value;
+    + decimal Value
+    + decimal Distance(i_Other:Coordinate)
+    + static decimal Average(i_Others:Coordinate[])
 }
 class FormattedAlbum
 {
-    public   string ToString()
+    +   string ToString()
 }
 class FormattedPage
 {
-    public   string ToString()
+    +   string ToString()
 }
 class FormMain{
-    private void buttonLogin_Click(sender : object, e : EventArgs)
-    private void buttonLogout_Click(sender : object, e : EventArgs)
-    private void buttonFindHalfway_Click(sender : object, e : EventArgs)
-    private void referAverageAge()
-    private void referLocationMidPoint()
-    private void referCommonGroups()
+    - void buttonLogin_Click(sender : object, e : EventArgs)
+    - void buttonLogout_Click(sender : object, e : EventArgs)
+    - void buttonFindHalfway_Click(sender : object, e : EventArgs)
+    - void referAverageAge()
+    - void referLocationMidPoint()
+    - void referCommonGroups()
 }
 
 class UserPanel
 {
-    public LoginResult SignedUserData()
-    public string UserAge()
-    public List<Group> UserGroups()
-    public string Residence()
-    private void buttonLoad_Click(sender : object, e : EventArgs)
-    private void fetchBasicInfo()
-    private void fetchGroups()
-    private void fetchPages()
-    private void fetchAlbums()
-    public void MainFormLogout_Clicked(sender : object, e : EventArgs) 
-    private void buttonClear_Click(sender : object, e : EventArgs)
+    + LoginResult SignedUserData()
+    + string UserAge()
+    + List<Group> UserGroups()
+    + string Residence()
+    - void buttonLoad_Click(sender : object, e : EventArgs)
+    - void fetchBasicInfo()
+    - void fetchGroups()
+    - void fetchPages()
+    - void fetchAlbums()
+    + void MainFormLogout_Clicked(sender : object, e : EventArgs) 
+    - void buttonClear_Click(sender : object, e : EventArgs)
 }
 class Utilities{}
 class Form{}
 class UserControl{}
 class Album
 {
-    public FacebookObjectCollection<Photo> Photos
-    public long Count
-    public string PictureAlbumURL
-    public  string ToString()
+    + FacebookObjectCollection<Photo> Photos
+    + long Count
+    + string PictureAlbumURL
+    +  string ToString()
 }
 
 class Page
 {
-    public string Description()
-    public Image ImageLarge()
-    public   string ToString()
+    + string Description()
+    + Image ImageLarge()
+    +   string ToString()
 }
 
 note "The Formatted classes are\n designed to   the ToString method.\nThat is because of the ui structure" as N1
