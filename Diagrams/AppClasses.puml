@@ -1,0 +1,90 @@
+@startuml
+class City
+{
+    -static List<City> s_AllCities;
+    -Coordinate m_CoordinateY
+    -Coordinate m_CoordinateX
+    
+    +static City FindCityByName(i_CityName : string)
+    +static City ParseTXT(i_Text : string)
+    +decimal Distance(City i_Other)
+    +static City FindMidPoint(i_Cities : City[])
+    -static Coordinate[] findCitiesMean(i_Cities : City[])
+    +string ExtractCityNameFromTXT(i_Text : string)
+}
+
+class Coordinate
+{
+    private decimal m_Value;
+    public decimal Value
+    public decimal Distance(i_Other:Coordinate)
+    public static decimal Average(i_Others:Coordinate[])
+}
+class FormattedAlbum
+{
+    public   string ToString()
+}
+class FormattedPage
+{
+    public   string ToString()
+}
+class FormMain{
+    private void buttonLogin_Click(sender : object, e : EventArgs)
+    private void buttonLogout_Click(sender : object, e : EventArgs)
+    private void buttonFindHalfway_Click(sender : object, e : EventArgs)
+    private void referAverageAge()
+    private void referLocationMidPoint()
+    private void referCommonGroups()
+}
+
+class UserPanel
+{
+    public LoginResult SignedUserData()
+    public string UserAge()
+    public List<Group> UserGroups()
+    public string Residence()
+    private void buttonLoad_Click(sender : object, e : EventArgs)
+    private void fetchBasicInfo()
+    private void fetchGroups()
+    private void fetchPages()
+    private void fetchAlbums()
+    public void MainFormLogout_Clicked(sender : object, e : EventArgs) 
+    private void buttonClear_Click(sender : object, e : EventArgs)
+}
+class Utilities{}
+class Form{}
+class UserControl{}
+class Album
+{
+    public FacebookObjectCollection<Photo> Photos
+    public long Count
+    public string PictureAlbumURL
+    public  string ToString()
+}
+
+class Page
+{
+    public string Description()
+    public Image ImageLarge()
+    public   string ToString()
+}
+
+note "The Formatted classes are\n designed to   the ToString method.\nThat is because of the ui structure" as N1
+N1..FormattedPage
+N1..FormattedAlbum
+
+FormMain --> Utilities
+UserPanel --> Utilities
+Coordinate --> Utilities
+City --> Utilities 
+City o-- Coordinate
+FormMain --|> Form
+UserPanel -|> UserControl
+
+FormattedAlbum o-- Album
+FormattedPage o-- Page
+
+
+
+
+@enduml

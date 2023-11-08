@@ -1,0 +1,47 @@
+@startuml
+boundary "__:FormMain__" as mainUi
+boundary "__user1:UserPanel__" as u1
+boundary "__user2:UserPanel__" as u2
+boundary "__:Label__" as lbl
+collections "__m_AllCities : City__" as cities 
+control AppLogic as logic 
+participant City as ct
+
+group Find Midpoint [Two users are logged]
+    mainUi -\\ logic
+        opt First time of feature use
+            ref over logic
+                Load Cities From DB
+            end
+        end
+    logic -\\ mainUi
+        
+    mainUi -\\ u1 : UserPanel.UserName()
+    u2 -// mainUi: Name: string
+   mainUi -\\ cities : GetCity(Name)
+   cities  -// mainUi : city1:City
+   
+    mainUi -\\ u2 : UserPanel.UserName()
+    u2 -// mainUi: Name: string
+   mainUi -\\ cities : GetCity(Name)
+   cities  -// mainUi : city2:City
+   
+   mainUi -\\ logic : GetNidPointCity(requestedCity1, requestedCity2)
+   logic -\\ ct:  CreateCity(X: (city1.X + city2.X) / 2, Y: (city1.Y + city2.Y) / 2)
+
+   ct -// logic: meanLocation : City 
+   
+    loop for all the cities
+        logic -\\ ct : distance(meanLocation, currentCity)
+        ct -// logic : dist 
+        opt dist < minDist
+            logic -\\ logic:updateMinCity( minDist = dist, minCity = currentCity)
+        end
+    end
+    logic -//mainUi : closestCity
+    logic -\\ lbl : PresentClosestCity(closestCity)
+    lbl -// logic : (void)
+    
+end
+
+@enduml
