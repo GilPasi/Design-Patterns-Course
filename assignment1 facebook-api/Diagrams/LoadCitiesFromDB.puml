@@ -1,0 +1,18 @@
+@startuml
+boundary "__:FormMain__" as mainUi
+database "israel_cities: txt file" as db
+collections "__m_AllCities : City__" as cities 
+collections "__lines__" as ls
+group Find Midpoint City
+    mainUi -// db **: OpenFile()
+    mainUi -// db : Fetch locations data
+    db -// mainUi: (List of all locations)
+    mainUi -// db !! : Dispose()
+    mainUi -// ls : ReadAllLines()
+    loop for all the lines
+        ls -// cities : parse into City object\nand append  
+    end
+    cities -// mainUi
+    
+end
+@enduml
