@@ -48,6 +48,8 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.photosBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.radioButtonUser2 = new System.Windows.Forms.RadioButton();
+            this.radioButtonUser1 = new System.Windows.Forms.RadioButton();
             this.userPanel1 = new BasicFacebookFeatures.UserPanel();
             this.userPanel2 = new BasicFacebookFeatures.UserPanel();
             ((System.ComponentModel.ISupportInitialize)(this.albumBindingSource)).BeginInit();
@@ -73,6 +75,8 @@
             // tabPage1
             // 
             this.tabPage1.AutoScroll = true;
+            this.tabPage1.Controls.Add(this.radioButtonUser1);
+            this.tabPage1.Controls.Add(this.radioButtonUser2);
             this.tabPage1.Controls.Add(this.labelLocationMidPointVal);
             this.tabPage1.Controls.Add(this.listBoxMutualGroups);
             this.tabPage1.Controls.Add(this.labelLocationMidPoint);
@@ -227,6 +231,28 @@
             this.photosBindingSource.DataMember = "Photos";
             this.photosBindingSource.DataSource = this.albumBindingSource;
             // 
+            // radioButtonUser2
+            // 
+            this.radioButtonUser2.AutoSize = true;
+            this.radioButtonUser2.Location = new System.Drawing.Point(616, 315);
+            this.radioButtonUser2.Name = "radioButtonUser2";
+            this.radioButtonUser2.Size = new System.Drawing.Size(96, 22);
+            this.radioButtonUser2.TabIndex = 111;
+            this.radioButtonUser2.Text = "Right User";
+            this.radioButtonUser2.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonUser1
+            // 
+            this.radioButtonUser1.AutoSize = true;
+            this.radioButtonUser1.Checked = true;
+            this.radioButtonUser1.Location = new System.Drawing.Point(483, 315);
+            this.radioButtonUser1.Name = "radioButtonUser1";
+            this.radioButtonUser1.Size = new System.Drawing.Size(86, 22);
+            this.radioButtonUser1.TabIndex = 112;
+            this.radioButtonUser1.TabStop = true;
+            this.radioButtonUser1.Text = "Left User";
+            this.radioButtonUser1.UseVisualStyleBackColor = true;
+            // 
             // userPanel1
             // 
             this.userPanel1.Location = new System.Drawing.Point(0, 0);
@@ -285,5 +311,7 @@
         private System.Windows.Forms.Button buttonLogin;
         private UserPanel userPanel1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.RadioButton radioButtonUser1;
+        private System.Windows.Forms.RadioButton radioButtonUser2;
     }
 }

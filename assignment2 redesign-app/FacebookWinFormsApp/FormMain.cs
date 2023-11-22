@@ -26,8 +26,6 @@ namespace BasicFacebookFeatures
         {
             InitializeComponent();
             FacebookWrapper.FacebookService.s_CollectionLimit = 25;
-            buttonLogout.Click += userPanel1.MainFormLogout_Clicked;
-            buttonLogout.Click += userPanel2.MainFormLogout_Clicked;
 
         }
 
@@ -58,12 +56,24 @@ namespace BasicFacebookFeatures
 
             if (isValidLoginResult(loginResult))
             {
-                userPanel1.SignLoginResult(loginResult);
-                userPanel2.SignLoginResult(loginResult);
+                getSelectedUserPanelToLogin().SignLoginResult(loginResult);
                 buttonLogout.Enabled = true;
                 buttonLogin.Text = $"Logged as: {loginResult.LoggedInUser.Name}";
                 buttonLogin.BackColor = Color.GreenYellow;
             }
+        }
+
+        private UserPanel getSelectedUserPanelToLogin()
+        {
+            if (radioButtonUser1.Checked)
+            {
+                return userPanel1;
+            }
+            if (radioButtonUser2.Checked)
+            {
+                return userPanel2;
+            }
+            throw new Exception("No user was checked while trying to login");
         }
 
         private static bool isValidLoginResult(LoginResult loginResult)
