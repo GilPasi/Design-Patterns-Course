@@ -54,6 +54,7 @@
             this.labelAge = new System.Windows.Forms.Label();
             this.pictureBoxProfile = new System.Windows.Forms.PictureBox();
             this.buttonClear = new System.Windows.Forms.Button();
+            this.buttonLoad = new System.Windows.Forms.Button();
             this.imageThumbPictureBox = new System.Windows.Forms.PictureBox();
             this.descriptionTextBox = new System.Windows.Forms.TextBox();
             this.imageNormalPictureBox = new System.Windows.Forms.PictureBox();
@@ -310,13 +311,23 @@
             // 
             // buttonClear
             // 
-            this.buttonClear.Location = new System.Drawing.Point(390, 26);
+            this.buttonClear.Location = new System.Drawing.Point(390, 57);
             this.buttonClear.Name = "buttonClear";
-            this.buttonClear.Size = new System.Drawing.Size(71, 46);
+            this.buttonClear.Size = new System.Drawing.Size(54, 46);
             this.buttonClear.TabIndex = 96;
             this.buttonClear.Text = "Clear User";
             this.buttonClear.UseVisualStyleBackColor = true;
             this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
+            // 
+            // buttonLoad
+            // 
+            this.buttonLoad.Location = new System.Drawing.Point(390, 2);
+            this.buttonLoad.Name = "buttonLoad";
+            this.buttonLoad.Size = new System.Drawing.Size(54, 49);
+            this.buttonLoad.TabIndex = 97;
+            this.buttonLoad.Text = "Load User";
+            this.buttonLoad.UseVisualStyleBackColor = true;
+            this.buttonLoad.Click += new System.EventHandler(this.buttonLoad_Click);
             // 
             // imageThumbPictureBox
             // 
@@ -377,6 +388,7 @@
             this.Controls.Add(this.descriptionTextBox);
             this.Controls.Add(this.imageNormalPictureBox);
             this.Controls.Add(this.imageThumbPictureBox);
+            this.Controls.Add(this.buttonLoad);
             this.Controls.Add(this.buttonClear);
             this.Controls.Add(this.listBoxGroups);
             this.Controls.Add(this.labelPicturePosition);
@@ -427,6 +439,7 @@
         private System.Windows.Forms.Label labelAge;
         private System.Windows.Forms.PictureBox pictureBoxProfile;
         private System.Windows.Forms.Button buttonClear;
+        private System.Windows.Forms.Button buttonLoad;
         private System.Windows.Forms.BindingSource albumBindingSource;
         private System.Windows.Forms.BindingSource pageBindingSource;
         private System.Windows.Forms.PictureBox imageThumbPictureBox;

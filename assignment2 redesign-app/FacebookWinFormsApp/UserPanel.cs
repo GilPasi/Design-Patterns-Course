@@ -1,8 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
+using System.IO;
+using System.Linq;
 using System.Collections.ObjectModel;
 using System.Threading;
 
@@ -20,7 +26,7 @@ namespace BasicFacebookFeatures
         }
         //___Properties___
 
-        internal LoginResult SignedUserData { get; set; }
+        public LoginResult SignedUserData { get; set; }
 
         public string UserAge
         {
@@ -51,13 +57,35 @@ namespace BasicFacebookFeatures
             }
         }
 
-        internal void SignLoginResult(LoginResult i_UserData)
+        public void SignLoginResult(LoginResult i_UserData)
         {
+            if (i_UserData == null)
+            {
+                return;
+            }
+
+             if (DoesRequireLocking(i_UserData))
+            {
+                const bool k_DisableAll = false;
+                switchEnabled(k_DisableAll);
+                buttonLoad.Enabled = true;
+                buttonClear.Enabled = true;
+
+            }
+
+            buttonLoad.Text = $"Load {i_UserData.LoggedInUser.FirstName}";
             SignedUserData = i_UserData;
-            LoadUser();
         }
 
-        private void LoadUser()
+        private bool DoesRequireLocking(LoginResult i_UserData)
+        {
+            //If the loaded user and the signed user are not the same user, 
+            //there is a chance of sending invalid requests. Therefore a lock 
+            //is required. One exception is the first request when the loaded user is null.
+            return m_LoadedtUserId != i_UserData.LoggedInUser.Id && SignedUserData != null;
+        }
+
+        private void buttonLoad_Click(object sender, EventArgs e)
         {
             if (SignedUserData == null)
             {
@@ -72,15 +100,10 @@ namespace BasicFacebookFeatures
             const bool k_EnableAll = true;
             switchEnabled(k_EnableAll);
 
-            //new Thread(fetchBasicInfo).Start();
-            //new Thread(fetchGroups).Start();
-            //new Thread(fetchPages).Start();
-            //new Thread(fetchAlbums).Start();
-            //fetchBasicInfo();
-            //fetchGroups();
-            //fetchPages();
-            fetchAlbums();
-
+            new Thread(fetchBasicInfo).Start();
+            new Thread(fetchGroups).Start();
+            new Thread(fetchPages).Start();
+            new Thread(fetchAlbums).Start();
             m_LoadedtUserId = SignedUserData.LoggedInUser.Id;
         }
 
@@ -99,6 +122,8 @@ namespace BasicFacebookFeatures
             {
                 listBoxAlbums.Invoke(new Action(applyBasicInfo));
             }
+
+            
         }
 
         private void applyBasicInfo()
@@ -160,7 +185,8 @@ namespace BasicFacebookFeatures
             }
         }
 
-        //___Handlers__
+        //___Handlers___
+
         private void buttonNextPicture_Click(object sender, EventArgs e)
         {
             changeCurrentPicture(m_CurrentPhotoIndex + 1);
@@ -186,15 +212,14 @@ namespace BasicFacebookFeatures
             }
         }
 
+        public void MainFormLogout_Clicked(object sender, EventArgs e) 
+        {
+            buttonLoad.Text = "Load User";
+        }
+
         private void buttonClear_Click(object sender, EventArgs e)
         {
             resetComponent();
-        }
-
-        private void listBoxAlbums_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            m_CurrentPhotoIndex = 0;
-            updatePhotoIndex(listBoxAlbums.SelectedItem as Album);
         }
 
         //___Minor Methods___
@@ -243,6 +268,12 @@ namespace BasicFacebookFeatures
         {
             Controls.Clear();
             InitializeComponent();
+        }
+
+        private void listBoxAlbums_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            m_CurrentPhotoIndex = 0;
+            updatePhotoIndex(listBoxAlbums.SelectedItem as Album);
         }
     }
 }
