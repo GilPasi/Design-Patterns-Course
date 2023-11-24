@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CefSharp.DevTools.Network;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -22,20 +23,43 @@ namespace BasicFacebookFeatures
         public string Name { get; set; }
         public string Country { get; set; }
 
+        public bool IsMissingDataCity { get; } = false; 
+
         public bool UserFriendlyToString { get; set; } = true;
 
+        public City(bool i_IsMissingData)
+        {
+            IsMissingDataCity = i_IsMissingData;
+        }
+
         public static City FindCityByName(string i_CityName)
+        {
+            City city;
+            if (TryFindCityByName(i_CityName, out city))
+            {
+                return city;
+            }
+            else 
+            {
+                throw new KeyNotFoundException($"The city {i_CityName} does not exist in the DB or was not able to parse properly." +
+                    $" Make sure to follow the format {ParseFormat}");
+            }
+        }
+
+        public static bool TryFindCityByName(string i_CityName, out City o_City)
         {
             foreach (City city in s_AllCities)
             {
                 if (i_CityName.Equals(city.Name))
                 {
-                    return city;
+                    o_City = city;
+                    return true;
                 }
             }
-            throw new KeyNotFoundException($"The city {i_CityName} does not exist in the DB or was not able to parse properly." +
-                $" Make sure to follow the format {ParseFormat}");
+            o_City = MissingDataCity;
+            return false;
         }
+
 
         public override string ToString()
         {
@@ -143,6 +167,20 @@ namespace BasicFacebookFeatures
             }
         }
 
+        public static City MissingDataCity
+        {
+            get 
+            {
+                return new City(true)
+                {
+                    Name = "Missing Data",
+                    m_CoordinateX = null,
+                    m_CoordinateY = null,
+                };
+            }
+        }
+
+
         private static string[] getCityUnparsedDetails(string i_Text)
         {
             return i_Text.Split('\t');
@@ -158,7 +196,16 @@ namespace BasicFacebookFeatures
         }
         public static City FindMidPoint(params City[] i_Cities)
         {
-            Coordinate[] avgCoordinates = findCitiesMean(i_Cities);
+            Coordinate[] avgCoordinates;
+            if (!isCitiesArrayValid(i_Cities))
+            {
+                return MissingDataCity; //In order to average, at least one valid city is required
+            }
+            else
+            {
+                avgCoordinates = findCitiesMean(i_Cities);
+            }
+
             City averageLocation = new City();
             averageLocation.m_CoordinateX = avgCoordinates[0];
             averageLocation.m_CoordinateY = avgCoordinates[1];
@@ -177,6 +224,19 @@ namespace BasicFacebookFeatures
             return closestCity;
         }
 
+        private static bool isCitiesArrayValid(City[] i_Cities)
+        {
+            foreach (City city in i_Cities)
+            {
+                if (!city.IsMissingDataCity)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
 
         private static Coordinate[] findCitiesMean(params City[] i_Cities)
         {
@@ -185,8 +245,15 @@ namespace BasicFacebookFeatures
 
             foreach (City city in i_Cities)
             {
-                xCoordinates.Add(city.m_CoordinateX);
-                yCoordinates.Add(city.m_CoordinateY);
+                if (city.m_CoordinateX != null)
+                {
+                    xCoordinates.Add(city.m_CoordinateX);
+                }
+
+                if (city.m_CoordinateY != null)
+                {
+                    yCoordinates.Add(city.m_CoordinateY);
+                }
             }
             Coordinate avgX = new Coordinate();
             Coordinate avgY = new Coordinate();

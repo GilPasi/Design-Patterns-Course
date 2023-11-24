@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace BasicFacebookFeatures
 {
@@ -38,6 +40,14 @@ namespace BasicFacebookFeatures
             }
 
             return currentDirectory;
+        }
+
+        public static void AddAllItemsToListBox<T>(List<T> i_CollectionToAdd, ListBox i_ListBoxToFill)
+        {
+            foreach (T item in i_CollectionToAdd)
+            {
+                i_ListBoxToFill.Items.Add(item);
+            }
         }
     }
 }

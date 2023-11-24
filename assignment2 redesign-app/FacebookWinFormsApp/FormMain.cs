@@ -11,15 +11,10 @@ using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
 using System.Globalization;
 using System.Net;
-
+using BasicFacebookFeatures.BuilderPattern;
 
 namespace BasicFacebookFeatures
 {
-
-    //Side Quests (Delete afterwards ):
-    //Delete copying to clipboard
-    // REmove redundant namespaces
-    // Better logo
     public partial class FormMain : Form
     {
         public FormMain()
@@ -82,58 +77,31 @@ namespace BasicFacebookFeatures
 
         private void buttonFindHalfway_Click(object sender, EventArgs e)
         {
-            referAverageAge();
-            referLocationMidPoint();
-            referCommonGroups();
+            UserAverageableDetails userAverageableDetails1 = 
+                createUserAverageableDetailsFromUserPanel(userPanel1);
+            UserAverageableDetails userAverageableDetails2 =
+                createUserAverageableDetailsFromUserPanel(userPanel2);
+
+            UserAverageableDetails averagedDetails = Averageizer.Average(userAverageableDetails1, userAverageableDetails2);
+
+            //Apply tp UI
+            labelAvgAgeVal.Text = averagedDetails.Age.ToString();
+            labelLocationMidPointVal.Text = averagedDetails.City.Name;
+            Utilities.AddAllItemsToListBox(averagedDetails.Groups, listBoxMutualGroups);
         }
 
-        private void referAverageAge()
+        private UserAverageableDetails createUserAverageableDetailsFromUserPanel(UserPanel i_UserPanel)
         {
-            if (!string.IsNullOrEmpty(userPanel1.UserAge) && !string.IsNullOrEmpty(userPanel2.UserAge))
-            {
-                float age1 = float.Parse(userPanel1.UserAge);
-                float age2 = float.Parse(userPanel2.UserAge);
-                float? averageAge = (age1 + age2) / 2;
-                labelAvgAgeVal.Text = averageAge.ToString();
-            }
-        }
+            //This method does not exist in the 'UserAverageableDetails' class in order to 
+            //refrain from limiting 'UserAverageableDetails' to a specific UI 
+            UserAverageableDetails userAverageableDetails = new UserAverageableDetails();
+            userAverageableDetails.Age = float.Parse(string.IsNullOrEmpty(i_UserPanel.UserAge) ? "0" : i_UserPanel.UserAge);
+            userAverageableDetails.Groups = i_UserPanel.UserGroups;
+            City placeholderCity;
+            City.TryFindCityByName(i_UserPanel.Residence, out placeholderCity);
+            userAverageableDetails.City = placeholderCity;
 
-        private void referLocationMidPoint()
-        {
-            string user1Residence = userPanel1.Residence;
-            string user2Residence = userPanel2.Residence;
-            string messageToPresent;               
-            try
-            {
-                City city1 = City.FindCityByName(user1Residence);
-                City city2 = City.FindCityByName(user2Residence);
-
-                City midPoint = City.FindMidPoint(city1, city2);
-                messageToPresent = midPoint.Name;
-            }
-            catch 
-            {
-                messageToPresent = "Missing data";
-            }
-            labelLocationMidPointVal.Text = messageToPresent;
-        }
-
-        private void referCommonGroups()
-        {
-            List<Group> groups1 = userPanel1.UserGroups;
-            List<Group> groups2 = userPanel2.UserGroups;
-
-            foreach (Group groupFromUser1 in groups1)
-            {
-                foreach (Group groupFromUser2 in groups2)
-                {
-                    if (groupFromUser1.Id == groupFromUser2.Id)
-                    {
-                        listBoxMutualGroups.Items.Add(groupFromUser1);
-                        break;
-                    }
-                }
-            }
+            return userAverageableDetails;
         }
     }
 }

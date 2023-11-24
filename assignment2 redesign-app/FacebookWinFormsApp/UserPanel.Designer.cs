@@ -228,12 +228,14 @@
             this.labelResidenceVal.Name = "labelResidenceVal";
             this.labelResidenceVal.Size = new System.Drawing.Size(0, 13);
             this.labelResidenceVal.TabIndex = 65;
+            this.labelResidenceVal.Text = string.Empty;
             // 
             // labelBirthdayVal
             // 
             this.labelBirthdayVal.AutoSize = true;
             this.labelBirthdayVal.Location = new System.Drawing.Point(93, 60);
             this.labelBirthdayVal.Name = "labelBirthdayVal";
+            this.labelBirthdayVal.Text = string.Empty;
             this.labelBirthdayVal.Size = new System.Drawing.Size(0, 13);
             this.labelBirthdayVal.TabIndex = 65;
             // 
@@ -242,6 +244,7 @@
             this.labelAgeVal.AutoSize = true;
             this.labelAgeVal.Location = new System.Drawing.Point(93, 40);
             this.labelAgeVal.Name = "labelAgeVal";
+            this.labelAgeVal.Text = string.Empty;
             this.labelAgeVal.Size = new System.Drawing.Size(0, 13);
             this.labelAgeVal.TabIndex = 65;
             // 

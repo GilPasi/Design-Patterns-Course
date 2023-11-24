@@ -94,6 +94,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BuilderPattern\UserAverageableDetails.cs" />
+    <Compile Include="BuilderPattern\Averageizer.cs" />
     <Compile Include="City.cs" />
     <Compile Include="Coordinate.cs" />
     <Compile Include="FormattedAlbum.cs" />

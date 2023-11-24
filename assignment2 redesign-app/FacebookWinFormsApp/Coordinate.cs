@@ -81,7 +81,10 @@ namespace BasicFacebookFeatures
             decimal elementsCount = i_Others.Length;
             foreach (Coordinate coor in i_Others)
             {
-                avg += coor.Value / elementsCount;
+                if (coor != null)
+                {
+                    avg += coor.Value / elementsCount;
+                }
             }
             return avg;
         }
