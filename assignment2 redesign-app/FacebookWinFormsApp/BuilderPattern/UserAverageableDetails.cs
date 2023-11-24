@@ -9,7 +9,7 @@ using FacebookWrapper.ObjectModel;
 namespace BasicFacebookFeatures.BuilderPattern
 {
     //This is the Builder component
-    internal partial class UserAverageableDetails
+    public partial class UserAverageableDetails
     {
         /*This class aggregate all the details of a user that can be "averaged" in 
          some way.

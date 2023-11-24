@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BasicFacebookFeatures.SingletonPattern;
 using FacebookWrapper.ObjectModel;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace BasicFacebookFeatures.BuilderPattern
 {
     //This is the Composer component
-    internal static class Averageizer
+    public static class Averageizer
     {
-
         public static UserAverageableDetails Average(UserAverageableDetails i_AverageableDetails1,
             UserAverageableDetails i_AverageableDetails2)
         {
@@ -60,12 +60,81 @@ namespace BasicFacebookFeatures.BuilderPattern
 
             try
             {
-                io_UsersMean.City = City.FindMidPoint(i_City1, i_City2);   
+                io_UsersMean.City = findMidPoint(i_City1, i_City2);   
             }
             catch
             {
                 io_UsersMean.City = City.MissingDataCity;
             }
+        }
+
+        private static City findMidPoint(params City[] i_Cities)
+        {
+            Coordinate[] avgCoordinates;
+            if (!isCitiesArrayValid(i_Cities))
+            {
+                return City.MissingDataCity; //In order to average, at least one valid city is required
+            }
+            else
+            {
+                avgCoordinates = findCitiesMean(i_Cities);
+            }
+
+            City averageLocation = new City();
+            averageLocation.CoordinateX = avgCoordinates[0];
+            averageLocation.CoordinateY = avgCoordinates[1];
+            decimal minDistance = decimal.MaxValue;
+            City closestCity = null;
+
+            foreach (City city in CitiesDataBase.Instance.AllCities)
+            {
+                decimal cityAverageLocationDistance = averageLocation.Distance(city);
+                if (minDistance > cityAverageLocationDistance)
+                {
+                    minDistance = cityAverageLocationDistance;
+                    closestCity = city;
+                }
+            }
+            return closestCity;
+        }
+
+        private static bool isCitiesArrayValid(City[] i_Cities)
+        {
+            foreach (City city in i_Cities)
+            {
+                if (!city.IsMissingDataCity)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private static Coordinate[] findCitiesMean(params City[] i_Cities)
+        {
+            List<Coordinate> xCoordinates = new List<Coordinate>(i_Cities.Length);
+            List<Coordinate> yCoordinates = new List<Coordinate>(i_Cities.Length);
+
+            foreach (City city in i_Cities)
+            {
+                if (city.CoordinateX != null)
+                {
+                    xCoordinates.Add(city.CoordinateX);
+                }
+
+                if (city.CoordinateY != null)
+                {
+                    yCoordinates.Add(city.CoordinateY);
+                }
+            }
+            Coordinate avgX = new Coordinate();
+            Coordinate avgY = new Coordinate();
+
+            avgX.Value = Coordinate.Average(xCoordinates.ToArray());
+            avgY.Value = Coordinate.Average(yCoordinates.ToArray());
+
+            return new Coordinate[] { avgX, avgY };
         }
     }
 }

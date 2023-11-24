@@ -98,8 +98,8 @@
     <Compile Include="BuilderPattern\Averageizer.cs" />
     <Compile Include="City.cs" />
     <Compile Include="Coordinate.cs" />
-    <Compile Include="FormattedAlbum.cs" />
-    <Compile Include="FormattedPage.cs" />
+    <Compile Include="AdapterPattern\FormattedAlbum.cs" />
+    <Compile Include="AdapterPattern\FormattedPage.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -108,6 +108,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SingletonPattern\CitiesDataBase.cs" />
     <Compile Include="UserPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>

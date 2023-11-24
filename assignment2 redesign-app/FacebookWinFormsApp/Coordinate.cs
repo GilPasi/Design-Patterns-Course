@@ -8,6 +8,14 @@ namespace BasicFacebookFeatures
 {
     public class Coordinate
     {
+        //___Constructors___
+
+        public Coordinate() { }
+
+        public Coordinate(decimal i_Value)
+        {
+            Value = i_Value;
+        }
 
         //___Properties and Data-Members___
         private char m_Axis;

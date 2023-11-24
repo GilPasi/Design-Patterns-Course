@@ -1,4 +1,6 @@
-﻿using CefSharp.DevTools.Network;
+﻿using BasicFacebookFeatures.SingletonPattern;
+using CefSharp.DevTools.CSS;
+using CefSharp.DevTools.Network;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,49 +17,71 @@ namespace BasicFacebookFeatures
 {
     public class City
     {
-
         //___Properties___
-        private static List<City> s_AllCities;
-        private Coordinate m_CoordinateX = new Coordinate();
-        private Coordinate m_CoordinateY = new Coordinate();
-        public string Name { get; set; }
-        public string Country { get; set; }
 
-        public bool IsMissingDataCity { get; } = false; 
+        /*Most data members are readonly types because the city's 
+        state is not supposed the change during the run. In fact,
+        it is determined solely by the record in the data base. 
+        Altering the city object's state may create doubled truth source.*/
+        private Coordinate m_CoordinateX;
+        private Coordinate m_CoordinateY;
+        private string m_Name;
+
+        public Coordinate CoordinateX {
+            get
+            {
+                return m_CoordinateX;
+            }
+            set 
+            {
+                m_CoordinateX = assertReadOnlyField("CoordinateX", value);
+                m_CoordinateX.Axis = 'X';
+            } 
+        }
+
+        public Coordinate CoordinateY
+        {
+            get
+            {
+                return m_CoordinateY;
+            }
+            set
+            {
+                m_CoordinateY = assertReadOnlyField("CoordinateY", value);
+                m_CoordinateX.Axis = 'Y';
+
+            }
+        }
+
+        public string Name
+        {
+            get
+            {
+                return m_Name;
+            }
+            set
+            {
+                m_Name = assertReadOnlyField("Name", value);
+            }
+        }
+
+        public bool IsMissingDataCity { get; } = false;
 
         public bool UserFriendlyToString { get; set; } = true;
+
+        private T assertReadOnlyField<T>(string i_FieldName, T i_Value)
+        {
+            if (i_Value.Equals(default(T)))
+            {
+                throw new Exception(
+                    $"{i_FieldName} is a read-only field and was already assigned with{i_Value}");
+            }
+            return i_Value;
+        }
 
         public City(bool i_IsMissingData)
         {
             IsMissingDataCity = i_IsMissingData;
-        }
-
-        public static City FindCityByName(string i_CityName)
-        {
-            City city;
-            if (TryFindCityByName(i_CityName, out city))
-            {
-                return city;
-            }
-            else 
-            {
-                throw new KeyNotFoundException($"The city {i_CityName} does not exist in the DB or was not able to parse properly." +
-                    $" Make sure to follow the format {ParseFormat}");
-            }
-        }
-
-        public static bool TryFindCityByName(string i_CityName, out City o_City)
-        {
-            foreach (City city in s_AllCities)
-            {
-                if (i_CityName.Equals(city.Name))
-                {
-                    o_City = city;
-                    return true;
-                }
-            }
-            o_City = MissingDataCity;
-            return false;
         }
 
 
@@ -69,49 +93,14 @@ namespace BasicFacebookFeatures
             }
             else
             {
-                return $"City:{Name},Country:{Country}, ({m_CoordinateX}|{m_CoordinateY})";
-            }
-        }
-
-        public static string ParseFormat
-        {
-            get 
-            {
-                return @"<Y Coordinate><Tab><X Coordinate><Tab><City Name>";
+                return $"City:{Name}, ({m_CoordinateX}|{m_CoordinateY})";
             }
         }
 
         //___Constructors___
-        static City()
-        {
-            string directoryWithAssetsFolder = Utilities.ClimbDirectoryLevels("assets");
-            const string k_FileName = "israel_cities.txt";
-            const string k_Subdir = "assets";
-            string filePath = Path.Combine(directoryWithAssetsFolder, k_Subdir, k_FileName);
 
-            if (File.Exists(filePath))
-            {
-                string[]  lines = File.ReadAllLines(filePath);
-                s_AllCities = new List<City>(lines.Length);
-
-                for(int i = 1; i < lines.Length; i++)// Skip the headers
-                {
-                    try
-                    {
-                        s_AllCities.Add(ParseTXT(lines[i]));
-                    }
-                    catch
-                    {
-                        //Ignore invalid parse, this issue is addressed when in the FindCity() method
-                    }
-                }
-            }
-
-        }
         public City() 
         {
-            m_CoordinateX.Axis = 'X';
-            m_CoordinateY.Axis = 'Y';
         }
 
         public static City ParseTXT(string i_Text)
@@ -126,10 +115,8 @@ namespace BasicFacebookFeatures
                 throw new FormatException($"A city format must contain at least {k_MinimumCommaCount} commas");
             }
             parsedCity.Name = splittedText[0];
-            char axis1 = parsedCity.m_CoordinateX.Axis;
-            char axis2 = parsedCity.m_CoordinateY.Axis;
-            parsedCity.m_CoordinateX.Value = parseCoordinateValue(axis1, splittedText[1]);
-            parsedCity.m_CoordinateY.Value = parseCoordinateValue(axis2, splittedText[2]);
+            parsedCity.m_CoordinateX = new Coordinate(parseCoordinateValue('X', splittedText[1]));
+            parsedCity.m_CoordinateY = new Coordinate(parseCoordinateValue('Y', splittedText[2]));
 
             return parsedCity;
         }
@@ -193,75 +180,6 @@ namespace BasicFacebookFeatures
             double deltaY = (double)m_CoordinateY.Distance(i_Other.m_CoordinateY);
             double result = Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
             return (decimal)result;
-        }
-        public static City FindMidPoint(params City[] i_Cities)
-        {
-            Coordinate[] avgCoordinates;
-            if (!isCitiesArrayValid(i_Cities))
-            {
-                return MissingDataCity; //In order to average, at least one valid city is required
-            }
-            else
-            {
-                avgCoordinates = findCitiesMean(i_Cities);
-            }
-
-            City averageLocation = new City();
-            averageLocation.m_CoordinateX = avgCoordinates[0];
-            averageLocation.m_CoordinateY = avgCoordinates[1];
-            decimal minDistance = decimal.MaxValue;
-            City closestCity = null;
-
-            foreach (City city in s_AllCities)
-            {
-                decimal cityAverageLocationDistance = averageLocation.Distance(city);
-                if (minDistance > cityAverageLocationDistance)
-                {
-                    minDistance = cityAverageLocationDistance;
-                    closestCity = city;
-                }
-            }
-            return closestCity;
-        }
-
-        private static bool isCitiesArrayValid(City[] i_Cities)
-        {
-            foreach (City city in i_Cities)
-            {
-                if (!city.IsMissingDataCity)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-
-        private static Coordinate[] findCitiesMean(params City[] i_Cities)
-        {
-            List<Coordinate> xCoordinates = new List<Coordinate>(i_Cities.Length);
-            List<Coordinate> yCoordinates = new List<Coordinate>(i_Cities.Length);
-
-            foreach (City city in i_Cities)
-            {
-                if (city.m_CoordinateX != null)
-                {
-                    xCoordinates.Add(city.m_CoordinateX);
-                }
-
-                if (city.m_CoordinateY != null)
-                {
-                    yCoordinates.Add(city.m_CoordinateY);
-                }
-            }
-            Coordinate avgX = new Coordinate();
-            Coordinate avgY = new Coordinate();
-
-            avgX.Value = Coordinate.Average(xCoordinates.ToArray());
-            avgY.Value = Coordinate.Average(yCoordinates.ToArray());
-
-            return new Coordinate[] {avgX, avgY };
         }
 
         //___Minor Methods___

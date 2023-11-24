@@ -12,11 +12,13 @@ using FacebookWrapper;
 using System.Globalization;
 using System.Net;
 using BasicFacebookFeatures.BuilderPattern;
+using BasicFacebookFeatures.SingletonPattern;
 
 namespace BasicFacebookFeatures
 {
     public partial class FormMain : Form
     {
+        //private CitiesDataBase m_CitiesDataBase = CitiesDataBase.GetOrCreateDataBase();
         public FormMain()
         {
             InitializeComponent();
@@ -84,7 +86,7 @@ namespace BasicFacebookFeatures
 
             UserAverageableDetails averagedDetails = Averageizer.Average(userAverageableDetails1, userAverageableDetails2);
 
-            //Apply tp UI
+            //Apply to UI
             labelAvgAgeVal.Text = averagedDetails.Age.ToString();
             labelLocationMidPointVal.Text = averagedDetails.City.Name;
             Utilities.AddAllItemsToListBox(averagedDetails.Groups, listBoxMutualGroups);
@@ -98,7 +100,7 @@ namespace BasicFacebookFeatures
             userAverageableDetails.Age = float.Parse(string.IsNullOrEmpty(i_UserPanel.UserAge) ? "0" : i_UserPanel.UserAge);
             userAverageableDetails.Groups = i_UserPanel.UserGroups;
             City placeholderCity;
-            City.TryFindCityByName(i_UserPanel.Residence, out placeholderCity);
+            CitiesDataBase.Instance.TryFindCityByName(i_UserPanel.Residence, out placeholderCity);
             userAverageableDetails.City = placeholderCity;
 
             return userAverageableDetails;

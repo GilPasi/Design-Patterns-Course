@@ -6,7 +6,10 @@ namespace BasicFacebookFeatures
 {
     internal class FormattedPage
     {
-        // This class support a proper ToString method so it will match the ListBox object properly
+        /*This is the Adapter component
+
+
+        it support a proper ToString method so it will match the ListBox object properly*/
         Page m_InnerPage;
         public FormattedPage(Page i_Page)
         {

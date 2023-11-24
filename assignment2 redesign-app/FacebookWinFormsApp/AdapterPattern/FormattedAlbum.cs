@@ -10,6 +10,9 @@ using System.Text.RegularExpressions;
 
 namespace BasicFacebookFeatures
 {
+    /*This is the Adapter component
+    it support a proper ToString method so 
+    it will match the ListBox object properly*/
     internal class FormattedAlbum
     {
         private Album m_Album;
