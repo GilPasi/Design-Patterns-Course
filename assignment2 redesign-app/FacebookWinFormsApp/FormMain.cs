@@ -18,7 +18,7 @@ namespace BasicFacebookFeatures
 {
     public partial class FormMain : Form
     {
-        //private CitiesDataBase m_CitiesDataBase = CitiesDataBase.GetOrCreateDataBase();
+        private IUadComposer m_Averageizer = new BasicAverageizer(new BasicUadBuilder());
         public FormMain()
         {
             InitializeComponent();
@@ -84,11 +84,11 @@ namespace BasicFacebookFeatures
             UserAverageableDetails userAverageableDetails2 =
                 createUserAverageableDetailsFromUserPanel(userPanel2);
 
-            UserAverageableDetails averagedDetails = Averageizer.Average(userAverageableDetails1, userAverageableDetails2);
+            UserAverageableDetails averagedDetails = m_Averageizer.Average(userAverageableDetails1, userAverageableDetails2);
 
             //Apply to UI
             labelAvgAgeVal.Text = averagedDetails.Age.ToString();
-            labelLocationMidPointVal.Text = averagedDetails.City.Name;
+            labelLocationMidPointVal.Text = averagedDetails.City != null ? averagedDetails.City.Name : "Missing Data";
             Utilities.AddAllItemsToListBox(averagedDetails.Groups, listBoxMutualGroups);
         }
 

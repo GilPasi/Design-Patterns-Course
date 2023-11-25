@@ -65,8 +65,6 @@ namespace BasicFacebookFeatures
             }
         }
 
-        public bool IsMissingDataCity { get; } = false;
-
         public bool UserFriendlyToString { get; set; } = true;
 
         private T assertReadOnlyField<T>(string i_FieldName, T i_Value)
@@ -78,12 +76,6 @@ namespace BasicFacebookFeatures
             }
             return i_Value;
         }
-
-        public City(bool i_IsMissingData)
-        {
-            IsMissingDataCity = i_IsMissingData;
-        }
-
 
         public override string ToString()
         {
@@ -120,53 +112,6 @@ namespace BasicFacebookFeatures
 
             return parsedCity;
         }
-
-        public static City CreateCityFromDataBase(string i_CityName)
-        {
-            /*This implementation is not hermetic, it is possible to have two cities 
-            //ith the same name but for the current use it will suffice.In addition there
-            //are powerful databases that can perform easily such operations. Therefore it is 
-            //not worth investing time in this specific requsite.*/
-            string directoryWithAssetsFolder = Utilities.ClimbDirectoryLevels("assets");
-            const string k_FileName = "israel_cities.txt";
-            const string k_Subdir = "assets";
-            string filePath = Path.Combine(directoryWithAssetsFolder, k_Subdir, k_FileName);
-
-
-            if (File.Exists(filePath))
-            {
-                var lines = File.ReadLines(filePath).Skip(1);//Skip the headers
-
-                foreach (string line in lines)
-                {
-                    string[] unparsedDetails = getCityUnparsedDetails(i_CityName);
-                    if (i_CityName.Equals(unparsedDetails[0]))
-                    {
-                        return ParseTXT(line);
-                    }
-                }
-                throw new KeyNotFoundException($"The city name {i_CityName} does not exist in the database");
-            }
-            else
-            {
-                throw new FileNotFoundException($"Database file does not exists, please make sure there" +
-                    $" is a file named {k_FileName} in the path {filePath}");
-            }
-        }
-
-        public static City MissingDataCity
-        {
-            get 
-            {
-                return new City(true)
-                {
-                    Name = "Missing Data",
-                    m_CoordinateX = null,
-                    m_CoordinateY = null,
-                };
-            }
-        }
-
 
         private static string[] getCityUnparsedDetails(string i_Text)
         {

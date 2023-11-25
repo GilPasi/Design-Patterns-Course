@@ -90,7 +90,7 @@ namespace BasicFacebookFeatures.SingletonPattern
                     return true;
                 }
             }
-            o_City = City.MissingDataCity;
+            o_City = null;
             return false;
         }
     }
