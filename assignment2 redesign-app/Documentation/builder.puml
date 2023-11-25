@@ -1,0 +1,55 @@
+@startuml
+class Averageizer
+    {
+        + static UserAverageableDetails Average(\nUserAverageableDetails i_AverageableDetails1\nUserAverageableDetails i_AverageableDetails2)
+}
+
+class UserAverageableDetails
+{
+        + float Age{ get; set; }
+        + List<Group> Groups { get; set; }
+}
+
+
+class City
+{
+        + Coordinate CoordinateX ()
+        + Coordinate CoordinateY()
+        + m_Coordinate CoordinateX 
+        + m_Coordinate CoordinateY
+        + string Name
+        + decimal Distance(City i_Other)
+}
+
+
+class Coordinate
+{
+        + Coordinate(decimal i_Value)
+        - char m_Axis;
+        - decimal m_Value;
+        + decimal Value()
+        + char Axis
+        + decimal Distance(Coordinate i_Other)
+        + static decimal Average(params Coordinate[] i_Others)
+}
+
+class FormMain{
+}
+
+note "The main form is still exposed to the\n builder class which is untypical\n to the pattern nonetheless this \nstructure is important because the \n composer configuration is done\n using the builder instances" as n1
+
+
+class Form{}
+City o-- Coordinate
+FormMain --|> Form
+FormMain ---> UserAverageableDetails : configure with 2\n UserAverageableDetails\n instances
+FormMain -> Averageizer
+
+UserAverageableDetails o-- City
+Averageizer -> UserAverageableDetails : <<creates>>
+
+
+
+
+
+@enduml
