@@ -12,77 +12,22 @@ class City
     -static Coordinate[] findCitiesMean(i_Cities : City[])
     +string ExtractCityNameFromTXT(i_Text : string)
 }
-
-class Coordinate
-{
-    - decimal m_Value;
-    + decimal Value
-    + decimal Distance(i_Other:Coordinate)
-    + static decimal Average(i_Others:Coordinate[])
-}
-class FormattedAlbum
-{
-    +   string ToString()
-}
-class FormattedPage
-{
-    +   string ToString()
-}
 class FormMain{
-    - void buttonLogin_Click(sender : object, e : EventArgs)
-    - void buttonLogout_Click(sender : object, e : EventArgs)
-    - void buttonFindHalfway_Click(sender : object, e : EventArgs)
-    - void referAverageAge()
-    - void referLocationMidPoint()
-    - void referCommonGroups()
 }
 
-class UserPanel
+class CitiesDataBase <<uninheritable>>
 {
-    + LoginResult SignedUserData()
-    + string UserAge()
-    + List<Group> UserGroups()
-    + string Residence()
-    - void buttonLoad_Click(sender : object, e : EventArgs)
-    - void fetchBasicInfo()
-    - void fetchGroups()
-    - void fetchPages()
-    - void fetchAlbums()
-    + void MainFormLogout_Clicked(sender : object, e : EventArgs) 
-    - void buttonClear_Click(sender : object, e : EventArgs)
+    - static CitiesDataBase m_Instance = null
+    + static CitiesDataBase Instance()
+    -  CitiesDataBase()
+    + City FindCityByName(string i_CityName)
 }
-class Utilities{}
-class Form{}
-class UserControl{}
-class Album
-{
-    + FacebookObjectCollection<Photo> Photos
-    + long Count
-    + string PictureAlbumURL
-    +  string ToString()
-}
-
-class Page
-{
-    + string Description()
-    + Image ImageLarge()
-    +   string ToString()
-}
-
-note "The Formatted classes are\n designed to   the ToString method.\nThat is because of the ui structure" as N1
-N1..FormattedPage
-N1..FormattedAlbum
-
-FormMain --> Utilities
-UserPanel --> Utilities
-Coordinate --> Utilities
-City --> Utilities 
+note "The Instance() method create\n a new instance only if there\n is no instance already" as n1
+n1..CitiesDataBase
 City o-- Coordinate
-FormMain --|> Form
-UserPanel -|> UserControl
+FormMain --> CitiesDataBase
+CitiesDataBase o-- City : 0..*
 
-FormattedAlbum o-- Album
-FormattedPage o-- Page
 
 
 
