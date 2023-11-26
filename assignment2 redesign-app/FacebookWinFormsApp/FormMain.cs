@@ -1,16 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
-using System.Globalization;
-using System.Net;
 using BasicFacebookFeatures.BuilderPattern;
 using BasicFacebookFeatures.SingletonPattern;
 
@@ -105,5 +96,7 @@ namespace BasicFacebookFeatures
 
             return userAverageableDetails;
         }
+
+
     }
 }

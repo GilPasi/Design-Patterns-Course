@@ -18,7 +18,7 @@ namespace BasicFacebookFeatures
     {
         private int m_CurrentPhotoIndex = 0;
         private string m_LoadedtUserId;
-
+        private bool m_FormClosing = false;
         public UserPanel()
         {
             InitializeComponent();
@@ -222,6 +222,23 @@ namespace BasicFacebookFeatures
             resetComponent();
         }
 
+        private void MyForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            m_FormClosing = true;
+        }
+
+        private void listBoxAlbums_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //Avoid NullReferenceException when closing the window 
+            //otherwise this method is triggered with null album
+            if (!m_FormClosing)
+            {
+                m_CurrentPhotoIndex = 0;
+                updatePhotoIndex(listBoxAlbums.SelectedItem as Album);
+            }
+        }
+
+
         //___Minor Methods___
 
         private float calcAge(string i_BirthDate)
@@ -261,19 +278,17 @@ namespace BasicFacebookFeatures
 
         private void updatePhotoIndex(Album i_SelectedAlbum)
         {
-            labelPicturePosition.Text = string.Format("{0}/{1}", m_CurrentPhotoIndex + 1, i_SelectedAlbum.Count);
+            if (i_SelectedAlbum != null)
+            {
+                labelPicturePosition.Text = string.Format("{0}/{1}",
+                    m_CurrentPhotoIndex + 1, i_SelectedAlbum.Count);
+            }
         }
 
         private void resetComponent()
         {
             Controls.Clear();
             InitializeComponent();
-        }
-
-        private void listBoxAlbums_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            m_CurrentPhotoIndex = 0;
-            updatePhotoIndex(listBoxAlbums.SelectedItem as Album);
         }
     }
 }
