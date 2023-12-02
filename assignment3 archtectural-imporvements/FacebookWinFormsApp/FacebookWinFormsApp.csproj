@@ -109,9 +109,11 @@
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="IteratorPattern\CsvIterator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SingletonPattern\CitiesDataBase.cs" />
+    <Compile Include="StrategyPattern\IParser.cs" />
     <Compile Include="UserPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -160,9 +162,7 @@
   <ItemGroup>
     <None Include="Resources\anonymous_item2.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="IteratorPattern\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

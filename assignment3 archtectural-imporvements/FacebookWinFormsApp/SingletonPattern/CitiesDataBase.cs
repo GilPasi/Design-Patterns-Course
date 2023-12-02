@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BasicFacebookFeatures.IteratorPattern;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -28,35 +29,17 @@ namespace BasicFacebookFeatures.SingletonPattern
             }
         }
 
-        private  CitiesDataBase()
-        {
-            string directoryWithAssetsFolder = Utilities.ClimbDirectoryLevels("assets");
-            string filePath = Path.Combine(directoryWithAssetsFolder, k_Subdir, k_FileName);
-
-            if (File.Exists(filePath))
+        //___Properties___
+        public IEnumerable<City> AllCities {
+            get
             {
-                string[] lines = File.ReadAllLines(filePath);
-                AllCities = new List<City>(lines.Length);
+                string directoryWithAssetsFolder = Utilities.ClimbDirectoryLevels("assets");
+                string filePath = Path.Combine(directoryWithAssetsFolder, k_Subdir, k_FileName);
 
-                for (int i = 1; i < lines.Length; i++)// Skip the headers
-                {
-                    try
-                    {
-                        AllCities.Add(City.ParseTXT(lines[i]));
-                    }
-                    catch
-                    {
-                        //Ignore invalid parse, this issue is addressed when in the FindCity() method
-                    }
-                }
+                return new CsvIterator<City>() { FilePath = filePath, Parser = City.Parser}.AllItems;
             }
         }
 
-
-        //___Properties___
-        public List<City> AllCities {
-            get;
-            private set; }
         public string ParseFormat
         {
             get

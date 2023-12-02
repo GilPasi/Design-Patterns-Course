@@ -1,17 +1,6 @@
-﻿using BasicFacebookFeatures.SingletonPattern;
-using CefSharp.DevTools.CSS;
-using CefSharp.DevTools.Network;
+﻿using BasicFacebookFeatures.StrategyPattern;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;  
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+
 
 namespace BasicFacebookFeatures
 {
@@ -89,28 +78,37 @@ namespace BasicFacebookFeatures
             }
         }
 
+        public static CityParser Parser
+        {
+            get;private set;
+        } = new CityParser();
+
+        public class CityParser : IParser<City>
+        {
+            public City Parse(string i_Text)
+            {
+                City parsedCity = new City();
+                string[] splittedText = getCityUnparsedDetails(i_Text);
+
+                const int k_MinimumCommaCount = 2;
+
+                if (splittedText.Length < k_MinimumCommaCount + 1)
+                {
+                    throw new FormatException($"A city format must contain at least {k_MinimumCommaCount} commas");
+                }
+                parsedCity.Name = splittedText[0];
+                parsedCity.m_CoordinateX = new Coordinate(parseCoordinateValue('X', splittedText[1]));
+                parsedCity.m_CoordinateY = new Coordinate(parseCoordinateValue('Y', splittedText[2]));
+
+                return parsedCity;
+            }
+        }
+
+
         //___Constructors___
 
         public City() 
         {
-        }
-
-        public static City ParseTXT(string i_Text)
-        {
-            City parsedCity = new City();
-            string[] splittedText = getCityUnparsedDetails(i_Text);
-
-            const int k_MinimumCommaCount = 2;
-
-            if (splittedText.Length < k_MinimumCommaCount + 1)
-            {
-                throw new FormatException($"A city format must contain at least {k_MinimumCommaCount} commas");
-            }
-            parsedCity.Name = splittedText[0];
-            parsedCity.m_CoordinateX = new Coordinate(parseCoordinateValue('X', splittedText[1]));
-            parsedCity.m_CoordinateY = new Coordinate(parseCoordinateValue('Y', splittedText[2]));
-
-            return parsedCity;
         }
 
         private static string[] getCityUnparsedDetails(string i_Text)
