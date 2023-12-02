@@ -1,0 +1,35 @@
+@startuml
+class City
+{
+    -static List<City> s_AllCities;
+    -Coordinate m_CoordinateY
+    -Coordinate m_CoordinateX
+    
+    +static City FindCityByName(i_CityName : string)
+    +static City ParseTXT(i_Text : string)
+    +decimal Distance(City i_Other)
+    +static City FindMidPoint(i_Cities : City[])
+    -static Coordinate[] findCitiesMean(i_Cities : City[])
+    +string ExtractCityNameFromTXT(i_Text : string)
+}
+class FormMain{
+}
+
+class CitiesDataBase <<uninheritable>>
+{
+    - static CitiesDataBase m_Instance = null
+    + static CitiesDataBase Instance()
+    -  CitiesDataBase()
+    + City FindCityByName(string i_CityName)
+}
+note "The Instance() method create\n a new instance only if there\n is no instance already" as n1
+n1..CitiesDataBase
+City o-- Coordinate
+FormMain --> CitiesDataBase
+CitiesDataBase o-- City : 0..*
+
+
+
+
+
+@enduml

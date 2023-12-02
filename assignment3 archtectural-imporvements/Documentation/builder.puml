@@ -1,0 +1,39 @@
+@startuml
+class BasicAveragizer
+{
+   + static UserAverageableDetails Average(\nUserAverageableDetails i_AverageableDetails1\nUserAverageableDetails i_AverageableDetails2)
+}
+class BasicUadBuilder
+{
+   + UserAverageableDetails Build( object[] i_AverageableArguments)
+}
+class UserAverageableDetails
+{
+    + float Age()
+    + List<Group> Groups()
+    + City()
+}
+class City
+{
+}
+class FormMain
+{
+}
+interface IUadBuilder
+{
+    UserAverageableDetails Build(\nobject[] i_AverageableArguments);
+}
+interface IUadComposer
+{
+    UserAverageableDetails Average(\nUserAverageableDetails[] i_UadsToAverage);
+    IUadBuilder Builder { get;}
+}
+FormMain ---> UserAverageableDetails
+BasicAveragizer -> UserAverageableDetails
+BasicUadBuilder -> UserAverageableDetails
+FormMain -> BasicAveragizer: configure with 2\n UserAverageableDetails\n instances
+BasicAveragizer -|> IUadComposer
+BasicUadBuilder -|> IUadBuilder
+BasicAveragizer --> BasicUadBuilder: <<configure>>
+UserAverageableDetails o-- City
+@enduml
