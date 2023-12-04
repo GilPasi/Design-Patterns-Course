@@ -7,18 +7,17 @@ using System.Text;
 using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
-using System.IO;
-using System.Linq;
 using System.Collections.ObjectModel;
 using System.Threading;
 
 namespace BasicFacebookFeatures
 {
-    public partial class UserPanel : System.Windows.Forms.UserControl
+    public partial class UserPanel : UserControl
     {
         private int m_CurrentPhotoIndex = 0;
         private string m_LoadedtUserId;
         private bool m_FormClosing = false;
+
         public UserPanel()
         {
             InitializeComponent();
@@ -28,11 +27,18 @@ namespace BasicFacebookFeatures
 
         public LoginResult SignedUserData { get; set; }
 
+        public UserCard Card
+        {
+            get;set;
+        }
+
         public string UserAge
         {
             get
             {
-                return labelAgeVal.Text;
+                return string.Empty;
+                //TODO: Fix
+                //return labelAgeVal.Text;
             }
         }
 
@@ -53,7 +59,9 @@ namespace BasicFacebookFeatures
         {
             get 
             {
-                return labelResidenceVal.Text;
+                return string.Empty;
+                //TODO: Fix
+                //return labelResidenceVal.Text;
             }
         }
 
@@ -72,7 +80,7 @@ namespace BasicFacebookFeatures
                 buttonClear.Enabled = true;
 
             }
-
+              
             buttonLoad.Text = $"Load {i_UserData.LoggedInUser.FirstName}";
             SignedUserData = i_UserData;
         }
@@ -114,7 +122,7 @@ namespace BasicFacebookFeatures
 
         private void fetchBasicInfo()
         {
-            if (!tableLayoutPanelBasicData.InvokeRequired)
+            if (!tableLayoutPanelCard.InvokeRequired)
             {
                 applyBasicInfo();
             }
@@ -122,23 +130,13 @@ namespace BasicFacebookFeatures
             {
                 listBoxAlbums.Invoke(new Action(applyBasicInfo));
             }
-
-            
         }
 
         private void applyBasicInfo()
         {
-            User user = SignedUserData.LoggedInUser;
-            userBindingSource.DataSource = new List<User> { user };
-            labelFullNameVal.Text = user.Name;
-            labelGenderVal.Text = user.Gender.ToString();
-            string birthday = user.Birthday;
-            formatBirthDay(ref birthday);
-            labelBirthdayVal.Text = DateTime.Parse(birthday).GetDateTimeFormats()[2];
-            float userAge = calcAge(birthday);
-            labelAgeVal.Text = userAge.ToString("F1");
-            labelResidenceVal.Text = user?.Location?.Name;
-            string imageUrl = user.PictureLargeURL;
+            Card = new UserCard(tableLayoutPanelCard, SignedUserData.LoggedInUser);
+            Card.ForceLoad();
+            string imageUrl = SignedUserData.LoggedInUser.PictureLargeURL;
             pictureBoxProfile.LoadAsync(imageUrl);
         }
 

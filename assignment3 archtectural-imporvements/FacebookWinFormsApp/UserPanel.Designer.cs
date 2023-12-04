@@ -42,16 +42,6 @@
             this.listBoxPages = new System.Windows.Forms.ListBox();
             this.pageBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.labelFullNameVal = new System.Windows.Forms.Label();
-            this.tableLayoutPanelBasicData = new System.Windows.Forms.TableLayoutPanel();
-            this.labelResidenceVal = new System.Windows.Forms.Label();
-            this.labelBirthdayVal = new System.Windows.Forms.Label();
-            this.labelAgeVal = new System.Windows.Forms.Label();
-            this.labelGenderVal = new System.Windows.Forms.Label();
-            this.labelResidence = new System.Windows.Forms.Label();
-            this.labelBirthday = new System.Windows.Forms.Label();
-            this.lableFullName = new System.Windows.Forms.Label();
-            this.labelGender = new System.Windows.Forms.Label();
-            this.labelAge = new System.Windows.Forms.Label();
             this.pictureBoxProfile = new System.Windows.Forms.PictureBox();
             this.buttonClear = new System.Windows.Forms.Button();
             this.buttonLoad = new System.Windows.Forms.Button();
@@ -61,18 +51,20 @@
             this.descriptionTextBox1 = new System.Windows.Forms.TextBox();
             this.imageNormalPictureBox1 = new System.Windows.Forms.PictureBox();
             this.userBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.userCardBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.tableLayoutPanelCard = new System.Windows.Forms.TableLayoutPanel();
             labelAlbums = new System.Windows.Forms.Label();
             labelPages = new System.Windows.Forms.Label();
             labelGroups = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.groupBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.albumBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pageBindingSource)).BeginInit();
-            this.tableLayoutPanelBasicData.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageThumbPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageNormalPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageNormalPictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.userCardBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // labelAlbums
@@ -196,115 +188,13 @@
             this.labelFullNameVal.Size = new System.Drawing.Size(0, 13);
             this.labelFullNameVal.TabIndex = 81;
             // 
-            // tableLayoutPanelBasicData
-            // 
-            this.tableLayoutPanelBasicData.ColumnCount = 2;
-            this.tableLayoutPanelBasicData.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 39.0411F));
-            this.tableLayoutPanelBasicData.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60.9589F));
-            this.tableLayoutPanelBasicData.Controls.Add(this.labelResidenceVal, 1, 4);
-            this.tableLayoutPanelBasicData.Controls.Add(this.labelBirthdayVal, 1, 3);
-            this.tableLayoutPanelBasicData.Controls.Add(this.labelAgeVal, 1, 2);
-            this.tableLayoutPanelBasicData.Controls.Add(this.labelGenderVal, 1, 1);
-            this.tableLayoutPanelBasicData.Controls.Add(this.labelResidence, 0, 4);
-            this.tableLayoutPanelBasicData.Controls.Add(this.labelBirthday, 0, 3);
-            this.tableLayoutPanelBasicData.Controls.Add(this.lableFullName, 0, 0);
-            this.tableLayoutPanelBasicData.Controls.Add(this.labelGender, 0, 1);
-            this.tableLayoutPanelBasicData.Controls.Add(this.labelAge, 0, 2);
-            this.tableLayoutPanelBasicData.Location = new System.Drawing.Point(142, 3);
-            this.tableLayoutPanelBasicData.Name = "tableLayoutPanelBasicData";
-            this.tableLayoutPanelBasicData.RowCount = 5;
-            this.tableLayoutPanelBasicData.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelBasicData.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelBasicData.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanelBasicData.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanelBasicData.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanelBasicData.Size = new System.Drawing.Size(233, 100);
-            this.tableLayoutPanelBasicData.TabIndex = 80;
-            // 
-            // labelResidenceVal
-            // 
-            this.labelResidenceVal.AutoSize = true;
-            this.labelResidenceVal.Location = new System.Drawing.Point(93, 80);
-            this.labelResidenceVal.Name = "labelResidenceVal";
-            this.labelResidenceVal.Size = new System.Drawing.Size(0, 13);
-            this.labelResidenceVal.TabIndex = 65;
-            // 
-            // labelBirthdayVal
-            // 
-            this.labelBirthdayVal.AutoSize = true;
-            this.labelBirthdayVal.Location = new System.Drawing.Point(93, 60);
-            this.labelBirthdayVal.Name = "labelBirthdayVal";
-            this.labelBirthdayVal.Size = new System.Drawing.Size(0, 13);
-            this.labelBirthdayVal.TabIndex = 65;
-            // 
-            // labelAgeVal
-            // 
-            this.labelAgeVal.AutoSize = true;
-            this.labelAgeVal.Location = new System.Drawing.Point(93, 40);
-            this.labelAgeVal.Name = "labelAgeVal";
-            this.labelAgeVal.Size = new System.Drawing.Size(0, 13);
-            this.labelAgeVal.TabIndex = 65;
-            // 
-            // labelGenderVal
-            // 
-            this.labelGenderVal.AutoSize = true;
-            this.labelGenderVal.Location = new System.Drawing.Point(93, 20);
-            this.labelGenderVal.Name = "labelGenderVal";
-            this.labelGenderVal.Size = new System.Drawing.Size(0, 13);
-            this.labelGenderVal.TabIndex = 65;
-            // 
-            // labelResidence
-            // 
-            this.labelResidence.AutoSize = true;
-            this.labelResidence.Location = new System.Drawing.Point(3, 80);
-            this.labelResidence.Name = "labelResidence";
-            this.labelResidence.Size = new System.Drawing.Size(61, 13);
-            this.labelResidence.TabIndex = 65;
-            this.labelResidence.Text = "Residence:";
-            // 
-            // labelBirthday
-            // 
-            this.labelBirthday.AutoSize = true;
-            this.labelBirthday.Location = new System.Drawing.Point(3, 60);
-            this.labelBirthday.Name = "labelBirthday";
-            this.labelBirthday.Size = new System.Drawing.Size(48, 13);
-            this.labelBirthday.TabIndex = 64;
-            this.labelBirthday.Text = "Birthday:";
-            // 
-            // lableFullName
-            // 
-            this.lableFullName.AutoSize = true;
-            this.lableFullName.Location = new System.Drawing.Point(3, 0);
-            this.lableFullName.Name = "lableFullName";
-            this.lableFullName.Size = new System.Drawing.Size(38, 13);
-            this.lableFullName.TabIndex = 61;
-            this.lableFullName.Text = "Name:";
-            // 
-            // labelGender
-            // 
-            this.labelGender.AutoSize = true;
-            this.labelGender.Location = new System.Drawing.Point(3, 20);
-            this.labelGender.Name = "labelGender";
-            this.labelGender.Size = new System.Drawing.Size(45, 13);
-            this.labelGender.TabIndex = 59;
-            this.labelGender.Text = "Gender:";
-            // 
-            // labelAge
-            // 
-            this.labelAge.AutoSize = true;
-            this.labelAge.Location = new System.Drawing.Point(3, 40);
-            this.labelAge.Name = "labelAge";
-            this.labelAge.Size = new System.Drawing.Size(29, 13);
-            this.labelAge.TabIndex = 56;
-            this.labelAge.Text = "Age:";
-            // 
             // pictureBoxProfile
             // 
             this.pictureBoxProfile.Image = global::BasicFacebookFeatures.Properties.Resources.unkown_profile_male;
             this.pictureBoxProfile.InitialImage = null;
-            this.pictureBoxProfile.Location = new System.Drawing.Point(28, 3);
+            this.pictureBoxProfile.Location = new System.Drawing.Point(19, 3);
             this.pictureBoxProfile.Name = "pictureBoxProfile";
-            this.pictureBoxProfile.Size = new System.Drawing.Size(108, 100);
+            this.pictureBoxProfile.Size = new System.Drawing.Size(123, 117);
             this.pictureBoxProfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxProfile.TabIndex = 79;
             this.pictureBoxProfile.TabStop = false;
@@ -381,8 +271,27 @@
             // 
             this.userBindingSource.DataSource = typeof(FacebookWrapper.ObjectModel.User);
             // 
+            // userCardBindingSource
+            // 
+            this.userCardBindingSource.DataSource = typeof(BasicFacebookFeatures.UserCard);
+            // 
+            // tableLayoutPanelCard
+            // 
+            this.tableLayoutPanelCard.BackColor = System.Drawing.SystemColors.Control;
+            this.tableLayoutPanelCard.ColumnCount = 2;
+            this.tableLayoutPanelCard.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelCard.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelCard.Location = new System.Drawing.Point(148, 3);
+            this.tableLayoutPanelCard.Name = "tableLayoutPanelCard";
+            this.tableLayoutPanelCard.RowCount = 1;
+            this.tableLayoutPanelCard.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelCard.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelCard.Size = new System.Drawing.Size(236, 117);
+            this.tableLayoutPanelCard.TabIndex = 114;
+            // 
             // UserPanel
             // 
+            this.Controls.Add(this.tableLayoutPanelCard);
             this.Controls.Add(this.descriptionTextBox1);
             this.Controls.Add(this.imageNormalPictureBox1);
             this.Controls.Add(this.descriptionTextBox);
@@ -400,20 +309,18 @@
             this.Controls.Add(labelPages);
             this.Controls.Add(labelGroups);
             this.Controls.Add(this.labelFullNameVal);
-            this.Controls.Add(this.tableLayoutPanelBasicData);
             this.Controls.Add(this.pictureBoxProfile);
             this.Name = "UserPanel";
-            this.Size = new System.Drawing.Size(470, 621);
+            this.Size = new System.Drawing.Size(481, 621);
             ((System.ComponentModel.ISupportInitialize)(this.groupBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.albumBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pageBindingSource)).EndInit();
-            this.tableLayoutPanelBasicData.ResumeLayout(false);
-            this.tableLayoutPanelBasicData.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageThumbPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageNormalPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageNormalPictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.userBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.userCardBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -427,16 +334,6 @@
         private System.Windows.Forms.ListBox listBoxAlbums;
         private System.Windows.Forms.ListBox listBoxPages;
         private System.Windows.Forms.Label labelFullNameVal;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelBasicData;
-        private System.Windows.Forms.Label labelResidenceVal;
-        private System.Windows.Forms.Label labelBirthdayVal;
-        private System.Windows.Forms.Label labelAgeVal;
-        private System.Windows.Forms.Label labelGenderVal;
-        private System.Windows.Forms.Label labelResidence;
-        private System.Windows.Forms.Label labelBirthday;
-        private System.Windows.Forms.Label lableFullName;
-        private System.Windows.Forms.Label labelGender;
-        private System.Windows.Forms.Label labelAge;
         private System.Windows.Forms.PictureBox pictureBoxProfile;
         private System.Windows.Forms.Button buttonClear;
         private System.Windows.Forms.Button buttonLoad;
@@ -449,5 +346,7 @@
         private System.Windows.Forms.TextBox descriptionTextBox1;
         private System.Windows.Forms.PictureBox imageNormalPictureBox1;
         private System.Windows.Forms.BindingSource userBindingSource;
+        private System.Windows.Forms.BindingSource userCardBindingSource;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelCard;
     }
 }

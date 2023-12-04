@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CefSharp.DevTools.CSS;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -49,5 +50,33 @@ namespace BasicFacebookFeatures
                 i_ListBoxToFill.Items.Add(item);
             }
         }
+
+        public static void AssertPositive(int i_Number, 
+            string i_ErrorMessage = null)
+        {
+            if (i_Number < 0)
+            {
+                string errorMessage = i_ErrorMessage == null
+                    ? $"The number must be positive, got{i_Number}" : i_ErrorMessage;
+                throw new ArgumentOutOfRangeException(errorMessage);
+            }
+        }
+
+        public static T[] SwapInArray<T>(ref T[] io_Array, int idx1, int idx2)
+        {
+            T holder = io_Array[idx1];
+            io_Array[idx1] = io_Array[idx2];
+            io_Array[idx2] = holder;
+            return io_Array;
+        }
+
+        public static void AssignToReadOnlyClass<T>(ref T io_Reference, T i_Argument)where T : class
+        {
+            if (io_Reference == null)
+            {
+                io_Reference = i_Argument;
+            }
+        }
+
     }
 }
