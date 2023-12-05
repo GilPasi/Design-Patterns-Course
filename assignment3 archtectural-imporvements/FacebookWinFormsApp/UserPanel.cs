@@ -122,13 +122,18 @@ namespace BasicFacebookFeatures
 
         private void fetchBasicInfo()
         {
-            if (!tableLayoutPanelCard.InvokeRequired)
+            fetchItems(tableLayoutPanelCard, new Action(applyBasicInfo));
+        }
+
+        private void fetchItems(Control i_BindedControl, Action i_FetchAction)
+        {
+            if (!i_BindedControl.InvokeRequired)
             {
-                applyBasicInfo();
+                i_FetchAction.Invoke();
             }
             else
             {
-                listBoxAlbums.Invoke(new Action(applyBasicInfo));
+                i_BindedControl.Invoke(i_FetchAction);
             }
         }
 
@@ -142,19 +147,22 @@ namespace BasicFacebookFeatures
 
         private void fetchGroups()
         {
-            fetchItems<Group>(SignedUserData.LoggedInUser.Groups, listBoxGroups, groupBindingSource);
+            fetchItems(listBoxGroups,
+                new Action(() => groupBindingSource.DataSource = SignedUserData.LoggedInUser.Groups));
             referNoItemsToRetrieve(listBoxGroups, "groups");
         }
 
         private void fetchPages()
         {
-            fetchItems<Page>(SignedUserData.LoggedInUser.LikedPages, listBoxPages, pageBindingSource);
+            fetchItems(listBoxPages,
+                new Action(() => pageBindingSource.DataSource = SignedUserData.LoggedInUser.LikedPages));
             referNoItemsToRetrieve(listBoxPages, "pages");
         }
 
         private void fetchAlbums()
         {
-            fetchItems<Album>(SignedUserData.LoggedInUser.Albums, listBoxAlbums, albumBindingSource);
+            fetchItems(listBoxAlbums, 
+                new Action(() => albumBindingSource.DataSource = SignedUserData.LoggedInUser.Albums));
             referNoItemsToRetrieve(listBoxAlbums, "albums");
             Album selectedAlbum = null;
             listBoxAlbums.Invoke(new Action(() => selectedAlbum = listBoxAlbums.SelectedItem as Album));
@@ -169,18 +177,6 @@ namespace BasicFacebookFeatures
                 MessageBox.Show(noRetriveMessage);
             }
 
-        }
-
-        private void fetchItems<T>(Collection<T> i_allItems, Control i_BindedControl, BindingSource i_BinfingSource)
-        {
-            if (!i_BindedControl.InvokeRequired)
-            {
-                i_BinfingSource.DataSource = i_allItems;
-            }
-            else
-            {
-                listBoxAlbums.Invoke(new Action(() => i_BinfingSource.DataSource = i_allItems));
-            }
         }
 
         //___Handlers___

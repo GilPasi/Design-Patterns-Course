@@ -94,27 +94,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BuilderPattern\BasicUadBuilder.cs" />
-    <Compile Include="BuilderPattern\IUadBuilder.cs" />
-    <Compile Include="BuilderPattern\IUadComposer.cs" />
-    <Compile Include="BuilderPattern\UserAverageableDetails.cs" />
-    <Compile Include="BuilderPattern\BasicAverageizer.cs" />
+    <Compile Include="Patterns\Builder\BasicUadBuilder.cs" />
+    <Compile Include="Patterns\Builder\IUadBuilder.cs" />
+    <Compile Include="Patterns\Builder\IUadComposer.cs" />
+    <Compile Include="Patterns\Builder\UserAverageableDetails.cs" />
+    <Compile Include="Patterns\Builder\BasicAverageizer.cs" />
     <Compile Include="City.cs" />
     <Compile Include="Coordinate.cs" />
-    <Compile Include="AdapterPattern\FormattedAlbum.cs" />
-    <Compile Include="AdapterPattern\FormattedPage.cs" />
+    <Compile Include="Patterns\Adapter\FormattedAlbum.cs" />
+    <Compile Include="Patterns\Adapter\FormattedPage.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="IteratorPattern\CsvIterator.cs" />
+    <Compile Include="Patterns\Decorator\CoreUserCard.cs" />
+    <Compile Include="Patterns\Decorator\UserCardDecorator.cs" />
+    <Compile Include="Patterns\Decorator\UserCardMixin.cs" />
+    <Compile Include="Patterns\Iterator\CsvIterator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SingletonPattern\CitiesDataBase.cs" />
-    <Compile Include="StrategyPattern\IParser.cs" />
-    <Compile Include="UserCard.cs" />
+    <Compile Include="Patterns\Singleton\CitiesDataBase.cs" />
+    <Compile Include="Patterns\Strategy\IParser.cs" />
+    <Compile Include="Patterns\Decorator\UserCard.cs" />
     <Compile Include="UserPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>

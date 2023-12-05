@@ -53,6 +53,7 @@
             this.userBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.userCardBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tableLayoutPanelCard = new System.Windows.Forms.TableLayoutPanel();
+            this.NameLabel = new System.Windows.Forms.Label();
             labelAlbums = new System.Windows.Forms.Label();
             labelPages = new System.Windows.Forms.Label();
             labelGroups = new System.Windows.Forms.Label();
@@ -281,7 +282,7 @@
             this.tableLayoutPanelCard.ColumnCount = 2;
             this.tableLayoutPanelCard.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanelCard.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelCard.Location = new System.Drawing.Point(148, 3);
+            this.tableLayoutPanelCard.Location = new System.Drawing.Point(148, 19);
             this.tableLayoutPanelCard.Name = "tableLayoutPanelCard";
             this.tableLayoutPanelCard.RowCount = 1;
             this.tableLayoutPanelCard.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -289,8 +290,18 @@
             this.tableLayoutPanelCard.Size = new System.Drawing.Size(236, 117);
             this.tableLayoutPanelCard.TabIndex = 114;
             // 
+            // NameLabel
+            // 
+            this.NameLabel.AutoSize = true;
+            this.NameLabel.Location = new System.Drawing.Point(148, 3);
+            this.NameLabel.Name = "NameLabel";
+            this.NameLabel.Size = new System.Drawing.Size(45, 13);
+            this.NameLabel.TabIndex = 0;
+            this.NameLabel.Text = "<name>";
+            // 
             // UserPanel
             // 
+            this.Controls.Add(this.NameLabel);
             this.Controls.Add(this.tableLayoutPanelCard);
             this.Controls.Add(this.descriptionTextBox1);
             this.Controls.Add(this.imageNormalPictureBox1);
@@ -348,5 +359,6 @@
         private System.Windows.Forms.BindingSource userBindingSource;
         private System.Windows.Forms.BindingSource userCardBindingSource;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelCard;
+        private System.Windows.Forms.Label NameLabel;
     }
 }
