@@ -8,7 +8,7 @@ namespace BasicFacebookFeatures.Patterns.Decorator
     {
         protected UserCardMixin m_InnerDecorator;
         protected Control m_UiComponent;
-
+        public abstract Control UiComponent { get; set; }
 
         public UserCardDecorator(UserCardMixin i_InnerDecorator)
         {
@@ -42,5 +42,28 @@ namespace BasicFacebookFeatures.Patterns.Decorator
                     $"'new {this.GetType().Name}(new CoreUserCard(<UserIntance>);')");
             }
         }
+
+        protected void AssertDataAndUiExist()
+        {
+            if (DataUser == null)
+            {
+                throw new MissingMemberException("Cannot load a card while the {0} is missing," +
+                    "If you want to reset the state, simply dispose it and set a new IUserCard object");
+            }
+
+            if (UiComponent == null)
+            {
+                throw new MissingMemberException(
+                    "UiComponent is missing, please set it before loading the IUserCard object");
+            }
+        }
+
+        public override void Load()
+        {
+            AssertDataAndUiExist();
+            AssignData();
+            InnerDecorator.Load();
+        }
+        public abstract void AssignData();
     }
 }

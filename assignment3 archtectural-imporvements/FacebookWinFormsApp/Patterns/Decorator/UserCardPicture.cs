@@ -24,18 +24,13 @@ namespace BasicFacebookFeatures.Patterns.Decorator
             }
             set
             {
-                Utilities.AssertType(value, typeof(PictureBox));
+                Utilities.AssertType<PictureBox>(value);
                 m_Picture = (PictureBox)value;
             }
         }
 
-        public override void AssignData(bool i_IsHardLoad)
+        public override void AssignData()
         {
-            //TODO: Create a new Base class for hard/soft loaders
-
-
-
-            //Hard / Soft loading has no meaning regarding a picture control: ignore
             string imageUrl = DataUser.PictureLargeURL;
             m_Picture.LoadAsync(imageUrl);
         }

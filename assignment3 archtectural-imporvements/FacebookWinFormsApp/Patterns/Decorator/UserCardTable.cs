@@ -9,14 +9,14 @@ namespace BasicFacebookFeatures
     public class UserCardTable : UserCardDecorator
     {
         private TableLayoutPanel m_table;
+        //Shall not be altered throughout the run
+
         protected Utilities.Asserter Asserter 
         { get; } = new Utilities.Asserter();
-        //Shall not be altered throughout the run
 
         public UserCardTable(UserCardMixin i_InnerDecorator) : base(i_InnerDecorator)
         {
         }
-
 
         public float UserAge
         { 
@@ -50,10 +50,11 @@ namespace BasicFacebookFeatures
             }
             set
             {
-                Utilities.AssertType(value, typeof(TableLayoutPanel));
+                Utilities.AssertType<TableLayoutPanel>(value);
                 Control tableAsControl = m_table;
                 Utilities.AssignToReadOnlyClass(ref tableAsControl, value);
                 m_table = tableAsControl as TableLayoutPanel;
+
             }
         }
 
@@ -66,71 +67,56 @@ namespace BasicFacebookFeatures
             }
         }
 
-        public override void AssignData(bool i_IgnoreVacancy = true)
+        public override void AssignData()
         {
-            InnerDecorator.Load(i_IgnoreVacancy);
             if (m_table != null && InnerDecorator.DataUser != null)
             {
                 int i = 0;
-                setGender(i++, i_IgnoreVacancy);
-                setBirthday(i++, i_IgnoreVacancy);
-                setAge(i++, i_IgnoreVacancy);
-                setResidence(i++, i_IgnoreVacancy);
+                setGender(i++);
+                setBirthday(i++);
+                setAge(i++);
+                setResidence(i++);
             }
         }
 
-        private void setResidence(int i_Line, bool i_IgnoreVacancy = true)
+        private void setResidence(int i_Line)
         {
-            if (checkIfCellIsOverrideable(i_Line, i_IgnoreVacancy))
-            {
-                SetTextInCell(i_Column: 0, i_Row: i_Line, nameToFieldReformat("Residence"));
-                string resName = InnerDecorator.DataUser?.Location?.Name;
-                SetTextInCell(i_Column: 1, i_Row: i_Line, resName);
-            }
+            SetTextInCell(i_Column: 0, i_Row: i_Line, nameToFieldReformat("Residence"));
+            string resName = InnerDecorator.DataUser?.Location?.Name;
+            SetTextInCell(i_Column: 1, i_Row: i_Line, resName);
+            
         }
 
-        private void setAge(int i_Line, bool i_IgnoreVacancy = true)
+        private void setAge(int i_Line)
         {
-            if (checkIfCellIsOverrideable(i_Line, i_IgnoreVacancy))
+            SetTextInCell(i_Column: 0, i_Row: i_Line, nameToFieldReformat("Age"));
+            if (!string.IsNullOrEmpty(DataUser.Birthday))
             {
-                SetTextInCell(i_Column: 0, i_Row: i_Line, nameToFieldReformat("Age"));
-                if (!string.IsNullOrEmpty(DataUser.Birthday))
-                {
-                    float age = calcAge(DataUser.Birthday);
-                    SetTextInCell(i_Column: 1, i_Row: i_Line, age.ToString("F1"));
-                }
+                float age = calcAge(DataUser.Birthday);
+                SetTextInCell(i_Column: 1, i_Row: i_Line, age.ToString("F1"));
             }
+            
         }
 
-        private void setBirthday(int i_Line, bool i_IgnoreVacancy = true)
+        private void setBirthday(int i_Line)
         {
             if (DataUser.Birthday == null)
             {
                 return;//Ignore if not exist
             }
 
-            if (checkIfCellIsOverrideable(i_Line, i_IgnoreVacancy))
-            {
-                string birthday = formatBirthDay(DataUser.Birthday);
-                string[] possibleFormats = DateTime.Parse(birthday).GetDateTimeFormats();
-                string birthdayLiteral = possibleFormats[1];
-                SetTextInCell(i_Column: 0, i_Row: i_Line, nameToFieldReformat("Birthday"));
-                SetTextInCell(i_Column: 1, i_Row: i_Line, formatBirthDay(birthdayLiteral));
-            }
+            string birthday = formatBirthDay(DataUser.Birthday);
+            string[] possibleFormats = DateTime.Parse(birthday).GetDateTimeFormats();
+            string birthdayLiteral = possibleFormats[1];
+            SetTextInCell(i_Column: 0, i_Row: i_Line, nameToFieldReformat("Birthday"));
+            SetTextInCell(i_Column: 1, i_Row: i_Line, formatBirthDay(birthdayLiteral));
+            
         }
 
-        private void setGender(int i_Line, bool i_IgnoreVacancy = true)
+        private void setGender(int i_Line)
         {
-            if (checkIfCellIsOverrideable(i_Line, i_IgnoreVacancy))
-            {
-                SetTextInCell(i_Column: 0, i_Row: i_Line, nameToFieldReformat("Gender"));
-                SetTextInCell(i_Column: 1, i_Row: i_Line, DataUser?.Gender.ToString());
-            }
-        }
-
-        private bool checkIfCellIsOverrideable(int i_Line, bool i_IgnoreVacancy)
-        {
-            return !i_IgnoreVacancy || Table.GetControlFromPosition(column: 0, row: i_Line) == null;
+            SetTextInCell(i_Column: 0, i_Row: i_Line, nameToFieldReformat("Gender"));
+            SetTextInCell(i_Column: 1, i_Row: i_Line, DataUser?.Gender.ToString());
         }
 
         protected void SetTextInCell(int i_Column, int i_Row, string i_TextToSet)
@@ -226,6 +212,5 @@ namespace BasicFacebookFeatures
             Utilities.SwapInArray(ref unformattedBirthdayAsArr, 1, 4);
             return new string(unformattedBirthdayAsArr);
         }
-
     }
 }

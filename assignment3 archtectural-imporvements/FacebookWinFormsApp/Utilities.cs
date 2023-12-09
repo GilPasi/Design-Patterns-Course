@@ -90,13 +90,14 @@ namespace BasicFacebookFeatures
             }
         }
 
-        public static void AssertType<T>(T i_Item, Type i_Type, string i_ErrorMessage = null)
+        public static void AssertType<T>(object i_Item, string i_ErrorMessage = null)
         {
+            Type requestedType = typeof(T);
             string errorMessage = string.IsNullOrEmpty(i_ErrorMessage)? 
-                $"Type mismatch,expected{i_Type} while got{i_Item.GetType()}" :
+                $"Type mismatch,expected{requestedType} while got{i_Item.GetType()}" :
                 i_ErrorMessage;
 
-            if (!i_Item.GetType().Equals(i_Type))
+            if (!i_Item.GetType().Equals(requestedType))
             {
                 throw new ArgumentException(errorMessage);
             }

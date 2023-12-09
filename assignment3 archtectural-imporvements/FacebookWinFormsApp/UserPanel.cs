@@ -126,10 +126,14 @@ namespace BasicFacebookFeatures
 
         private void applyBasicInfo()
         {
-            CoreUserCard coreCard =
-                new CoreUserCard(SignedUserData.LoggedInUser) { UiComponent = NameLabel };
+            CoreUserCard coreCard = new CoreUserCard(SignedUserData.LoggedInUser);
+
+            UserCardLabel labelDecorator =
+                new UserCardLabel(coreCard) { UiComponent = NameLabel };
+
             UserCardPicture pictureDecorator =
-                new UserCardPicture(coreCard) { UiComponent = pictureBoxProfile };
+                new UserCardPicture(labelDecorator) { UiComponent = pictureBoxProfile };
+
             Card = new UserCardTable(pictureDecorator) { UiComponent = tableLayoutPanelCard};
             Card.Load();
         }

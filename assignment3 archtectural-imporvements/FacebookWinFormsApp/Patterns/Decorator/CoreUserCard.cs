@@ -7,7 +7,6 @@ namespace BasicFacebookFeatures.Patterns.Decorator
     //Essentially the core decorator
     public class CoreUserCard : UserCardMixin
     {
-        private Label m_Label;
         private User m_User;
 
         public CoreUserCard(User i_DataUser)
@@ -15,26 +14,6 @@ namespace BasicFacebookFeatures.Patterns.Decorator
             if (i_DataUser != null)
             {
                 m_User = i_DataUser;
-            }
-        }
-
-        public override Control UiComponent
-        {
-            get
-            {
-                return m_Label;
-            }
-            set
-            {
-                if (value is Label)
-                {
-                    Utilities.AssignToReadOnlyClass(ref m_Label, value as Label);
-                }
-                else
-                {
-                    throw new ArgumentException("This class'es UiComponent is a Label," +
-                        $" cannot accept {value.GetType()} instead");
-                }
             }
         }
 
@@ -47,11 +26,12 @@ namespace BasicFacebookFeatures.Patterns.Decorator
             }
         }
 
-        public override void AssignData(bool i_IgnoreVacancy)
+        public override void Load()
         {
-            UiComponent.Text = i_IgnoreVacancy ?
-                            DataUser.Name :
-                            UiComponent.Text + DataUser.Name;
+            /*This specific core-decorator there is no action required.
+            Nonetheless it is possible to create other types of core decorators in the
+            future that will require some action at the end of the loading chain.
+            For this reason it is better to leave the current implementation as is*/
         }
     }
 }
