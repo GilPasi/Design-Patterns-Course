@@ -112,6 +112,7 @@
     <Compile Include="Patterns\Decorator\CoreUserCard.cs" />
     <Compile Include="Patterns\Decorator\UserCardDecorator.cs" />
     <Compile Include="Patterns\Decorator\UserCardMixin.cs" />
+    <Compile Include="Patterns\Decorator\UserCardPicture.cs" />
     <Compile Include="Patterns\Iterator\CsvIterator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

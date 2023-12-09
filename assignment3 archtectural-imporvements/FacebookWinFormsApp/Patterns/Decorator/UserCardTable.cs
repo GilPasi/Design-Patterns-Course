@@ -9,32 +9,14 @@ namespace BasicFacebookFeatures
     public class UserCardTable : UserCardDecorator
     {
         private TableLayoutPanel m_table;
-        private UserCardMixin m_InnerDecorator;
         protected Utilities.Asserter Asserter 
         { get; } = new Utilities.Asserter();
         //Shall not be altered throughout the run
 
-        public UserCardTable(UserCardMixin i_InnerDecorator)
+        public UserCardTable(UserCardMixin i_InnerDecorator) : base(i_InnerDecorator)
         {
-            AssertInnerDecorator(i_InnerDecorator);
-            m_InnerDecorator = i_InnerDecorator;
         }
 
-        public override UserCardMixin InnerDecorator
-        {
-            get
-            {
-                return m_InnerDecorator;
-            }
-        }
-
-        public override User DataUser
-        {
-            get
-            {
-                return InnerDecorator.DataUser;
-            }
-        }
 
         public float UserAge
         { 

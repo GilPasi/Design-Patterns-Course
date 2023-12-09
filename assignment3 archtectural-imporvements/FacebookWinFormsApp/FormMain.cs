@@ -18,7 +18,6 @@ namespace BasicFacebookFeatures
             FacebookWrapper.FacebookService.s_CollectionLimit = 25;
             buttonLogout.Click += userPanel1.MainFormLogout_Clicked;
             buttonLogout.Click += userPanel2.MainFormLogout_Clicked;
-
         }
 
         //___Handlers___
@@ -103,7 +102,5 @@ namespace BasicFacebookFeatures
 
             return userAverageableDetails;
         }
-
-
     }
 }
