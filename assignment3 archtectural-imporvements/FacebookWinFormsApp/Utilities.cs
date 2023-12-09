@@ -10,8 +10,9 @@ using System.Windows.Forms;
 
 namespace BasicFacebookFeatures
 {
-    internal static class Utilities
+    public static class Utilities
     {
+
         public static string GetDefaultUserIdentifiers()
         {
             const string k_FileName = "decoupled_identifiers.txt";
@@ -51,14 +52,25 @@ namespace BasicFacebookFeatures
             }
         }
 
-        public static void AssertPositive(int i_Number, 
-            string i_ErrorMessage = null)
+        public class Asserter
         {
-            if (i_Number < 0)
+            private string ErrorMessage { get; set; }
+            public void AssertPositive(params int[] i_Numbers)
             {
-                string errorMessage = i_ErrorMessage == null
-                    ? $"The number must be positive, got{i_Number}" : i_ErrorMessage;
-                throw new ArgumentOutOfRangeException(errorMessage);
+                foreach (int number in i_Numbers)
+                {
+                    AssertPositive(number);
+                }
+            }
+
+            public void AssertPositive(int i_Number)
+            {
+                if (i_Number < 0)
+                {
+                    string errorMessage = ErrorMessage == null
+                        ? $"The number must be positive, got{i_Number}" : ErrorMessage;
+                    throw new ArgumentOutOfRangeException(errorMessage);
+                }
             }
         }
 
@@ -78,5 +90,16 @@ namespace BasicFacebookFeatures
             }
         }
 
+        public static void AssertType<T>(T i_Item, Type i_Type, string i_ErrorMessage = null)
+        {
+            string errorMessage = string.IsNullOrEmpty(i_ErrorMessage)? 
+                $"Type mismatch,expected{i_Type} while got{i_Item.GetType()}" :
+                i_ErrorMessage;
+
+            if (!i_Item.GetType().Equals(i_Type))
+            {
+                throw new ArgumentException(errorMessage);
+            }
+        }
     }
 }

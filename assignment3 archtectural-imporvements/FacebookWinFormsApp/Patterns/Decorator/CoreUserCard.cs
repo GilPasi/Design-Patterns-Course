@@ -10,6 +10,14 @@ namespace BasicFacebookFeatures.Patterns.Decorator
         private Label m_Label;
         private User m_User;
 
+        public CoreUserCard(User i_DataUser)
+        {
+            if (i_DataUser != null)
+            {
+                m_User = i_DataUser;
+            }
+        }
+
         public override Control UiComponent
         {
             get
@@ -30,29 +38,20 @@ namespace BasicFacebookFeatures.Patterns.Decorator
             }
         }
 
+        //Readonly, dispose the UserCard object if a reset is needed
         public override User DataUser
         {
             get
             {
                 return m_User;
-                //Imututable anyway
-            }
-            set
-            {
-                Utilities.AssignToReadOnlyClass(ref m_User, value);
             }
         }
 
-        public override void HardLoad()
+        public override void AssignData(bool i_IgnoreVacancy)
         {
-            AssertDataAndUiExist();
-            UiComponent.Text = DataUser.Name;
-        }
-
-        public override void SoftLoad()
-        {
-            AssertDataAndUiExist();
-            UiComponent.Text += DataUser.Name;
+            UiComponent.Text = i_IgnoreVacancy ?
+                            DataUser.Name :
+                            UiComponent.Text + DataUser.Name;
         }
     }
 }

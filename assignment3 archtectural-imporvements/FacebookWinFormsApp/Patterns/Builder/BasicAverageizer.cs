@@ -41,11 +41,12 @@ namespace BasicFacebookFeatures.BuilderPattern
                 throw new MissingMemberException("Cannot average with no builder data-member, please append an IUadBuilder instance");
             }
 
-            UserAverageableDetails avg = new UserAverageableDetails();
+            List<UserAverageableDetails> filteredUads = 
+                i_UadsToaverage.Where(item => item != null).ToList();
 
-            float age = GetAverageAge(i_UadsToaverage);
-            List<Group> groups = GetCommonGroups(i_UadsToaverage);
-            City city = GetClosestCity(i_UadsToaverage);
+            float age = GetAverageAge(filteredUads.ToArray());
+            List<Group> groups = GetCommonGroups(filteredUads.ToArray());
+            City city = GetClosestCity(filteredUads.ToArray());
 
             return Builder.Build(age, groups, city);
         }
@@ -71,7 +72,9 @@ namespace BasicFacebookFeatures.BuilderPattern
             List<Group> massIntersectedList = i_UadsToAverage.First().Groups;
             foreach (UserAverageableDetails uad in i_UadsToAverage)
             {
-                massIntersectedList =  intersectGroups(massIntersectedList, uad.Groups);
+                {
+                    massIntersectedList =  intersectGroups(massIntersectedList, uad.Groups);
+                }
             }
 
             return massIntersectedList;

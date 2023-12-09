@@ -274,7 +274,7 @@
             // 
             // userCardBindingSource
             // 
-            this.userCardBindingSource.DataSource = typeof(BasicFacebookFeatures.UserCard);
+            this.userCardBindingSource.DataSource = typeof(BasicFacebookFeatures.UserCardTable);
             // 
             // tableLayoutPanelCard
             // 
@@ -282,22 +282,24 @@
             this.tableLayoutPanelCard.ColumnCount = 2;
             this.tableLayoutPanelCard.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanelCard.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelCard.Location = new System.Drawing.Point(148, 19);
+            this.tableLayoutPanelCard.Location = new System.Drawing.Point(148, 21);
             this.tableLayoutPanelCard.Name = "tableLayoutPanelCard";
             this.tableLayoutPanelCard.RowCount = 1;
             this.tableLayoutPanelCard.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelCard.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelCard.Size = new System.Drawing.Size(236, 117);
+            this.tableLayoutPanelCard.Size = new System.Drawing.Size(236, 99);
             this.tableLayoutPanelCard.TabIndex = 114;
             // 
             // NameLabel
             // 
             this.NameLabel.AutoSize = true;
+            this.NameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.NameLabel.ForeColor = System.Drawing.Color.Teal;
             this.NameLabel.Location = new System.Drawing.Point(148, 3);
             this.NameLabel.Name = "NameLabel";
-            this.NameLabel.Size = new System.Drawing.Size(45, 13);
+            this.NameLabel.Size = new System.Drawing.Size(45, 15);
             this.NameLabel.TabIndex = 0;
-            this.NameLabel.Text = "<name>";
+            this.NameLabel.Text = "Name";
             // 
             // UserPanel
             // 

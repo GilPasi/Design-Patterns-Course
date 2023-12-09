@@ -7,18 +7,20 @@ namespace BasicFacebookFeatures.Patterns.Decorator
     {
 
         /*The difference between a hard and a soft load is within the permission 
-        to alter the orginal UI structre in the name of loading data.
+        to alter the orginal UI structre in the name of data loading.
         e.g if a set table does not support enough rows to satisfy all the data
         in the IUserCard instance, a hard load will proactively add more rows to support its needs,
         whereas a soft load will simply ignore the remaining data.*/
 
-        public abstract void SoftLoad();
-        public abstract void HardLoad();
+        public void Load(bool i_IsHardLoad = true)
+        {
+            AssertDataAndUiExist();
+            AssignData(i_IsHardLoad);
+        }
 
+        public abstract void AssignData(bool i_IsHardLoad);
         public abstract Control UiComponent { get; set; }
-
-        public abstract User DataUser { get; set; }
-
+        public abstract User DataUser { get;}
         protected void AssertDataAndUiExist()
         {
             if (DataUser == null)

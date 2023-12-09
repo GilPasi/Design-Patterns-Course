@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
-using System.Collections.ObjectModel;
 using System.Threading;
+using BasicFacebookFeatures.Patterns.Decorator;
 
 namespace BasicFacebookFeatures
 {
@@ -17,6 +13,7 @@ namespace BasicFacebookFeatures
         private int m_CurrentPhotoIndex = 0;
         private string m_LoadedtUserId;
         private bool m_FormClosing = false;
+        public UserCardTable Card{ get; private set; }
 
         public UserPanel()
         {
@@ -27,29 +24,14 @@ namespace BasicFacebookFeatures
 
         public LoginResult SignedUserData { get; set; }
 
-        public UserCard Card
-        {
-            get;set;
-        }
-
-        public string UserAge
-        {
-            get
-            {
-                return string.Empty;
-                //TODO: Fix
-                //return labelAgeVal.Text;
-            }
-        }
-
         public List<Group> UserGroups
         {
             get
             {
                 List<Group> userGroups = new List<Group>();
-                foreach (object item in listBoxGroups.Items)
+                foreach (Group item in Card.DataUser.Groups)
                 {
-                    userGroups.Add(item as Group);
+                    userGroups.Add(item);
                 }
                 return userGroups;
             }
@@ -59,9 +41,14 @@ namespace BasicFacebookFeatures
         {
             get 
             {
-                return string.Empty;
-                //TODO: Fix
-                //return labelResidenceVal.Text;
+                return Card.DataUser.Location.Name;
+            }
+        }
+
+        public bool IsLoaded{
+            get
+            {
+                return Card != null;
             }
         }
 
@@ -139,8 +126,11 @@ namespace BasicFacebookFeatures
 
         private void applyBasicInfo()
         {
-            Card = new UserCard(tableLayoutPanelCard, SignedUserData.LoggedInUser);
-            Card.ForceLoad();
+            Card = new UserCardTable(
+            new CoreUserCard(SignedUserData.LoggedInUser){ UiComponent = NameLabel })
+            { UiComponent = tableLayoutPanelCard};
+            Card.Load();
+
             string imageUrl = SignedUserData.LoggedInUser.PictureLargeURL;
             pictureBoxProfile.LoadAsync(imageUrl);
         }
@@ -216,11 +206,6 @@ namespace BasicFacebookFeatures
             resetComponent();
         }
 
-        private void MyForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            m_FormClosing = true;
-        }
-
         private void listBoxAlbums_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Avoid NullReferenceException when closing the window 
@@ -254,22 +239,6 @@ namespace BasicFacebookFeatures
             }
         }
 
-        private void formatBirthDay(ref string io_UnformattedBirthday)
-        {
-            //Swapping months and days to fit the DateTime format
-            swapChar(ref io_UnformattedBirthday, 0, 3);
-            swapChar(ref io_UnformattedBirthday, 1, 4);
-        }
-
-        private void swapChar(ref string io_String, int idx1, int idx2)
-        {
-            char[] charArray = io_String.ToCharArray();
-            char charHolder = charArray[idx1];
-            charArray[idx1] = charArray[idx2];
-            charArray[idx2] = charHolder;
-            io_String = new string(charArray);
-        }
-
         private void updatePhotoIndex(Album i_SelectedAlbum)
         {
             if (i_SelectedAlbum != null)
@@ -281,6 +250,7 @@ namespace BasicFacebookFeatures
 
         private void resetComponent()
         {
+            Card = null;
             Controls.Clear();
             InitializeComponent();
         }

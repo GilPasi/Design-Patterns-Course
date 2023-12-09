@@ -4,6 +4,8 @@ using System.Windows.Forms;
 using FacebookWrapper;
 using BasicFacebookFeatures.BuilderPattern;
 using BasicFacebookFeatures.SingletonPattern;
+using FacebookWrapper.ObjectModel;
+using BasicFacebookFeatures.Patterns.Decorator;
 
 namespace BasicFacebookFeatures
 {
@@ -76,20 +78,25 @@ namespace BasicFacebookFeatures
                 createUserAverageableDetailsFromUserPanel(userPanel2);
 
             UserAverageableDetails averagedDetails = m_Averageizer.Average(userAverageableDetails1, userAverageableDetails2);
-
             //Apply to UI
-            labelAvgAgeVal.Text = averagedDetails.Age.ToString();
+            labelAvgAgeVal.Text = averagedDetails.Age.ToString("F1");
             labelLocationMidPointVal.Text = averagedDetails.City != null ? averagedDetails.City.Name : "Missing Data";
             Utilities.AddAllItemsToListBox(averagedDetails.Groups, listBoxMutualGroups);
+
         }
 
         private UserAverageableDetails createUserAverageableDetailsFromUserPanel(UserPanel i_UserPanel)
         {
+            if (!i_UserPanel.IsLoaded)
+            {
+                return null;
+            }
             //This method does not exist in the 'UserAverageableDetails' class in order to 
             //refrain from limiting 'UserAverageableDetails' to a specific UI 
             UserAverageableDetails userAverageableDetails = new UserAverageableDetails();
-            userAverageableDetails.Age = float.Parse(string.IsNullOrEmpty(i_UserPanel.UserAge) ? "0" : i_UserPanel.UserAge);
-            userAverageableDetails.Groups = i_UserPanel.UserGroups;
+            UserCardTable loadedCard = i_UserPanel.Card;
+            userAverageableDetails.Age =  loadedCard.UserAge;
+            userAverageableDetails.Groups = loadedCard.Groups;
             City placeholderCity;
             CitiesDataBase.Instance.TryFindCityByName(i_UserPanel.Residence, out placeholderCity);
             userAverageableDetails.City = placeholderCity;
