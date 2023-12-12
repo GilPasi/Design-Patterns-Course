@@ -1,0 +1,25 @@
+@startuml
+    class CsvIterator <<Generic>>
+    {
+        + string FilePath()
+        + IParser<T> Parser()
+        + IEnumerable AllItems()
+    }
+    
+     class CitiesDataBase
+     {
+            public string ParseFormat
+            public City FindCityByName(string i_CityName)
+            public bool TryFindCityByName(string i_CityName, out City o_City)
+     }
+     
+     abstract Client{}
+     abstract DataBase<<File>>{}
+
+     hide DataBase circle
+     hide Client circle
+     Client --> CitiesDataBase
+     CitiesDataBase --> CsvIterator
+     CsvIterator -->DataBase
+
+@enduml

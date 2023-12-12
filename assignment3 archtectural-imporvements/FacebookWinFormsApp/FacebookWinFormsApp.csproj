@@ -169,7 +169,12 @@
   <ItemGroup>
     <None Include="Resources\anonymous_item2.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Documantation\Decorator.puml" />
+    <Content Include="Documantation\FindCitySequence.puml" />
+    <Content Include="Documantation\Iterator.puml" />
+    <Content Include="Documantation\Strategy.puml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

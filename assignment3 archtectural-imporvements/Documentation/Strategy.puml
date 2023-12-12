@@ -1,0 +1,25 @@
+@startuml
+    class CsvIterator <<Generic>>
+    {
+        + string FilePath()
+        + IParser<T> Parser()
+        + IEnumerable AllItems()
+    }
+     interface IParser <<Generic>>
+     {
+            T Parse(string i_TextToParse);
+    }
+    class City
+    {
+    }
+    class CityParser
+    {
+     + City Parse(string i_TextToParse)
+    }
+    
+    note "Can be replaced for different objects" as n1 
+    n1 ..IParser
+    IParser <|-- CityParser
+    IParser --o CsvIterator
+    CityParser --o City
+    @enduml

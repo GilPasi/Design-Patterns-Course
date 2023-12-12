@@ -1,0 +1,27 @@
+@startuml
+boundary "__:FormMain:__" as ui
+control "<<ParsingStrategy>>\n__IParser:cityParser__" as prs
+control "__allCities:Iterator__" as it
+database CsvDataBase as db
+==Creation==
+ui -\\ prs : creates
+ui -\\ it : creates 
+it -// prs : compose
+it -// ui 
+==Aggregation==
+ui -\\ it : get all cities
+it -// ui : CsvEnumerator
+==Queries==
+    ui -\\ it : get city with name 'requestedCityName'
+
+loop for all items AND StopFlag = FALSE
+    it -\\ db : get currentCityName
+    db -// it
+    group opt currentCityName == requestedCityName
+        it -\\ prs : Parse city into parsedCity
+        prs -// it
+        it -\\ it : StopFlag = TRUE
+    end group 
+end loop 
+it -// ui
+@enduml

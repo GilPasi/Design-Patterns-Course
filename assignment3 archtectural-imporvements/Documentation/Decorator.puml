@@ -1,0 +1,62 @@
+@startuml
+class CoreUserCard
+{
+        + override User DataUser
+        + override void Load()
+}
+abstract class UserCardDecorator
+{
+    + abstract Control UiComponent()
+    + override User DataUser
+    + override void Load()
+    + abstract void AssignData();
+}
+
+abstract class UserCardMixin
+{
+    + abstract void Load();
+    + abstract User DataUser { get;}
+}
+    
+class UserCardLabel
+{
+    - Label m_Label;
+    + override Control UiComponent
+    + override User DataUser
+    + override void Load()
+    + override void AssignData()
+}
+
+class UserCardPicture
+{
+    - PictureBox m_Picture;
+    + override User DataUser
+    + override Control UiComponent 
+    + override void AssignData()
+        + override void Load()
+
+}
+
+    class UserCardTable
+    {
+    - TableLayoutPanel m_table;
+    + override Control UiComponent()
+    + override User DataUser
+    + override void Load()
+    + abstract void AssignData();
+}
+
+
+note "AssignData is an injection point inside Load()\nThis allow the each  decorator to load \n his InnerDecorator as well\n as itself"  as n1 
+n1.. UserCardDecorator
+UserCardMixin <|-- CoreUserCard
+UserCardMixin <|-- UserCardDecorator
+UserCardDecorator <|-- UserCardLabel
+UserCardDecorator <|-- UserCardPicture
+UserCardDecorator <|-- UserCardTable
+
+UserCardMixin ---o UserCardLabel
+UserCardMixin ---o UserCardPicture
+UserCardMixin --o UserCardTable
+
+@enduml
